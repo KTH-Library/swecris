@@ -39,8 +39,11 @@ This is a basic example which shows you how to get data about projects at KTH Ro
 library(swecris)
 suppressPackageStartupMessages(library(dplyr))
 
-kth_projects <- 
-  swecris_search()
+# either fetch the data from the API
+#kth_projects <- swecris_search()
+
+# or use the bundled data
+kth_projects <- swecris_kth
 
 # display one of the search hits
 

@@ -37,8 +37,11 @@ at KTH Royal Institute of Technology:
 library(swecris)
 suppressPackageStartupMessages(library(dplyr))
 
-kth_projects <- 
-  swecris_search()
+# either fetch the data from the API
+#kth_projects <- swecris_search()
+
+# or use the bundled data
+kth_projects <- swecris_kth
 
 # display one of the search hits
 

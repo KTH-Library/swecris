@@ -49,3 +49,14 @@ pkgdown::build_site()
 
 use_github()
 use_github_actions()
+
+non_ascii_fixer <- function(x) {
+  has_non_ascii <- length(tools::showNonASCII(x)) > 0
+  if (has_non_ascii) {
+    message("Fix to:")
+    return(cat(stringi::stri_escape_unicode(x)))
+  }
+  x
+}
+
+non_ascii_fixer("Kungliga tekniska högskolan")

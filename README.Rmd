@@ -1,0 +1,73 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# swecris
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R build status](https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg)](https://github.com/KTH-Library/swecris/actions)
+<!-- badges: end -->
+
+The goal of the `swecris` R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the open API at SweCRIS to make data available for use from R.
+
+## Installation
+
+You can install the development version of `swecris` from [GitHub](https://github.com/KTH-Library/swecris) with:
+
+``` r
+library(devtools)
+install_github("swecris", dependencies = TRUE)
+```
+
+## Example
+
+This is a basic example which shows you how to get data about projects at KTH Royal Institute of Technology:
+
+```{r example, message=FALSE}
+library(swecris)
+suppressPackageStartupMessages(library(dplyr))
+
+kth_projects <- 
+  swecris_search()
+
+# display one of the search hits
+
+project <- 
+  kth_projects$hits %>%
+  mutate(total_funding = as.numeric(total_funding)) %>%
+  arrange(desc(total_funding)) %>%
+  filter(grepl("data", abstract_en)) %>%
+  slice(2)
+
+project %>%
+  glimpse()
+
+```
+
+Given a project identifier, one can retrieve information about a specific project:
+
+```{r}
+p1 <- swecris_project("2019-05221_Vinnova")
+
+# its funding organization
+p1$documentList$documents$organizations$funding[[1]]$en
+
+# and various other details
+p1$documentList$documents$dates
+
+# such as its project leader
+swecris_project_leaders("2019-05221_Vinnova")
+```
+

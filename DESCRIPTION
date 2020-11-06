@@ -1,0 +1,33 @@
+Package: swecris
+Title: SweCRIS - Grant Decisions From Swedish Funding Bodies And
+    EU
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Markus",
+           family = "Skyttner",
+           role = c("cre", "aut"),
+           email = "markussk@kth.se")
+Description: SweCRIS is a national database that allows you to
+    see how participating research funding bodies has distributed their
+    money to Swedish recipients. The research funding bodies which supply
+    SweCRIS with data are either state or private. Contributions are
+    divided according to grant contracts. SweCRIS is managed by the
+    Swedish Research Council on behalf of the Government. This R package
+    uses the open API at SweCRIS to make data available for use from R.
+License: MIT + file LICENSE
+URL: https://github.com/KTH-Library/swecris
+BugReports: https://github.com/KTH-Library/swecris/issues
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    jsonlite,
+    dplyr,
+    purrr,
+    tidyjson,
+    httr
+Depends: 
+    R (>= 2.10)

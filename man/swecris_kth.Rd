@@ -5,11 +5,34 @@
 \alias{swecris_kth}
 \title{SweCRIS data for KTH Royal Institute of Technology}
 \format{
-A list with two slots corresponding to
-data returned from the betasearch API
+A table with data returned from the API
 \describe{
-\item{hits}{projects - a nested object}
-\item{tags}{subject category tags for projects}
+\item{ProjectId}{}
+\item{ProjectTitleSv}{}
+\item{ProjectTitleEn}{}
+\item{ProjectAbstractSv}{}
+\item{ProjectAbstractEn}{}
+\item{ProjectStartDate}{}
+\item{ProjectEndDate}{}
+\item{CoordinatingOrganisationId}{}
+\item{CoordinatingOrganisationNameSv}{}
+\item{CoordinatingOrganisationNameEn}{}
+\item{CoordinatingOrganisationTypeOfOrganisationSv}{}
+\item{CoordinatingOrganisationTypeOfOrganisationEn}{}
+\item{FundingOrganisationId}{}
+\item{FundingOrganisationNameSv}{}
+\item{FundingOrganisationNameEn}{}
+\item{FundingOrganisationTypeOfOrganisationSv}{}
+\item{FundingOrganisationTypeOfOrganisationEn}{}
+\item{FundingsSek}{}
+\item{FundingYear}{}
+\item{FundingStartDate}{}
+\item{FundingEndDate}{}
+\item{TypeOfAwardId}{}
+\item{TypeOfAwardDescrSv}{}
+\item{TypeOfAwardDescrEn}{}
+\item{InvolvedPeople}{}
+\item{Scbs}{}
 }
 }
 \usage{
@@ -17,6 +40,6 @@ swecris_kth
 }
 \description{
 A static dataset containing the projects in SweCRIS resulting from
-a swecris_search() call on Fri 06 Nov 2020.
+a swecris_funding() call on Mon 11 Oct 2021.
 }
 \keyword{datasets}

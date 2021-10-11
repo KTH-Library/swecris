@@ -1,63 +1,59 @@
-test_that("search against betasearch api works", {
+test_that("swecris orgs for KTH works", {
 
-  kth_projects <-
-    swecris_search()
+ so <- swecris_organisations()
+
+ kthid <-
+   so %>%
+   filter(grepl("^KTH, ", organisationNameSv)) %>%
+   dplyr::pull(organisationId)
+
+  sp <- swecris_projects(orgid = kthid)
 
   is_valid <-
-    nrow(kth_projects$hits) > 2500 && nrow(kth_projects$tags) > 3000
+    nrow(sp) > 2500
 
   expect_true(is_valid)
-  #project_ids <-
-  #
 
 })
 
-test_that("retrieving data for a specific project works", {
+test_that("retrieving projects data for KTH works", {
 
-  # kth_projects$hits %>%
-  #   arrange(desc(as.numeric(total_funding))) %>%
-  #   filter(grepl("bibliometri", abstract_sv)) %>%
-  #   pull(`_id`) %>%
-  #   paste(collapse = "\n") %>%
-  #   cat
+  so <- swecris_organisations()
 
-  project_ids <-
-    trimws(readLines(con = textConnection(
-      "2019-05221_Vinnova
-      2014-04173_Vinnova
-      2014-06082_Vinnova
-      2018-02683_Vinnova
-      2015-04315_Vinnova
-      2015-06978_Vinnova")))
+  kthid <-
+    so %>%
+    filter(grepl("^KTH, ", organisationNameSv)) %>%
+    dplyr::pull(organisationId)
 
-  p1 <- swecris_project(project_ids[1])
+  p1 <- swecris_projects(kthid)
 
-  is_valid <- p1$stats$totalHits >= 1
+  is_valid <- nrow(p1) > 2600
 
   expect_true(is_valid)
 })
 
-test_that("retrieving project leader data for a specific project works", {
+test_that("retrieving persons for KTH projects works", {
 
-  # kth_projects$hits %>%
-  #   arrange(desc(as.numeric(total_funding))) %>%
-  #   filter(grepl("bibliometri", abstract_sv)) %>%
-  #   pull(`_id`) %>%
-  #   paste(collapse = "\n") %>%
-  #   cat
+  so <- swecris_organisations()
 
-  project_ids <-
-    trimws(readLines(con = textConnection(
-      "2019-05221_Vinnova
-      2014-04173_Vinnova
-      2014-06082_Vinnova
-      2018-02683_Vinnova
-      2015-04315_Vinnova
-      2015-06978_Vinnova")))
+  kthid <-
+    so %>%
+    filter(grepl("^KTH, ", organisationNameSv)) %>%
+    dplyr::pull(organisationId)
 
-  p1 <- swecris_project_leaders(project_ids[1])
+  kthp <- swecris_persons(kthid)
+  is_valid <- nrow(kthp) > 1000
+  expect_true(is_valid)
 
-  is_valid <- p1$id == 28330
+})
 
+test_that("Swedish list can be retrieved", {
+  sl <- swecris_swedish_list()
+  expect_true(nrow(sl) > 30000)
+})
+
+test_that("Fundings for KTH project works", {
+  kthf <- swecris_funding()
+  is_valid <- nrow(kthf) > 2600
   expect_true(is_valid)
 })

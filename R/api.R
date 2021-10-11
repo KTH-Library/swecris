@@ -1,92 +1,223 @@
-#' Search the SweCRIS betasearch API for an organization
+#' Search the SweCRIS  API for funding data
 #'
-#' Performs a search against the betasearch API and exports
+#' Performs a search for funding and exports
 #' results as an R object
 #'
-#' @param orgs string to search for, Default: "KTH, Kungliga Tekniska Högskolan"
+#' @param searchstring string to search for, Default is the search string for KTH
+#' @param token token to be used for authentication
 #' @return an R object with the search result
-#' @details see [details about available data](https://www.swecris.se/about/#export2)
-#' @import httr tidyjson
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom readr read_delim
 #' @importFrom utils URLencode
+#' @importFrom httr GET content
 #' @export
-swecris_search <- function(orgs = "KTH, Kungliga tekniska h\u00f6gskolan") {
+swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskolan",
+                            token) {
 
-  w1 <-
-    sprintf(paste0("https://www.swecris.se/betasearch/search/export",
-      "?q=*&view=rows&coordinating_organizations_sv=%s&lang=sv"), URLencode(orgs))
+  if (missing(token))
+    token <- "RWNDZ3FDRVVSMmNUNlZkMkN3"
 
-  cw1 <-
-    content(httr::GET(w1))
-    #jsonlite::fromJSON(w1, simplifyDataFrame = TRUE, flatten = TRUE)
+  httr::GET("https://swecris-api.vr.se/v1/scp/export", query = list(
+    `organizationType[]`= "Universitet",
+    sortOrder = "desc",
+    sortColumn = "FundingStartDate",
+    searchText = URLencode(searchstring),
+    token = token)
+  ) %>%
+    httr::content(as = "text") %>%
+    readr::read_delim(delim = ";", quote = '"')
+}
 
-  #a <- map(cw1$documentList$documents, function(x) enframe(unlist(x))) %>% map(pivot_wider)
-  #cw1$documentList$documents %>% dplyr::as_tibble()
+swecris_get <- function(route, token = swecris_token()) {
+  res <- httr::GET(route, add_headers(Authorization = paste("Bearer", token)))
+  stop_for_status(res)
+  httr::content(res)
+}
 
-  j <- cw1$documentList$documents
+swecris_token <- function()
+  "u5pau934k45SJ8a497a6325j"
 
-  res <-
-    j %>% spread_all(sep = "_") %>% as_tibble()
+#' Funders
+#'
+#' Funders in as a tibble
+#'
+#' @return a tibble
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom dplyr as_tibble bind_rows
+#' @export
+swecris_funders <- function() {
 
-  # tags is an array here
-  #j %>% gather_object %>% json_types %>% count(name, type)
-  #j %>% enter_object(organizations) -> boho
+  data <-
+    swecris_get("https://swecris-api.vr.se/v1/scp/funders")
 
-  tags <-
-    j %>%
-    enter_object(tags) %>%
-    gather_array %>%
-    spread_all %>%
-    as_tibble()
+  dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
+  dplyr::as_tibble(bind_rows(dfs))
+}
 
-  list(
-    hits = res,
-    tags = tags
+#' SCB lookup table
+#'
+#' SCB 5-letter codes lookup table
+#'
+#' @return a tibble
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom dplyr as_tibble bind_rows
+#' @export
+swecris_scb <- function() {
+
+  data <-
+    swecris_get("https://swecris-api.vr.se/v1/scp/scbs")
+  dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
+  dplyr::as_tibble(bind_rows(dfs))
+}
+
+#' SCB lookup table
+#'
+#' SCB 5-letter codes lookup table
+#'
+#' @return a tibble
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom dplyr as_tibble bind_rows
+#' @export
+swecris_orgtypes <- function() {
+  data <-
+    swecris_get("https://swecris-api.vr.se/v1/scp/organisationtypes")
+  dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
+  dplyr::as_tibble(bind_rows(dfs))
+
+}
+
+simple_rapply <- function(x, fn) {
+  if (is.list(x))
+    lapply(x, simple_rapply, fn)
+  else
+    fn(x)
+}
+
+replace_nulls <- function(l)
+  simple_rapply(l, function(x) if (is.null(x)) NA else x)
+
+remove_slot <- function(l, slot)
+  simple_rapply(l, function(x) if (is.list(x) && names(x) == slot) {x <- NULL} else x)
+
+#remove_slot(data, "scbs")
+
+#' Organizations
+#'
+#' Organizations in SweCRIS
+#'
+#' @return a tibble
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom dplyr as_tibble bind_rows
+#' @export
+swecris_organisations <- function() {
+
+  data <-
+    swecris_get("https://swecris-api.vr.se/v1/organisations") %>%
+    replace_nulls()
+
+  dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
+  dplyr::as_tibble(bind_rows(dfs))
+
+}
+
+#' Fundings
+#'
+#' Fundings in SweCRIS, more than 190k records of fundings for projects
+#'
+#' @return a tibble
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom dplyr as_tibble bind_rows
+#' @export
+swecris_fundings <- function() {
+
+  data <-
+    swecris_get("https://swecris-api.vr.se/v1/fundings") %>%
+    replace_nulls()
+
+  dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
+  dplyr::as_tibble(bind_rows(dfs))
+
+}
+
+
+stripname <- function(x, name) {
+  thisdepth <- depth(x)
+  if (thisdepth == 0) {
+    return (x)
+  } else if (length(nameIndex <- which(names(x) == name))) {
+    x <- x[-nameIndex]
+  }
+  return(lapply(x, stripname, name))
+}
+
+depth <- function(this, thisdepth = 0) {
+  if (!is.list(this)) {
+    return (thisdepth)
+  } else {
+    return (max(unlist(lapply(this, depth, thisdepth = thisdepth + 1))))
+  }
+}
+
+#' Projects
+#'
+#' Projects in SweCRIS
+#'
+#'L
+#' @param orgid orgid to filter for
+#' @return a tibble
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom tidyr unnest_wider tibble
+#' @export
+swecris_projects <- function(orgid) {
+
+  route <- sprintf(
+    "https://swecris-api.vr.se/v1/projects/organisations/%s",
+    orgid
   )
 
-  # could funding and coordinating orgs be retrieved like so?
-  #boho$..JSON %>% map(function(x) unnest(unnest(as_tibble(x)))) %>% map_df(bind_rows)
-  #str(boho)
+  data <-
+    swecris_get(route) %>%
+    replace_nulls()
 
+  tidyr::tibble(data)  %>%
+    tidyr::unnest_wider(data)
 }
 
-
-#' Retrieve details about a project
+#' Persons
 #'
-#' Given the project identifier, retrieve details about a project.
+#' Persons in SweCRIS
 #'
-#' @param project_id string identifier for the project
-#' @return R object with results
-#' @importFrom jsonlite fromJSON
-#' @importFrom utils URLencode
+#' @param orgid orgid to filter for
+#' @return a tibble
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom tidyr tibble unnest_wider
 #' @export
-swecris_project <- function(project_id) {
+swecris_persons <- function(orgid) {
 
-  url <-
-    sprintf(paste0("https://www.swecris.se/betasearch/search/export",
-    "?q=identifier_clean:(%s)"), URLencode(project_id))
+  route <- sprintf(
+    "https://swecris-api.vr.se/v1/persons/organisations/%s",
+    orgid
+  )
 
-  jsonlite::fromJSON(url)
+  data <-
+    swecris_get(route) %>%
+    replace_nulls()
+
+
+  tidyr::tibble(data)  %>%
+    tidyr::unnest_wider(data)
 
 }
 
-#' Retrieve project leader data
+#' Swedish List
 #'
-#' Given the project identifier, retrieve details about a project leaders
-#' for a project.
+#' Swedish List of publications.
 #'
-#' @param project_id string identifier for project
-#' @return R object with results
-#' @importFrom dplyr as_tibble
-#' @importFrom purrr pluck
+#' @return a tibble
+#' @details see [details about available data](https://www.vr.se/uppdrag/oppen-vetenskap/svenska-listan---sakkunniggranskade-kanaler-i-swepub.html)
+#' @importFrom readr read_delim locale
 #' @export
-swecris_project_leaders <- function(project_id) {
-
-  project <- swecris_project(project_id)
-
-  project$documentList$documents %>%
-    pluck("people", "project_leaders", 1) %>%
-    as_tibble()
-
+swecris_swedish_list <- function() {
+  "https://www.vr.se/download/18.6675b4ac1787151b2105c0/1618484217763/Svenska_listan_2021_godk%C3%A4nt.csv" %>%
+    readr::read_delim(local = locale(encoding = "latin1"))
 }
-
-

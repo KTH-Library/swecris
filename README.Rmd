@@ -40,37 +40,63 @@ library(swecris)
 suppressPackageStartupMessages(library(dplyr))
 
 # either fetch the data from the API
-#kth_projects <- swecris_search()
+#kth_projects <- swecris_funding()
 
 # or use the bundled data
-kth_projects <- swecris_kth
+kthf <- swecris_kth
 
-# display one of the search hits
+# top ten largest fundings containing abstracts with the word "data"
+library(dplyr)
 
-project <- 
-  kth_projects$hits %>%
-  mutate(total_funding = as.numeric(total_funding)) %>%
+fundings <- 
+  kthf %>%
+  mutate(total_funding = as.numeric(FundingsSek)) %>%
   arrange(desc(total_funding)) %>%
-  filter(grepl("data", abstract_en)) %>%
-  slice(2)
+  filter(grepl("data", ProjectAbstractEn)) %>%
+  slice(10)
 
-project %>%
+# display an example record
+fundings %>%
   glimpse()
 
 ```
 
-Given a project identifier, one can retrieve information about a specific project:
+Given an organisation, get information about projects:
 
 ```{r}
-p1 <- swecris_project("2019-05221_Vinnova")
 
-# its funding organization
-p1$documentList$documents$organizations$funding[[1]]$en
+orgid <- 
+  swecris_organisations() %>%
+  filter(grepl("^KTH, ", organisationNameSv)) %>%
+  dplyr::pull(organisationId)
 
-# and various other details
-p1$documentList$documents$dates
+kthp <- swecris_projects(orgid)
 
-# such as its project leader
-swecris_project_leaders("2019-05221_Vinnova")
+# ten upcoming projects
+projects <- 
+  kthp %>% arrange(desc(lubridate::ymd(fundingStartDate))) %>% 
+  select(-starts_with("projectAbstract")) %>%
+  select(
+    projectId, 
+    projectTitleEn, 
+    projectStartDate, 
+    projectEndDate, 
+    fundingOrganisationNameEn, 
+    fundingsSek, 
+    fundingYear
+  ) %>%
+  head(10)
+
+knitr::kable(projects)
 ```
 
+Swedish list for 2021 (the first few records):
+
+```{r}
+sl <- 
+  swecris_swedish_list()
+
+glimpse(sl %>% head() %>% collect())
+
+knitr::kable(sl %>% head() %>% collect())
+```

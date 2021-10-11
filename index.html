@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">swecris</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
       </span>
     </div>
 
@@ -100,56 +100,314 @@
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># either fetch the data from the API</span>
-<span class="co">#kth_projects &lt;- swecris_search()</span>
+<span class="co">#kth_projects &lt;- swecris_funding()</span>
 
 <span class="co"># or use the bundled data</span>
-<span class="va">kth_projects</span> <span class="op">&lt;-</span> <span class="va">swecris_kth</span>
+<span class="va">kthf</span> <span class="op">&lt;-</span> <span class="va">swecris_kth</span>
 
-<span class="co"># display one of the search hits</span>
+<span class="co"># top ten largest fundings containing abstracts with the word "data"</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
-<span class="va">project</span> <span class="op">&lt;-</span> 
-  <span class="va">kth_projects</span><span class="op">$</span><span class="va">hits</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">fundings</span> <span class="op">&lt;-</span> 
+  <span class="va">kthf</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">FundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">abstract_en</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">ProjectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
 
-<span class="va">project</span> <span class="op">%&gt;%</span>
+<span class="co"># display an example record</span>
+<span class="va">fundings</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 1</span>
-<span class="co">#&gt; Columns: 13</span>
-<span class="co">#&gt; $ document.id       &lt;int&gt; 2860</span>
-<span class="co">#&gt; $ `_id`             &lt;chr&gt; "2019-00222_VR"</span>
-<span class="co">#&gt; $ `_type`           &lt;chr&gt; "project"</span>
-<span class="co">#&gt; $ identifier_short  &lt;chr&gt; "2019-00222"</span>
-<span class="co">#&gt; $ total_funding     &lt;dbl&gt; 8e+07</span>
-<span class="co">#&gt; $ abstract_sv       &lt;chr&gt; "NGI"</span>
-<span class="co">#&gt; $ abstract_en       &lt;chr&gt; "The National Genomics Infrastructure (NGI) is an i…</span>
-<span class="co">#&gt; $ dates_start_date  &lt;chr&gt; "2021-01-01"</span>
-<span class="co">#&gt; $ dates_end_date    &lt;chr&gt; "2024-12-31"</span>
-<span class="co">#&gt; $ title_sv          &lt;chr&gt; "National Genomics Infrastructure"</span>
-<span class="co">#&gt; $ title_en          &lt;chr&gt; "National Genomics Infrastructure"</span>
-<span class="co">#&gt; $ type_of_awards_sv &lt;chr&gt; "Forskningsinfrastruktur"</span>
-<span class="co">#&gt; $ type_of_awards_en &lt;chr&gt; "Research infrastructure"</span></code></pre></div>
-<p>Given a project identifier, one can retrieve information about a specific project:</p>
+<span class="co">#&gt; Columns: 27</span>
+<span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2009-04126_Vinnova"</span>
+<span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "ProNova VINN Excellence …</span>
+<span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "ProNova VINN Excellence …</span>
+<span class="co">#&gt; $ ProjectAbstractSv                            &lt;chr&gt; "Syfte och mål:\r\n&lt;p&gt;&lt;st…</span>
+<span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "Purpose and goal:\r\n&lt;p&gt;…</span>
+<span class="co">#&gt; $ ProjectStartDate                             &lt;date&gt; 2009-04-01</span>
+<span class="co">#&gt; $ ProjectEndDate                               &lt;date&gt; 2012-03-31</span>
+<span class="co">#&gt; $ CoordinatingOrganisationId                   &lt;chr&gt; "202100-3054"</span>
+<span class="co">#&gt; $ CoordinatingOrganisationNameSv               &lt;chr&gt; "KTH, Kungliga tekniska h…</span>
+<span class="co">#&gt; $ CoordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of…</span>
+<span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationSv &lt;chr&gt; "Universitet"</span>
+<span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationEn &lt;chr&gt; "University"</span>
+<span class="co">#&gt; $ FundingOrganisationId                        &lt;chr&gt; "202100-5216"</span>
+<span class="co">#&gt; $ FundingOrganisationNameSv                    &lt;chr&gt; "Vinnova"</span>
+<span class="co">#&gt; $ FundingOrganisationNameEn                    &lt;chr&gt; "Vinnova"</span>
+<span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationSv      &lt;chr&gt; "Stat, regioner, kommune…</span>
+<span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationEn      &lt;chr&gt; "Governmental"</span>
+<span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 2.1e+07</span>
+<span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2009</span>
+<span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2009-04-01</span>
+<span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2012-03-31</span>
+<span class="co">#&gt; $ TypeOfAwardId                                &lt;dbl&gt; 1</span>
+<span class="co">#&gt; $ TypeOfAwardDescrSv                           &lt;chr&gt; "Projektbidrag"</span>
+<span class="co">#&gt; $ TypeOfAwardDescrEn                           &lt;chr&gt; "Project grant"</span>
+<span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤10306¤Amelie Eriksson…</span>
+<span class="co">#&gt; $ Scbs                                         &lt;chr&gt; NA</span>
+<span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 2.1e+07</span></code></pre></div>
+<p>Given an organisation, get information about projects:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_project.html">swecris_project</a></span><span class="op">(</span><span class="st">"2019-05221_Vinnova"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">orgid</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="reference/swecris_organisations.html">swecris_organisations</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"^KTH, "</span>, <span class="va">organisationNameSv</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">organisationId</span><span class="op">)</span>
 
-<span class="co"># its funding organization</span>
-<span class="va">p1</span><span class="op">$</span><span class="va">documentList</span><span class="op">$</span><span class="va">documents</span><span class="op">$</span><span class="va">organizations</span><span class="op">$</span><span class="va">funding</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">en</span>
-<span class="co">#&gt; [1] "Vinnova"</span>
+<span class="va">kthp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_projects.html">swecris_projects</a></span><span class="op">(</span><span class="va">orgid</span><span class="op">)</span>
 
-<span class="co"># and various other details</span>
-<span class="va">p1</span><span class="op">$</span><span class="va">documentList</span><span class="op">$</span><span class="va">documents</span><span class="op">$</span><span class="va">dates</span>
-<span class="co">#&gt;   start_date   end_date</span>
-<span class="co">#&gt; 1 2019-11-01 2022-08-31</span>
+<span class="co"># ten upcoming projects</span>
+<span class="va">projects</span> <span class="op">&lt;-</span> 
+  <span class="va">kthp</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
+    <span class="va">projectId</span>, 
+    <span class="va">projectTitleEn</span>, 
+    <span class="va">projectStartDate</span>, 
+    <span class="va">projectEndDate</span>, 
+    <span class="va">fundingOrganisationNameEn</span>, 
+    <span class="va">fundingsSek</span>, 
+    <span class="va">fundingYear</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
 
-<span class="co"># such as its project leader</span>
-<span class="fu"><a href="reference/swecris_project_leaders.html">swecris_project_leaders</a></span><span class="op">(</span><span class="st">"2019-05221_Vinnova"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 3</span>
-<span class="co">#&gt;   id    name            orcid</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;</span>
-<span class="co">#&gt; 1 28330 Tobias Jeppsson null</span></code></pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">projects</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="9%">
+<col width="52%">
+<col width="8%">
+<col width="7%">
+<col width="12%">
+<col width="5%">
+<col width="5%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">projectId</th>
+<th align="left">projectTitleEn</th>
+<th align="left">projectStartDate</th>
+<th align="left">projectEndDate</th>
+<th align="left">fundingOrganisationNameEn</th>
+<th align="right">fundingsSek</th>
+<th align="left">fundingYear</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">2021-02081_Vinnova</td>
+<td align="left">Characterisation and effects of micro and nanoscale components and their impact on efficiency of chemical additives</td>
+<td align="left">2021-12-01</td>
+<td align="left">2025-11-30</td>
+<td align="left">Vinnova</td>
+<td align="right">2600000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="even">
+<td align="left">2021-03620_Vinnova</td>
+<td align="left">Zero-emission contractors - a feasibility study for solutions in the road construction industry</td>
+<td align="left">2021-10-01</td>
+<td align="left">2022-10-01</td>
+<td align="left">Vinnova</td>
+<td align="right">450000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="odd">
+<td align="left">2021-03462_Vinnova</td>
+<td align="left">International Activities for InfraSweden2030</td>
+<td align="left">2021-09-15</td>
+<td align="left">2022-09-15</td>
+<td align="left">Vinnova</td>
+<td align="right">800000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="even">
+<td align="left">2021-03464_Vinnova</td>
+<td align="left">InfraAwards 2022</td>
+<td align="left">2021-09-15</td>
+<td align="left">2022-12-30</td>
+<td align="left">Vinnova</td>
+<td align="right">1150000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="odd">
+<td align="left">2021-03465_Vinnova</td>
+<td align="left">Communication to support implementation</td>
+<td align="left">2021-09-10</td>
+<td align="left">2022-07-31</td>
+<td align="left">Vinnova</td>
+<td align="right">450000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="even">
+<td align="left">2021-03466_Vinnova</td>
+<td align="left">Client network for a climate-neutral construction sector</td>
+<td align="left">2021-09-10</td>
+<td align="left">2023-05-26</td>
+<td align="left">Vinnova</td>
+<td align="right">800000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="odd">
+<td align="left">2021-03467_Vinnova</td>
+<td align="left">Innovation partnership - Connected road condition monitoring</td>
+<td align="left">2021-09-10</td>
+<td align="left">2024-03-31</td>
+<td align="left">Vinnova</td>
+<td align="right">1500000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="even">
+<td align="left">2021-02048_Vinnova</td>
+<td align="left">Supersonic spraying of graphene/MXene-based conductive wear-resistant coatings for electrification</td>
+<td align="left">2021-08-31</td>
+<td align="left">2022-05-31</td>
+<td align="left">Vinnova</td>
+<td align="right">300000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="odd">
+<td align="left">2021-01922_Vinnova</td>
+<td align="left">Digitalisation of atomisation of metal powders</td>
+<td align="left">2021-08-16</td>
+<td align="left">2022-03-11</td>
+<td align="left">Vinnova</td>
+<td align="right">510217</td>
+<td align="left">2021</td>
+</tr>
+<tr class="even">
+<td align="left">2021-03272_Vinnova</td>
+<td align="left">Climate Smart Cities Challenge - competition and system demonstration</td>
+<td align="left">2021-08-16</td>
+<td align="left">2023-12-31</td>
+<td align="left">Vinnova</td>
+<td align="right">5200000</td>
+<td align="left">2021</td>
+</tr>
+</tbody>
+</table>
+<p>Swedish list for 2021 (the first few records):</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sl</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="reference/swecris_swedish_list.html">swecris_swedish_list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 34882 Columns: 11</span>
+<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
+<span class="co">#&gt; Delimiter: ";"</span>
+<span class="co">#&gt; chr (2): ISSN, Titel</span>
+<span class="co">#&gt; dbl (9): 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+
+<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 6</span>
+<span class="co">#&gt; Columns: 11</span>
+<span class="co">#&gt; $ ISSN   &lt;chr&gt; "0001-0782", "0001-1452", "0001-1541", "0001-2092", "0001-2343"…</span>
+<span class="co">#&gt; $ Titel  &lt;chr&gt; "Communications of the ACM", "AIAA Journal", "AIChE Journal", "…</span>
+<span class="co">#&gt; $ `2012` &lt;dbl&gt; NA, 1, NA, NA, NA, NA</span>
+<span class="co">#&gt; $ `2013` &lt;dbl&gt; 1, 1, 1, NA, 1, NA</span>
+<span class="co">#&gt; $ `2014` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
+<span class="co">#&gt; $ `2015` &lt;dbl&gt; 1, 1, 1, 1, NA, NA</span>
+<span class="co">#&gt; $ `2016` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
+<span class="co">#&gt; $ `2017` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
+<span class="co">#&gt; $ `2018` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
+<span class="co">#&gt; $ `2019` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
+<span class="co">#&gt; $ `2020` &lt;dbl&gt; 1, 1, 1, 1, NA, 1</span>
+
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">ISSN</th>
+<th align="left">Titel</th>
+<th align="right">2012</th>
+<th align="right">2013</th>
+<th align="right">2014</th>
+<th align="right">2015</th>
+<th align="right">2016</th>
+<th align="right">2017</th>
+<th align="right">2018</th>
+<th align="right">2019</th>
+<th align="right">2020</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">0001-0782</td>
+<td align="left">Communications of the ACM</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">0001-1452</td>
+<td align="left">AIAA Journal</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">0001-1541</td>
+<td align="left">AIChE Journal</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">0001-2092</td>
+<td align="left">AORN Journal</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">0001-2343</td>
+<td align="left">ARSP. Archiv für Rechts- und Socialphilosophie</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">0001-2351</td>
+<td align="left">Transactions of the ASAE</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
   </div>

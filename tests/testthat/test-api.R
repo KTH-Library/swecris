@@ -48,7 +48,7 @@ test_that("retrieving persons for KTH projects works", {
 })
 
 test_that("Swedish list can be retrieved", {
-  sl <- swecris_swedish_list()
+  sl <- swecris_list_swedish()
   expect_true(nrow(sl) > 30000)
 })
 

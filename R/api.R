@@ -209,15 +209,3 @@ swecris_persons <- function(orgid) {
 
 }
 
-#' Swedish List
-#'
-#' Swedish List of publications.
-#'
-#' @return a tibble
-#' @details see [details about available data](https://www.vr.se/uppdrag/oppen-vetenskap/svenska-listan---sakkunniggranskade-kanaler-i-swepub.html)
-#' @importFrom readr read_delim locale
-#' @export
-swecris_swedish_list <- function() {
-  "https://www.vr.se/download/18.6675b4ac1787151b2105c0/1618484217763/Svenska_listan_2021_godk%C3%A4nt.csv" %>%
-    readr::read_delim(local = locale(encoding = "latin1"))
-}

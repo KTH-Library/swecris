@@ -94,9 +94,25 @@ Swedish list for 2021 (the first few records):
 
 ```{r}
 sl <- 
-  swecris_swedish_list()
+  swecris_list_swedish()
 
 glimpse(sl %>% head() %>% collect())
 
 knitr::kable(sl %>% head() %>% collect())
+```
+
+Some other Nordic list referenced at SweCRIS are also provided:
+
+```{r}
+f <- swecris_list_finnish()
+n <- swecris_list_norwegian
+d <- swecris_list_danish()
+
+glimpze <- function(df) {
+  df %>% head() %>% knitr::kable()
+}
+
+glimpze(f)
+glimpze(n)
+glimpze(d)
 ```

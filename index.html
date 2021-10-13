@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">swecris</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -202,6 +202,15 @@
 <td align="left">2021</td>
 </tr>
 <tr class="even">
+<td align="left">2021-02640_Vinnova</td>
+<td align="left">GeneNova</td>
+<td align="left">2021-10-15</td>
+<td align="left">2026-10-14</td>
+<td align="left">Vinnova</td>
+<td align="right">36600000</td>
+<td align="left">2021</td>
+</tr>
+<tr class="odd">
 <td align="left">2021-03620_Vinnova</td>
 <td align="left">Zero-emission contractors - a feasibility study for solutions in the road construction industry</td>
 <td align="left">2021-10-01</td>
@@ -210,7 +219,7 @@
 <td align="right">450000</td>
 <td align="left">2021</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">2021-03462_Vinnova</td>
 <td align="left">International Activities for InfraSweden2030</td>
 <td align="left">2021-09-15</td>
@@ -219,7 +228,7 @@
 <td align="right">800000</td>
 <td align="left">2021</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">2021-03464_Vinnova</td>
 <td align="left">InfraAwards 2022</td>
 <td align="left">2021-09-15</td>
@@ -228,7 +237,7 @@
 <td align="right">1150000</td>
 <td align="left">2021</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">2021-03465_Vinnova</td>
 <td align="left">Communication to support implementation</td>
 <td align="left">2021-09-10</td>
@@ -237,7 +246,7 @@
 <td align="right">450000</td>
 <td align="left">2021</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">2021-03466_Vinnova</td>
 <td align="left">Client network for a climate-neutral construction sector</td>
 <td align="left">2021-09-10</td>
@@ -246,7 +255,7 @@
 <td align="right">800000</td>
 <td align="left">2021</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">2021-03467_Vinnova</td>
 <td align="left">Innovation partnership - Connected road condition monitoring</td>
 <td align="left">2021-09-10</td>
@@ -255,7 +264,7 @@
 <td align="right">1500000</td>
 <td align="left">2021</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">2021-02048_Vinnova</td>
 <td align="left">Supersonic spraying of graphene/MXene-based conductive wear-resistant coatings for electrification</td>
 <td align="left">2021-08-31</td>
@@ -264,7 +273,7 @@
 <td align="right">300000</td>
 <td align="left">2021</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">2021-01922_Vinnova</td>
 <td align="left">Digitalisation of atomisation of metal powders</td>
 <td align="left">2021-08-16</td>
@@ -273,21 +282,12 @@
 <td align="right">510217</td>
 <td align="left">2021</td>
 </tr>
-<tr class="even">
-<td align="left">2021-03272_Vinnova</td>
-<td align="left">Climate Smart Cities Challenge - competition and system demonstration</td>
-<td align="left">2021-08-16</td>
-<td align="left">2023-12-31</td>
-<td align="left">Vinnova</td>
-<td align="right">5200000</td>
-<td align="left">2021</td>
-</tr>
 </tbody>
 </table>
 <p>Swedish list for 2021 (the first few records):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sl</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="reference/swecris_swedish_list.html">swecris_swedish_list</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="reference/swecris_list_swedish.html">swecris_list_swedish</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 34882 Columns: 11</span>
 <span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Delimiter: ";"</span>
@@ -405,6 +405,666 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Some other Nordic list referenced at SweCRIS are also provided:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_list_finnish.html">swecris_list_finnish</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; New names:</span>
+<span class="co">#&gt; * `` -&gt; ...21</span>
+<span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="va">swecris_list_norwegian</span>
+<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_list_danish.html">swecris_list_danish</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">glimpze</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">df</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">glimpze</span><span class="op">(</span><span class="va">f</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="3%">
+<col width="2%">
+<col width="13%">
+<col width="6%">
+<col width="5%">
+<col width="3%">
+<col width="2%">
+<col width="7%">
+<col width="2%">
+<col width="5%">
+<col width="3%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="3%">
+</colgroup>
+<thead><tr class="header">
+<th align="right">id_jufo</th>
+<th align="right">level</th>
+<th align="left">title</th>
+<th align="left">type</th>
+<th align="left">issn_isbn</th>
+<th align="left">issn</th>
+<th align="left">abbr</th>
+<th align="left">country</th>
+<th align="right">DOAJ</th>
+<th align="left">sherpa_romeo</th>
+<th align="left">active</th>
+<th align="right">level_2012</th>
+<th align="right">level_2013</th>
+<th align="right">level_2014</th>
+<th align="right">level_2015</th>
+<th align="right">level_2016</th>
+<th align="right">level_2017</th>
+<th align="right">level_2018</th>
+<th align="right">level_2019</th>
+<th align="right">level_2020</th>
+<th align="left">col_21</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">65510</td>
+<td align="right">1</td>
+<td align="left">PROCEEDINGS OF THE PMR CONFERENCE</td>
+<td align="left">Lehti/sarja</td>
+<td align="left">0272-8710</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">UNITED STATES</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Inactive</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">8856</td>
+<td align="right">0</td>
+<td align="left">ADVANCED BUILDING SKINS</td>
+<td align="left">Kirjakustantaja</td>
+<td align="left">978-3-9812053;</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">GERMANY</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Active</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">88598</td>
+<td align="right">0</td>
+<td align="left">AESTHETICA UNIVERSALIS</td>
+<td align="left">Lehti/sarja</td>
+<td align="left">2686-6943</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">RUSSIAN FEDERATION</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Active</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">89424</td>
+<td align="right">0</td>
+<td align="left">ANNALS OF DISASTER RISK SCIENCES</td>
+<td align="left">Lehti/sarja</td>
+<td align="left">2584-4873</td>
+<td align="left">2623-8934</td>
+<td align="left">NA</td>
+<td align="left">CROATIA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Active</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">86812</td>
+<td align="right">1</td>
+<td align="left">BRITISH JOURNAL OF VISUAL IMPAIRMENT</td>
+<td align="left">Lehti/sarja</td>
+<td align="left">0264-6196</td>
+<td align="left">1744-5809</td>
+<td align="left">NA</td>
+<td align="left">UNITED KINGDOM</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Active</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">89386</td>
+<td align="right">1</td>
+<td align="left">COMPOSITES PART C : OPEN ACCESS</td>
+<td align="left">Lehti/sarja</td>
+<td align="left">NA</td>
+<td align="left">2666-6820</td>
+<td align="left">NA</td>
+<td align="left">NETHERLANDS</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Active</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">glimpze</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="1%">
+<col width="8%">
+<col width="13%">
+<col width="1%">
+<col width="1%">
+<col width="0%">
+<col width="2%">
+<col width="3%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="2%">
+<col width="2%">
+<col width="6%">
+<col width="2%">
+<col width="1%">
+<col width="2%">
+<col width="1%">
+<col width="1%">
+<col width="10%">
+<col width="1%">
+<col width="1%">
+<col width="0%">
+</colgroup>
+<thead><tr class="header">
+<th align="right">id_nsd</th>
+<th align="left">title</th>
+<th align="left">title_en</th>
+<th align="left">issn_print</th>
+<th align="left">issn_online</th>
+<th align="left">oa</th>
+<th align="left">group_area</th>
+<th align="left">group_field</th>
+<th align="right">level_2022</th>
+<th align="right">level_2021</th>
+<th align="right">level_2020</th>
+<th align="right">level_2019</th>
+<th align="right">level_2018</th>
+<th align="right">level_2017</th>
+<th align="right">level_2016</th>
+<th align="right">level_2015</th>
+<th align="right">level_2014</th>
+<th align="right">level_2013</th>
+<th align="right">level_2012</th>
+<th align="right">level_2011</th>
+<th align="right">level_2010</th>
+<th align="right">level_2009</th>
+<th align="right">level_2008</th>
+<th align="right">level_2007</th>
+<th align="right">level_2006</th>
+<th align="right">level_2005</th>
+<th align="right">level_2004</th>
+<th align="right">itar_id</th>
+<th align="right">nsd_publisher_id</th>
+<th align="left">publisher_company</th>
+<th align="left">publisher</th>
+<th align="left">publisher_country</th>
+<th align="left">language</th>
+<th align="right">conference_report</th>
+<th align="right">established</th>
+<th align="right">discontinued</th>
+<th align="left">url</th>
+<th align="left">set</th>
+<th align="left">ISBN-Prefix</th>
+<th align="left">Land</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">480486</td>
+<td align="left"># ISOJ Journal</td>
+<td align="left"># ISOJ Journal</td>
+<td align="left">2328-0700</td>
+<td align="left">2328-0662</td>
+<td align="left">NA</td>
+<td align="left">Humaniora</td>
+<td align="left">Medier og kommunikasjon</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1023339</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">University of Texas at Austin, UT College of Commu</td>
+<td align="left">USA</td>
+<td align="left">Engelsk</td>
+<td align="right">0</td>
+<td align="right">2013</td>
+<td align="right">NA</td>
+<td align="left"><a href="https://online.journalism.utexas.edu/ebook.php" class="uri">https://online.journalism.utexas.edu/ebook.php</a></td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">485792</td>
+<td align="left">@nalyses</td>
+<td align="left">@nalyses</td>
+<td align="left">NA</td>
+<td align="left">1715-9261</td>
+<td align="left">NA</td>
+<td align="left">Humaniora</td>
+<td align="left">Romansk</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1025308</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Université d’Ottawa. Département de français</td>
+<td align="left">Canada</td>
+<td align="left">Fransk</td>
+<td align="right">0</td>
+<td align="right">2006</td>
+<td align="right">NA</td>
+<td align="left"><a href="https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index" class="uri">https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index</a></td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">492970</td>
+<td align="left">@ulaMEdieval</td>
+<td align="left">@ulaMEdieval</td>
+<td align="left">NA</td>
+<td align="left">2340-3748</td>
+<td align="left">NA</td>
+<td align="left">Humaniora</td>
+<td align="left">Litteraturvitenskap</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1029093</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">University of Valencia, Spain (Parnaseo Project)</td>
+<td align="left">Spania</td>
+<td align="left">Spansk</td>
+<td align="right">0</td>
+<td align="right">2013</td>
+<td align="right">NA</td>
+<td align="left"><a href="http://parnaseo2.uv.es/AulaMedieval/AulaMedieval.php?valor=monografias&amp;lengua=es" class="uri">http://parnaseo2.uv.es/AulaMedieval/AulaMedieval.php?valor=monografias&amp;lengua=es</a></td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">499037</td>
+<td align="left">
+<br><span class="math display"><em>i</em><em>n</em></span><br>Transition</td>
+<td align="left">
+<br><span class="math display"><em>i</em><em>n</em></span><br>Transition</td>
+<td align="left">NA</td>
+<td align="left">2469-4312</td>
+<td align="left">NA</td>
+<td align="left">Humaniora</td>
+<td align="left">Medier og kommunikasjon</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1031783</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">MediaCommons</td>
+<td align="left">USA</td>
+<td align="left">Engelsk</td>
+<td align="right">0</td>
+<td align="right">2014</td>
+<td align="right">NA</td>
+<td align="left"><a href="http://mediacommons.org/intransition/" class="uri">http://mediacommons.org/intransition/</a></td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">475372</td>
+<td align="left">
+<br><span class="math display"><em>t</em><em>i</em><em>l</em><em>t</em></span><br>
+</td>
+<td align="left">
+<br><span class="math display"><em>t</em><em>i</em><em>l</em><em>t</em></span><br>
+</td>
+<td align="left">1502-2471</td>
+<td align="left">1892-3100</td>
+<td align="left">NA</td>
+<td align="left">Samfunnsvitenskap</td>
+<td align="left">Pedagogikk og utdanning</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1018144</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Landslaget for Medieundervisning</td>
+<td align="left">Norge</td>
+<td align="left">Norsk (bokmål)</td>
+<td align="right">0</td>
+<td align="right">1986</td>
+<td align="right">NA</td>
+<td align="left"><a href="http://www.lmu.no/default.asp?uid=65&amp;CID=65" class="uri">http://www.lmu.no/default.asp?uid=65&amp;CID=65</a></td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">487206</td>
+<td align="left">Anuarul Institutului de Cercetări Socio-Umane „C.S. Nicolăescu-Plopșor”</td>
+<td align="left">“C.S. Nicolăescu-Plopşor” Institute for Research in Social Studies and Humanities Yearbook (CSNIPSSH Yearbook)</td>
+<td align="left">1841-0898</td>
+<td align="left">2501-0468</td>
+<td align="left">DOAJ</td>
+<td align="left">Humaniora</td>
+<td align="left">Historie</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1026615</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Editura Academiei Române</td>
+<td align="left">Romania</td>
+<td align="left">Engelsk</td>
+<td align="right">0</td>
+<td align="right">1999</td>
+<td align="right">NA</td>
+<td align="left"><a href="https://npissh.ro/" class="uri">https://npissh.ro/</a></td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">glimpze</span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="4%">
+<col width="6%">
+<col width="25%">
+<col width="5%">
+<col width="6%">
+<col width="7%">
+<col width="22%">
+<col width="4%">
+<col width="3%">
+<col width="7%">
+<col width="4%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">set</th>
+<th align="right">group_nr</th>
+<th align="left">group_name</th>
+<th align="right">bfi_nr</th>
+<th align="left">issn</th>
+<th align="left">channel</th>
+<th align="left">title</th>
+<th align="right">level</th>
+<th align="left">isbn</th>
+<th align="left">issn_isbn</th>
+<th align="right">group</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">serier</td>
+<td align="right">1</td>
+<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
+<td align="right">7659</td>
+<td align="left">0003-0678</td>
+<td align="left">Tidsskrift</td>
+<td align="left">American Quarterly</td>
+<td align="right">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">serier</td>
+<td align="right">1</td>
+<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
+<td align="right">82971</td>
+<td align="left">1433-5239</td>
+<td align="left">Tidsskrift</td>
+<td align="left">American Studies Journal</td>
+<td align="right">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">serier</td>
+<td align="right">1</td>
+<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
+<td align="right">4878</td>
+<td align="left">1478-8810</td>
+<td align="left">Tidsskrift</td>
+<td align="left">Atlantic Studies</td>
+<td align="right">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">serier</td>
+<td align="right">1</td>
+<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
+<td align="right">4703</td>
+<td align="left">0067-2378</td>
+<td align="left">Tidsskrift</td>
+<td align="left">Austrian History Yearbook</td>
+<td align="right">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">serier</td>
+<td align="right">1</td>
+<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
+<td align="right">12997</td>
+<td align="left">0261-3050</td>
+<td align="left">Tidsskrift</td>
+<td align="left">Bulletin of Latin American Research</td>
+<td align="right">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">serier</td>
+<td align="right">1</td>
+<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
+<td align="right">14142</td>
+<td align="left">1537-7873</td>
+<td align="left">Tidsskrift</td>
+<td align="left">Cultural Analysis</td>
+<td align="right">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
 </tr>
 </tbody>
 </table>

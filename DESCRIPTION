@@ -1,7 +1,7 @@
 Package: swecris
 Title: SweCRIS - Grant Decisions From Swedish Funding Bodies And
     EU
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     person(given = "Markus",
            family = "Skyttner",
@@ -22,7 +22,7 @@ LazyData: true
 Suggests: 
     testthat
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 Imports: 
     jsonlite,
     dplyr,

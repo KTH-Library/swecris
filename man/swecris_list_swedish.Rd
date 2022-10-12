@@ -14,4 +14,5 @@ Swedish List of publication sources.
 }
 \details{
 see \href{https://www.vr.se/uppdrag/oppen-vetenskap/svenska-listan---sakkunniggranskade-kanaler-i-swepub.html}{details about available data}
+and \href{https://www.vr.se/english/mandates/open-science/svenska-listan---a-register-of-peer-reviewed-publication-channels-in-swepub.html}{web page}
 }

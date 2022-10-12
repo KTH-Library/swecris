@@ -40,6 +40,6 @@ swecris_kth
 }
 \description{
 A static dataset containing the projects in SweCRIS resulting from
-a swecris_funding() call on Mon 11 Oct 2021.
+a swecris_funding() call on Mon 12 Oct 2022.
 }
 \keyword{datasets}

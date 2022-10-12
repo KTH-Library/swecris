@@ -1,3 +1,9 @@
+# swecris 0.1.2
+
+* Removed Danish list (no longer updated at source)
+* Updated Swedish and Norwegian list source
+* Updated embedded data for projects at KTH
+
 # swecris 0.1.1
 
 * Added support for Swedish, Norwegian, Finnish and Danish lists with authoritative publication sources

@@ -6,7 +6,8 @@ swecris_kth <- swecris_funding()
 usethis::use_data(swecris_kth, overwrite = TRUE)
 
 # document in R/data.R, using this roxygen
-cat(sprintf("#'   \\item{%s}{}\n", names(sf)))
+sinew::makeOxygen(swecris_kth)
+#cat(sprintf("#'   \\item{%s}{}\n", names(sf)))
 
 #swecris_kth %>% View()
 
@@ -41,6 +42,11 @@ swecris_list_norwegian <- function(f) {
     show_col_types = FALSE, trim_ws = TRUE
   ) %>%
     rename_cols(cm_nor$col_from, cm_nor$col_to)
+
+  probs <- readr::problems()
+
+  #if (nrow(probs) > 0)
+    print(probs)
 
   nor %>%
     rename_cols_re("Nivå (\\d{4})", "level_\\1") %>%

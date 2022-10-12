@@ -42,7 +42,7 @@ test_that("retrieving persons for KTH projects works", {
     dplyr::pull(organisationId)
 
   kthp <- swecris_persons(kthid)
-  is_valid <- nrow(kthp) > 1000
+  is_valid <- nrow(kthp) > 500
   expect_true(is_valid)
 
 })
@@ -52,8 +52,26 @@ test_that("Swedish list can be retrieved", {
   expect_true(nrow(sl) > 30000)
 })
 
+test_that("Danish list function is defunct (no longer provided)", {
+  is_defunct <- tryCatch(swecris_list_danish(), error = function(e) e$old == "swecris_list_danish")
+  expect_true(is_defunct)
+})
+
+test_that("Finnish list can be retrieved", {
+  fl <- swecris_list_finnish()
+  is_valid <- nrow(fl) > 1e4
+  expect_true(is_valid)
+})
+
+test_that("Norwegian list can be retrieved", {
+  nl <- swecris_list_norwegian
+  is_valid <- nrow(nl) > 1e4
+  expect_true(is_valid)
+})
+
 test_that("Fundings for KTH project works", {
   kthf <- swecris_funding()
   is_valid <- nrow(kthf) > 2600
   expect_true(is_valid)
 })
+

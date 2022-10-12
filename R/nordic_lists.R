@@ -72,10 +72,11 @@ rename_cols_re <- function(df, re_from, re_to) {
 #' @importFrom purrr map2 map map_df
 #' @import dplyr
 swecris_list_danish <- function() {
-  purrr::map2(url_den, sets, read_xl)%>%
-    purrr::map(function(x) rename_cols(x, cm_den$col_from, cm_den$col_to)) %>%
-    purrr::map_df(function(x) bind_rows(x)) %>%
-    select("set", everything())
+  .Defunct(msg = "The BFI-list are no longer updated, see https://www.ucnbib.dk/da/page/bfi")
+  # purrr::map2(url_den, sets, read_xl)%>%
+  #   purrr::map(function(x) rename_cols(x, cm_den$col_from, cm_den$col_to)) %>%
+  #   purrr::map_df(function(x) bind_rows(x)) %>%
+  #   select("set", everything())
 }
 
 cm_fin <- readr::read_delim(
@@ -93,18 +94,21 @@ SHERPA/ROMEO,sherpa_romeo
 ACTIVE,active
 ")
 
-
 #' Swedish List
 #'
 #' Swedish List of publication sources.
 #'
 #' @return a tibble
 #' @details see [details about available data](https://www.vr.se/uppdrag/oppen-vetenskap/svenska-listan---sakkunniggranskade-kanaler-i-swepub.html)
+#' and [web page](https://www.vr.se/english/mandates/open-science/svenska-listan---a-register-of-peer-reviewed-publication-channels-in-swepub.html)
 #' @importFrom readr read_delim locale
 #' @export
 swecris_list_swedish <- function() {
-  "https://www.vr.se/download/18.6675b4ac1787151b2105c0/1618484217763/Svenska_listan_2021_godk%C3%A4nt.csv" %>%
+  "https://www.vr.se/download/18.6ec74f78180940e44409cf7/1652982364898/Svenska_listan_2022_.csv" %>%
     readr::read_delim(local = locale(encoding = "latin1"))
+
+#  "https://www.vr.se/download/18.6675b4ac1787151b2105c0/1618484217763/Svenska_listan_2021_godk%C3%A4nt.csv" %>%
+#    readr::read_delim(local = locale(encoding = "latin1"))
 }
 
 #' Finnish List
@@ -118,10 +122,11 @@ swecris_list_swedish <- function() {
 swecris_list_finnish <- function() {
   fin <- readr::read_delim(
     file = "http://www.tsv.fi/julkaisufoorumi/kokonaisluettelo.php",
-    delim = ";",
+    delim = ";", col_select = -21,
     show_col_types = FALSE, trim_ws = TRUE,
     local = locale(encoding = "latin1")
-  ) %>%
+  ) %>% suppressWarnings() %>%
+    suppressMessages() %>%
     rename_cols(cm_fin$col_from, cm_fin$col_to)
 
   fin %>%

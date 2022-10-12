@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,18 +41,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">swecris</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -60,7 +56,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/KTH-Library/swecris/">
+  <a href="https://github.com/KTH-Library/swecris/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -77,108 +73,108 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="swecris" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#swecris" class="anchor"></a>swecris</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="swecris">swecris<a class="anchor" aria-label="anchor" href="#swecris"></a>
+</h1></div>
 <!-- badges: start -->
-
 <p>The goal of the <code>swecris</code> R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the open API at SweCRIS to make data available for use from R.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version of <code>swecris</code> from <a href="https://github.com/KTH-Library/swecris">GitHub</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of <code>swecris</code> from <a href="https://github.com/KTH-Library/swecris" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">devtools</span><span class="op">)</span>
-<span class="fu">install_github</span><span class="op">(</span><span class="st">"swecris"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"swecris"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>This is a basic example which shows you how to get data about projects at KTH Royal Institute of Technology:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/KTH-Library/swecris">swecris</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># either fetch the data from the API</span>
-<span class="co">#kth_projects &lt;- swecris_funding()</span>
-
-<span class="co"># or use the bundled data</span>
-<span class="va">kthf</span> <span class="op">&lt;-</span> <span class="va">swecris_kth</span>
-
-<span class="co"># top ten largest fundings containing abstracts with the word "data"</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-
-<span class="va">fundings</span> <span class="op">&lt;-</span> 
-  <span class="va">kthf</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">FundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">ProjectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-
-<span class="co"># display an example record</span>
-<span class="va">fundings</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 1</span>
-<span class="co">#&gt; Columns: 27</span>
-<span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2009-04126_Vinnova"</span>
-<span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "ProNova VINN Excellence …</span>
-<span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "ProNova VINN Excellence …</span>
-<span class="co">#&gt; $ ProjectAbstractSv                            &lt;chr&gt; "Syfte och mål:\r\n&lt;p&gt;&lt;st…</span>
-<span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "Purpose and goal:\r\n&lt;p&gt;…</span>
-<span class="co">#&gt; $ ProjectStartDate                             &lt;date&gt; 2009-04-01</span>
-<span class="co">#&gt; $ ProjectEndDate                               &lt;date&gt; 2012-03-31</span>
-<span class="co">#&gt; $ CoordinatingOrganisationId                   &lt;chr&gt; "202100-3054"</span>
-<span class="co">#&gt; $ CoordinatingOrganisationNameSv               &lt;chr&gt; "KTH, Kungliga tekniska h…</span>
-<span class="co">#&gt; $ CoordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of…</span>
-<span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationSv &lt;chr&gt; "Universitet"</span>
-<span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationEn &lt;chr&gt; "University"</span>
-<span class="co">#&gt; $ FundingOrganisationId                        &lt;chr&gt; "202100-5216"</span>
-<span class="co">#&gt; $ FundingOrganisationNameSv                    &lt;chr&gt; "Vinnova"</span>
-<span class="co">#&gt; $ FundingOrganisationNameEn                    &lt;chr&gt; "Vinnova"</span>
-<span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationSv      &lt;chr&gt; "Stat, regioner, kommune…</span>
-<span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationEn      &lt;chr&gt; "Governmental"</span>
-<span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 2.1e+07</span>
-<span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2009</span>
-<span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2009-04-01</span>
-<span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2012-03-31</span>
-<span class="co">#&gt; $ TypeOfAwardId                                &lt;dbl&gt; 1</span>
-<span class="co">#&gt; $ TypeOfAwardDescrSv                           &lt;chr&gt; "Projektbidrag"</span>
-<span class="co">#&gt; $ TypeOfAwardDescrEn                           &lt;chr&gt; "Project grant"</span>
-<span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤10306¤Amelie Eriksson…</span>
-<span class="co">#&gt; $ Scbs                                         &lt;chr&gt; NA</span>
-<span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 2.1e+07</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/KTH-Library/swecris" class="external-link">swecris</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># either fetch the data from the API</span></span>
+<span><span class="co">#kth_projects &lt;- swecris_funding()</span></span>
+<span></span>
+<span><span class="co"># or use the bundled data</span></span>
+<span><span class="va">kthf</span> <span class="op">&lt;-</span> <span class="va">swecris_kth</span></span>
+<span></span>
+<span><span class="co"># top ten largest fundings containing abstracts with the word "data"</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fundings</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">kthf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">FundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">ProjectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># display an example record</span></span>
+<span><span class="va">fundings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 1</span></span>
+<span><span class="co">#&gt; Columns: 27</span></span>
+<span><span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2020-05052_VR"</span></span>
+<span><span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "Terrorism i svensk polit…</span></span>
+<span><span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "Terrorism in Swedish pol…</span></span>
+<span><span class="co">#&gt; $ ProjectAbstractSv                            &lt;chr&gt; NA</span></span>
+<span><span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "SweTerror makes a signif…</span></span>
+<span><span class="co">#&gt; $ ProjectStartDate                             &lt;dttm&gt; 2021-01-01</span></span>
+<span><span class="co">#&gt; $ ProjectEndDate                               &lt;dttm&gt; 2024-12-31</span></span>
+<span><span class="co">#&gt; $ CoordinatingOrganisationId                   &lt;chr&gt; "202100-3054"</span></span>
+<span><span class="co">#&gt; $ CoordinatingOrganisationNameSv               &lt;chr&gt; "KTH, Kungliga tekniska h…</span></span>
+<span><span class="co">#&gt; $ CoordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of …</span></span>
+<span><span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationSv &lt;chr&gt; "Universitet"</span></span>
+<span><span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationEn &lt;chr&gt; "University"</span></span>
+<span><span class="co">#&gt; $ FundingOrganisationId                        &lt;chr&gt; "202100-5208"</span></span>
+<span><span class="co">#&gt; $ FundingOrganisationNameSv                    &lt;chr&gt; "Vetenskapsrådet"</span></span>
+<span><span class="co">#&gt; $ FundingOrganisationNameEn                    &lt;chr&gt; "Swedish Research Council"</span></span>
+<span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationSv      &lt;chr&gt; "Stat, regioner, kommune…</span></span>
+<span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationEn      &lt;chr&gt; "Governmental"</span></span>
+<span><span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 2.2e+07</span></span>
+<span><span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2021</span></span>
+<span><span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2021-01-01</span></span>
+<span><span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2024-12-31</span></span>
+<span><span class="co">#&gt; $ TypeOfAwardId                                &lt;dbl&gt; 1</span></span>
+<span><span class="co">#&gt; $ TypeOfAwardDescrSv                           &lt;chr&gt; "Projektbidrag"</span></span>
+<span><span class="co">#&gt; $ TypeOfAwardDescrEn                           &lt;chr&gt; "Project grant"</span></span>
+<span><span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤17617¤Magnus Ängsal¤…</span></span>
+<span><span class="co">#&gt; $ Scbs                                         &lt;chr&gt; "¤¤¤ 1: Naturvetenskap, N…</span></span>
+<span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 2.2e+07</span></span></code></pre></div>
 <p>Given an organisation, get information about projects:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">orgid</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="reference/swecris_organisations.html">swecris_organisations</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"^KTH, "</span>, <span class="va">organisationNameSv</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">organisationId</span><span class="op">)</span>
-
-<span class="va">kthp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_projects.html">swecris_projects</a></span><span class="op">(</span><span class="va">orgid</span><span class="op">)</span>
-
-<span class="co"># ten upcoming projects</span>
-<span class="va">projects</span> <span class="op">&lt;-</span> 
-  <span class="va">kthp</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
-    <span class="va">projectId</span>, 
-    <span class="va">projectTitleEn</span>, 
-    <span class="va">projectStartDate</span>, 
-    <span class="va">projectEndDate</span>, 
-    <span class="va">fundingOrganisationNameEn</span>, 
-    <span class="va">fundingsSek</span>, 
-    <span class="va">fundingYear</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">projects</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">orgid</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="reference/swecris_organisations.html">swecris_organisations</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^KTH, "</span>, <span class="va">organisationNameSv</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">organisationId</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">kthp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_projects.html">swecris_projects</a></span><span class="op">(</span><span class="va">orgid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ten upcoming projects</span></span>
+<span><span class="va">projects</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">kthp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">projectId</span>, </span>
+<span>    <span class="va">projectTitleEn</span>, </span>
+<span>    <span class="va">projectStartDate</span>, </span>
+<span>    <span class="va">projectEndDate</span>, </span>
+<span>    <span class="va">fundingOrganisationNameEn</span>, </span>
+<span>    <span class="va">fundingsSek</span>, </span>
+<span>    <span class="va">fundingYear</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">projects</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="9%">
-<col width="52%">
 <col width="8%">
-<col width="7%">
-<col width="12%">
+<col width="51%">
+<col width="8%">
+<col width="8%">
+<col width="11%">
 <col width="5%">
 <col width="5%">
 </colgroup>
@@ -193,127 +189,142 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">2021-02081_Vinnova</td>
-<td align="left">Characterisation and effects of micro and nanoscale components and their impact on efficiency of chemical additives</td>
-<td align="left">2021-12-01</td>
-<td align="left">2025-11-30</td>
-<td align="left">Vinnova</td>
-<td align="right">2600000</td>
-<td align="left">2021</td>
+<td align="left">2021-00157_VR</td>
+<td align="left">Petra III Swedish Node</td>
+<td align="left">2023-01-01 00:00:00</td>
+<td align="left">2026-12-31 00:00:00</td>
+<td align="left">Swedish Research Council</td>
+<td align="right">25636000</td>
+<td align="left">2023</td>
 </tr>
 <tr class="even">
-<td align="left">2021-02640_Vinnova</td>
-<td align="left">GeneNova</td>
-<td align="left">2021-10-15</td>
-<td align="left">2026-10-14</td>
+<td align="left">2022-01624_Vinnova</td>
+<td align="left">Nanoscale organization and dynamics of ER-mitochondria contact sites upon induction of synaptic plasticity</td>
+<td align="left">2023-02-01 00:00:00</td>
+<td align="left">2025-01-31 00:00:00</td>
 <td align="left">Vinnova</td>
-<td align="right">36600000</td>
-<td align="left">2021</td>
+<td align="right">2068800</td>
+<td align="left">2023</td>
 </tr>
 <tr class="odd">
-<td align="left">2021-03620_Vinnova</td>
-<td align="left">Zero-emission contractors - a feasibility study for solutions in the road construction industry</td>
-<td align="left">2021-10-01</td>
-<td align="left">2022-10-01</td>
-<td align="left">Vinnova</td>
-<td align="right">450000</td>
-<td align="left">2021</td>
+<td align="left">2021-00527_Formas</td>
+<td align="left">A bio-based composite material for enhancing the sustainability in road infrastructures</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2025-12-31 00:00:00</td>
+<td align="left">Formas</td>
+<td align="right">4000000</td>
+<td align="left">2022</td>
 </tr>
 <tr class="even">
-<td align="left">2021-03462_Vinnova</td>
-<td align="left">International Activities for InfraSweden2030</td>
-<td align="left">2021-09-15</td>
-<td align="left">2022-09-15</td>
-<td align="left">Vinnova</td>
-<td align="right">800000</td>
-<td align="left">2021</td>
+<td align="left">2021-00678_Formas</td>
+<td align="left">Catalytic Conversion of Waste to Value</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2025-12-31 00:00:00</td>
+<td align="left">Formas</td>
+<td align="right">4000000</td>
+<td align="left">2022</td>
 </tr>
 <tr class="odd">
-<td align="left">2021-03464_Vinnova</td>
-<td align="left">InfraAwards 2022</td>
-<td align="left">2021-09-15</td>
-<td align="left">2022-12-30</td>
-<td align="left">Vinnova</td>
-<td align="right">1150000</td>
-<td align="left">2021</td>
+<td align="left">2021-00728_Formas</td>
+<td align="left">Turning shortcomings of lignin to advantages for green anti-corrosion and anti-wear coatings</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2024-12-31 00:00:00</td>
+<td align="left">Formas</td>
+<td align="right">3000000</td>
+<td align="left">2022</td>
 </tr>
 <tr class="even">
-<td align="left">2021-03465_Vinnova</td>
-<td align="left">Communication to support implementation</td>
-<td align="left">2021-09-10</td>
-<td align="left">2022-07-31</td>
-<td align="left">Vinnova</td>
-<td align="right">450000</td>
-<td align="left">2021</td>
+<td align="left">2021-00730_Formas</td>
+<td align="left">Recyclable cellulose thermosets with sunlight triggered self-destruction in open natural environments</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2024-12-31 00:00:00</td>
+<td align="left">Formas</td>
+<td align="right">3000000</td>
+<td align="left">2022</td>
 </tr>
 <tr class="odd">
-<td align="left">2021-03466_Vinnova</td>
-<td align="left">Client network for a climate-neutral construction sector</td>
-<td align="left">2021-09-10</td>
-<td align="left">2023-05-26</td>
-<td align="left">Vinnova</td>
-<td align="right">800000</td>
-<td align="left">2021</td>
+<td align="left">2021-01532_Formas</td>
+<td align="left">DATASETS: exploring DynAmic environmental TAxation for a Sustainable, Efficient urban Transport System</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2024-12-31 00:00:00</td>
+<td align="left">Formas</td>
+<td align="right">2933001</td>
+<td align="left">2022</td>
 </tr>
 <tr class="even">
-<td align="left">2021-03467_Vinnova</td>
-<td align="left">Innovation partnership - Connected road condition monitoring</td>
-<td align="left">2021-09-10</td>
-<td align="left">2024-03-31</td>
-<td align="left">Vinnova</td>
-<td align="right">1500000</td>
-<td align="left">2021</td>
+<td align="left">2021-01561_Formas</td>
+<td align="left">Environmental Impact of underwater noise from leisure boats - quantifying impact and estimating efficiency of measures</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2024-12-31 00:00:00</td>
+<td align="left">Formas</td>
+<td align="right">2997791</td>
+<td align="left">2022</td>
 </tr>
 <tr class="odd">
-<td align="left">2021-02048_Vinnova</td>
-<td align="left">Supersonic spraying of graphene/MXene-based conductive wear-resistant coatings for electrification</td>
-<td align="left">2021-08-31</td>
-<td align="left">2022-05-31</td>
-<td align="left">Vinnova</td>
-<td align="right">300000</td>
-<td align="left">2021</td>
+<td align="left">2021-01595_VR</td>
+<td align="left">Utopia 2.0: “Nature-Thinking” in the Nordic New Towns of the Past, Present, and Future</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2024-12-31 00:00:00</td>
+<td align="left">Swedish Research Council</td>
+<td align="right">4491000</td>
+<td align="left">2022</td>
 </tr>
 <tr class="even">
-<td align="left">2021-01922_Vinnova</td>
-<td align="left">Digitalisation of atomisation of metal powders</td>
-<td align="left">2021-08-16</td>
-<td align="left">2022-03-11</td>
-<td align="left">Vinnova</td>
-<td align="right">510217</td>
-<td align="left">2021</td>
+<td align="left">2021-01666_Formas</td>
+<td align="left">Mechanisms controlling the self-assembly of keratin macromolecules and nanofibrils during fibre spinning</td>
+<td align="left">2022-01-01 00:00:00</td>
+<td align="left">2024-12-31 00:00:00</td>
+<td align="left">Formas</td>
+<td align="right">3000000</td>
+<td align="left">2022</td>
 </tr>
 </tbody>
 </table>
-<p>Swedish list for 2021 (the first few records):</p>
+<p>Swedish list (the first few records):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sl</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="reference/swecris_list_swedish.html">swecris_list_swedish</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 34882 Columns: 11</span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; Delimiter: ";"</span>
-<span class="co">#&gt; chr (2): ISSN, Titel</span>
-<span class="co">#&gt; dbl (9): 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-
-<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 6</span>
-<span class="co">#&gt; Columns: 11</span>
-<span class="co">#&gt; $ ISSN   &lt;chr&gt; "0001-0782", "0001-1452", "0001-1541", "0001-2092", "0001-2343"…</span>
-<span class="co">#&gt; $ Titel  &lt;chr&gt; "Communications of the ACM", "AIAA Journal", "AIChE Journal", "…</span>
-<span class="co">#&gt; $ `2012` &lt;dbl&gt; NA, 1, NA, NA, NA, NA</span>
-<span class="co">#&gt; $ `2013` &lt;dbl&gt; 1, 1, 1, NA, 1, NA</span>
-<span class="co">#&gt; $ `2014` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
-<span class="co">#&gt; $ `2015` &lt;dbl&gt; 1, 1, 1, 1, NA, NA</span>
-<span class="co">#&gt; $ `2016` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
-<span class="co">#&gt; $ `2017` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
-<span class="co">#&gt; $ `2018` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
-<span class="co">#&gt; $ `2019` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span>
-<span class="co">#&gt; $ `2020` &lt;dbl&gt; 1, 1, 1, 1, NA, 1</span>
-
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<table class="table">
+<code class="sourceCode R"><span><span class="va">sl</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="reference/swecris_list_swedish.html">swecris_list_swedish</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 36614 Columns: 12</span></span>
+<span><span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; Delimiter: ";"</span></span>
+<span><span class="co">#&gt; chr  (2): ISSN, Titel</span></span>
+<span><span class="co">#&gt; dbl (10): 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">sl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 6</span></span>
+<span><span class="co">#&gt; Columns: 12</span></span>
+<span><span class="co">#&gt; $ ISSN   &lt;chr&gt; "8756-9728", "8756-7938", "8756-758X", "8756-6583", "8756-6575"…</span></span>
+<span><span class="co">#&gt; $ Titel  &lt;chr&gt; "Project Management Journal", "Biotechnology progress (Print)",…</span></span>
+<span><span class="co">#&gt; $ `2012` &lt;dbl&gt; 1, NA, 1, 1, 1, 1</span></span>
+<span><span class="co">#&gt; $ `2013` &lt;dbl&gt; NA, 1, 1, 1, NA, NA</span></span>
+<span><span class="co">#&gt; $ `2014` &lt;dbl&gt; 1, 1, 1, 1, NA, NA</span></span>
+<span><span class="co">#&gt; $ `2015` &lt;dbl&gt; 1, NA, 1, 1, NA, NA</span></span>
+<span><span class="co">#&gt; $ `2016` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span></span>
+<span><span class="co">#&gt; $ `2017` &lt;dbl&gt; 1, 1, NA, 1, 1, NA</span></span>
+<span><span class="co">#&gt; $ `2018` &lt;dbl&gt; 1, NA, 1, NA, NA, NA</span></span>
+<span><span class="co">#&gt; $ `2019` &lt;dbl&gt; 1, 1, NA, NA, 1, 1</span></span>
+<span><span class="co">#&gt; $ `2020` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span></span>
+<span><span class="co">#&gt; $ `2021` &lt;dbl&gt; 1, 1, 1, NA, NA, NA</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">sl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="8%">
+<col width="48%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+</colgroup>
 <thead><tr class="header">
 <th align="left">ISSN</th>
 <th align="left">Titel</th>
@@ -326,11 +337,13 @@
 <th align="right">2018</th>
 <th align="right">2019</th>
 <th align="right">2020</th>
+<th align="right">2021</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">0001-0782</td>
-<td align="left">Communications of the ACM</td>
+<td align="left">8756-9728</td>
+<td align="left">Project Management Journal</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">1</td>
@@ -342,62 +355,65 @@
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">0001-1452</td>
-<td align="left">AIAA Journal</td>
+<td align="left">8756-7938</td>
+<td align="left">Biotechnology progress (Print)</td>
+<td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">1</td>
+<td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">0001-1541</td>
-<td align="left">AIChE Journal</td>
+<td align="left">8756-758X</td>
+<td align="left">Fatigue &amp; Fracture of Engineering Materials &amp; Structures (FFEMS)</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">0001-2092</td>
-<td align="left">AORN Journal</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="left">8756-6583</td>
+<td align="left">Holocaust and Genocide Studies</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">0001-2343</td>
-<td align="left">ARSP. Archiv für Rechts- und Socialphilosophie</td>
-<td align="right">NA</td>
+<td align="left">8756-6575</td>
+<td align="left">PHILOSOPHY OF EDUCATION</td>
 <td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
+<td align="right">1</td>
 <td align="right">NA</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="left">0001-2351</td>
-<td align="left">Transactions of the ASAE</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="left">8756-6222</td>
+<td align="left">Journal of Law, Economics &amp; Organization</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -405,31 +421,29 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <p>Some other Nordic list referenced at SweCRIS are also provided:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_list_finnish.html">swecris_list_finnish</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; New names:</span>
-<span class="co">#&gt; * `` -&gt; ...21</span>
-<span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span>
-<span class="va">n</span> <span class="op">&lt;-</span> <span class="va">swecris_list_norwegian</span>
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_list_danish.html">swecris_list_danish</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">glimpze</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">df</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">glimpze</span><span class="op">(</span><span class="va">f</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_list_finnish.html">swecris_list_finnish</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="va">swecris_list_norwegian</span></span>
+<span></span>
+<span><span class="va">glimpze</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">glimpze</span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="3%">
 <col width="2%">
 <col width="13%">
 <col width="6%">
-<col width="5%">
-<col width="3%">
+<col width="6%">
+<col width="4%">
 <col width="2%">
 <col width="7%">
 <col width="2%">
@@ -444,7 +458,6 @@
 <col width="4%">
 <col width="4%">
 <col width="4%">
-<col width="3%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">id_jufo</th>
@@ -467,7 +480,6 @@
 <th align="right">level_2018</th>
 <th align="right">level_2019</th>
 <th align="right">level_2020</th>
-<th align="left">col_21</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -491,7 +503,6 @@
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="right">8856</td>
@@ -514,7 +525,6 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="left">NA</td>
 </tr>
 <tr class="odd">
 <td align="right">88598</td>
@@ -537,7 +547,6 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="right">89424</td>
@@ -560,32 +569,8 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left">NA</td>
 </tr>
 <tr class="odd">
-<td align="right">86812</td>
-<td align="right">1</td>
-<td align="left">BRITISH JOURNAL OF VISUAL IMPAIRMENT</td>
-<td align="left">Lehti/sarja</td>
-<td align="left">0264-6196</td>
-<td align="left">1744-5809</td>
-<td align="left">NA</td>
-<td align="left">UNITED KINGDOM</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">Active</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
 <td align="right">89386</td>
 <td align="right">1</td>
 <td align="left">COMPOSITES PART C : OPEN ACCESS</td>
@@ -606,20 +591,42 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">87002</td>
+<td align="right">1</td>
+<td align="left">ESTUDOS LINGUISTICOS</td>
+<td align="left">Lehti/sarja</td>
+<td align="left">1413-0939</td>
 <td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">BRAZIL</td>
+<td align="right">1</td>
+<td align="left">NA</td>
+<td align="left">Active</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">glimpze</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></code></pre></div>
-<table class="table">
+<code class="sourceCode R"><span><span class="fu">glimpze</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
+<table style="width:100%;" class="table">
 <colgroup>
+<col width="2%">
+<col width="2%">
+<col width="2%">
 <col width="1%">
-<col width="8%">
-<col width="13%">
 <col width="1%">
 <col width="1%">
-<col width="0%">
+<col width="2%">
 <col width="2%">
 <col width="3%">
 <col width="1%">
@@ -642,28 +649,32 @@
 <col width="1%">
 <col width="1%">
 <col width="1%">
-<col width="2%">
-<col width="2%">
-<col width="6%">
-<col width="2%">
 <col width="1%">
 <col width="2%">
-<col width="1%">
-<col width="1%">
 <col width="10%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="0%">
+<col width="1%">
+<col width="1%">
+<col width="11%">
+<col width="2%">
 <col width="1%">
 <col width="1%">
 <col width="0%">
 </colgroup>
 <thead><tr class="header">
-<th align="right">id_nsd</th>
+<th align="right">tidsskrift_id</th>
 <th align="left">title</th>
 <th align="left">title_en</th>
 <th align="left">issn_print</th>
 <th align="left">issn_online</th>
-<th align="left">oa</th>
-<th align="left">group_area</th>
-<th align="left">group_field</th>
+<th align="left">Åpen tilgang</th>
+<th align="right">Publiseringsavtale</th>
+<th align="left">NPI fagområde</th>
+<th align="left">NPI fagfelt</th>
+<th align="right">level_2023</th>
 <th align="right">level_2022</th>
 <th align="right">level_2021</th>
 <th align="right">level_2020</th>
@@ -683,18 +694,19 @@
 <th align="right">level_2006</th>
 <th align="right">level_2005</th>
 <th align="right">level_2004</th>
-<th align="right">itar_id</th>
-<th align="right">nsd_publisher_id</th>
+<th align="right">forlag_id</th>
 <th align="left">publisher_company</th>
 <th align="left">publisher</th>
 <th align="left">publisher_country</th>
 <th align="left">language</th>
 <th align="right">conference_report</th>
+<th align="right">Serie</th>
 <th align="right">established</th>
 <th align="right">discontinued</th>
 <th align="left">url</th>
+<th align="left">Sist oppdatert</th>
 <th align="left">set</th>
-<th align="left">ISBN-Prefix</th>
+<th align="left">ISBN-prefiks</th>
 <th align="left">Land</th>
 </tr></thead>
 <tbody>
@@ -705,6 +717,7 @@
 <td align="left">2328-0700</td>
 <td align="left">2328-0662</td>
 <td align="left">NA</td>
+<td align="right">0</td>
 <td align="left">Humaniora</td>
 <td align="left">Medier og kommunikasjon</td>
 <td align="right">NA</td>
@@ -717,6 +730,7 @@
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -726,27 +740,74 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">1023339</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
 <td align="left">University of Texas at Austin, UT College of Commu</td>
 <td align="left">USA</td>
 <td align="left">Engelsk</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">2013</td>
 <td align="right">NA</td>
-<td align="left"><a href="https://online.journalism.utexas.edu/ebook.php" class="uri">https://online.journalism.utexas.edu/ebook.php</a></td>
+<td align="left"><a href="https://online.journalism.utexas.edu/ebook.php" class="external-link uri">https://online.journalism.utexas.edu/ebook.php</a></td>
+<td align="left">2022-08-10 12:17:54</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
+<td align="right">469872</td>
+<td align="left">(Pré)publications</td>
+<td align="left">(Pré)publications</td>
+<td align="left">NA</td>
+<td align="left">1604-5394</td>
+<td align="left">NA</td>
+<td align="right">0</td>
+<td align="left">Humaniora</td>
+<td align="left">Historie og Idéhistorie</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Afdeling for Fransk Institut for Sprog Litteratur og Kultur Aarhus Universitet</td>
+<td align="left">Danmark</td>
+<td align="left">Flerspråklig</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2005</td>
+<td align="right">NA</td>
+<td align="left"><a href="https://cc.au.dk/forskning/tidsskrifter/prepublications/" class="external-link uri">https://cc.au.dk/forskning/tidsskrifter/prepublications/</a></td>
+<td align="left">2022-08-04 14:46:30</td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
 <td align="right">485792</td>
 <td align="left">@nalyses</td>
 <td align="left">@nalyses</td>
 <td align="left">NA</td>
 <td align="left">1715-9261</td>
 <td align="left">NA</td>
+<td align="right">0</td>
 <td align="left">Humaniora</td>
 <td align="left">Romansk</td>
 <td align="right">NA</td>
@@ -757,6 +818,7 @@
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -768,27 +830,29 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">1025308</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
 <td align="left">Université d’Ottawa. Département de français</td>
 <td align="left">Canada</td>
 <td align="left">Fransk</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">2006</td>
 <td align="right">NA</td>
-<td align="left"><a href="https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index" class="uri">https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index</a></td>
+<td align="left"><a href="https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index" class="external-link uri">https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index</a></td>
+<td align="left">2022-08-04 14:46:30</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="right">492970</td>
 <td align="left">@ulaMEdieval</td>
 <td align="left">@ulaMEdieval</td>
 <td align="left">NA</td>
 <td align="left">2340-3748</td>
 <td align="left">NA</td>
+<td align="right">0</td>
 <td align="left">Humaniora</td>
 <td align="left">Litteraturvitenskap</td>
 <td align="right">NA</td>
@@ -797,6 +861,7 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -810,34 +875,35 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">1029093</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
 <td align="left">University of Valencia, Spain (Parnaseo Project)</td>
 <td align="left">Spania</td>
 <td align="left">Spansk</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">2013</td>
 <td align="right">NA</td>
-<td align="left"><a href="http://parnaseo2.uv.es/AulaMedieval/AulaMedieval.php?valor=monografias&amp;lengua=es" class="uri">http://parnaseo2.uv.es/AulaMedieval/AulaMedieval.php?valor=monografias&amp;lengua=es</a></td>
+<td align="left"><a href="http://parnaseo2.uv.es/AulaMedieval/AulaMedieval.php?valor=monografias&amp;lengua=es" class="external-link uri">http://parnaseo2.uv.es/AulaMedieval/AulaMedieval.php?valor=monografias&amp;lengua=es</a></td>
+<td align="left">2022-08-04 14:46:30</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="right">499037</td>
-<td align="left">
-<br><span class="math display"><em>i</em><em>n</em></span><br>Transition</td>
-<td align="left">
-<br><span class="math display"><em>i</em><em>n</em></span><br>Transition</td>
+<td align="left">[in]Transition</td>
+<td align="left">[in]Transition</td>
 <td align="left">NA</td>
 <td align="left">2469-4312</td>
 <td align="left">NA</td>
+<td align="right">0</td>
 <td align="left">Humaniora</td>
 <td align="left">Medier og kommunikasjon</td>
 <td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">1</td>
+<td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -854,31 +920,29 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">1031783</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
 <td align="left">MediaCommons</td>
 <td align="left">USA</td>
 <td align="left">Engelsk</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">2014</td>
 <td align="right">NA</td>
-<td align="left"><a href="http://mediacommons.org/intransition/" class="uri">http://mediacommons.org/intransition/</a></td>
+<td align="left"><a href="http://mediacommons.org/intransition/" class="external-link uri">http://mediacommons.org/intransition/</a></td>
+<td align="left">2022-08-10 12:46:11</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="right">475372</td>
-<td align="left">
-<br><span class="math display"><em>t</em><em>i</em><em>l</em><em>t</em></span><br>
-</td>
-<td align="left">
-<br><span class="math display"><em>t</em><em>i</em><em>l</em><em>t</em></span><br>
-</td>
+<td align="left">[tilt]</td>
+<td align="left">[tilt]</td>
 <td align="left">1502-2471</td>
 <td align="left">1892-3100</td>
 <td align="left">NA</td>
+<td align="right">0</td>
 <td align="left">Samfunnsvitenskap</td>
 <td align="left">Pedagogikk og utdanning</td>
 <td align="right">NA</td>
@@ -895,176 +959,26 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">1018144</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
 <td align="left">Landslaget for Medieundervisning</td>
 <td align="left">Norge</td>
 <td align="left">Norsk (bokmål)</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1986</td>
 <td align="right">NA</td>
-<td align="left"><a href="http://www.lmu.no/default.asp?uid=65&amp;CID=65" class="uri">http://www.lmu.no/default.asp?uid=65&amp;CID=65</a></td>
+<td align="left"><a href="http://www.lmu.no/default.asp?uid=65&amp;CID=65" class="external-link uri">http://www.lmu.no/default.asp?uid=65&amp;CID=65</a></td>
+<td align="left">2022-08-04 14:46:30</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="right">487206</td>
-<td align="left">Anuarul Institutului de Cercetări Socio-Umane „C.S. Nicolăescu-Plopșor”</td>
-<td align="left">“C.S. Nicolăescu-Plopşor” Institute for Research in Social Studies and Humanities Yearbook (CSNIPSSH Yearbook)</td>
-<td align="left">1841-0898</td>
-<td align="left">2501-0468</td>
-<td align="left">DOAJ</td>
-<td align="left">Humaniora</td>
-<td align="left">Historie</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">1026615</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">Editura Academiei Române</td>
-<td align="left">Romania</td>
-<td align="left">Engelsk</td>
-<td align="right">0</td>
-<td align="right">1999</td>
-<td align="right">NA</td>
-<td align="left"><a href="https://npissh.ro/" class="uri">https://npissh.ro/</a></td>
-<td align="left">journals</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">glimpze</span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="4%">
-<col width="6%">
-<col width="25%">
-<col width="5%">
-<col width="6%">
-<col width="7%">
-<col width="22%">
-<col width="4%">
-<col width="3%">
-<col width="7%">
-<col width="4%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">set</th>
-<th align="right">group_nr</th>
-<th align="left">group_name</th>
-<th align="right">bfi_nr</th>
-<th align="left">issn</th>
-<th align="left">channel</th>
-<th align="left">title</th>
-<th align="right">level</th>
-<th align="left">isbn</th>
-<th align="left">issn_isbn</th>
-<th align="right">group</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">serier</td>
-<td align="right">1</td>
-<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
-<td align="right">7659</td>
-<td align="left">0003-0678</td>
-<td align="left">Tidsskrift</td>
-<td align="left">American Quarterly</td>
-<td align="right">2</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">serier</td>
-<td align="right">1</td>
-<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
-<td align="right">82971</td>
-<td align="left">1433-5239</td>
-<td align="left">Tidsskrift</td>
-<td align="left">American Studies Journal</td>
-<td align="right">2</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">serier</td>
-<td align="right">1</td>
-<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
-<td align="right">4878</td>
-<td align="left">1478-8810</td>
-<td align="left">Tidsskrift</td>
-<td align="left">Atlantic Studies</td>
-<td align="right">2</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">serier</td>
-<td align="right">1</td>
-<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
-<td align="right">4703</td>
-<td align="left">0067-2378</td>
-<td align="left">Tidsskrift</td>
-<td align="left">Austrian History Yearbook</td>
-<td align="right">2</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">serier</td>
-<td align="right">1</td>
-<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
-<td align="right">12997</td>
-<td align="left">0261-3050</td>
-<td align="left">Tidsskrift</td>
-<td align="left">Bulletin of Latin American Research</td>
-<td align="right">2</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">serier</td>
-<td align="right">1</td>
-<td align="left">Områdestudier: Europa, Amerika, Oceanien</td>
-<td align="right">14142</td>
-<td align="left">1537-7873</td>
-<td align="left">Tidsskrift</td>
-<td align="left">Cultural Analysis</td>
-<td align="right">2</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
 </tr>
 </tbody>
 </table>
@@ -1074,45 +988,56 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/KTH-Library/swecris/">https://​github.com/​KTH-Library/​swecris/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/KTH-Library/swecris/issues">https://​github.com/​KTH-Library/​swecris/​issues</a>
-</li>
+<li><a href="https://github.com/KTH-Library/swecris/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/KTH-Library/swecris/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing swecris</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Markus Skyttner <br><small class="roles"> Maintainer, author </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/KTH-Library/swecris/actions"><img src="https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://github.com/KTH-Library/swecris/actions" class="external-link"><img src="https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Markus Skyttner.</p>
+  <p></p>
+<p>Developed by Markus Skyttner.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -1120,6 +1045,8 @@
 
   
 
+
+  
 
   </body>
 </html>

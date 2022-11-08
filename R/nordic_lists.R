@@ -121,7 +121,7 @@ swecris_list_swedish <- function() {
 #' @export
 swecris_list_finnish <- function() {
   fin <- readr::read_delim(
-    file = "http://www.tsv.fi/julkaisufoorumi/kokonaisluettelo.php",
+    file = "https://www.tsv.fi/julkaisufoorumi/kokonaisluettelo.php",
     delim = ";", col_select = -21,
     show_col_types = FALSE, trim_ws = TRUE,
     local = locale(encoding = "latin1")

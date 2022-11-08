@@ -7,9 +7,6 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![R build
-status](https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg)](https://github.com/KTH-Library/swecris/actions)
-[![R-CMD-check](https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg)](https://github.com/KTH-Library/swecris/actions)
 [![R-CMD-check](https://github.com/KTH-Library/swecris/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/KTH-Library/swecris/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 

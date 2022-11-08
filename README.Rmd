@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build status](https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg)](https://github.com/KTH-Library/swecris/actions)
+[![R-CMD-check](https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg)](https://github.com/KTH-Library/swecris/actions)
 <!-- badges: end -->
 
 The goal of the `swecris` R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the open API at SweCRIS to make data available for use from R.

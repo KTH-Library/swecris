@@ -9,6 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build
 status](https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg)](https://github.com/KTH-Library/swecris/actions)
+[![R-CMD-check](https://github.com/KTH-Library/swecris/workflows/R-CMD-check/badge.svg)](https://github.com/KTH-Library/swecris/actions)
 <!-- badges: end -->
 
 The goal of the `swecris` R package is to provide access to data from
@@ -120,6 +121,7 @@ knitr::kable(projects)
 |:-------------------|:-----------------------------------------------------------------------------------------------------------------------|:--------------------|:--------------------|:--------------------------|------------:|:------------|
 | 2021-00157_VR      | Petra III Swedish Node                                                                                                 | 2023-01-01 00:00:00 | 2026-12-31 00:00:00 | Swedish Research Council  |    25636000 | 2023        |
 | 2022-01624_Vinnova | Nanoscale organization and dynamics of ER-mitochondria contact sites upon induction of synaptic plasticity             | 2023-02-01 00:00:00 | 2025-01-31 00:00:00 | Vinnova                   |     2068800 | 2023        |
+| 2022-02413_Vinnova | Eureka SMART Dynamic SALSA                                                                                             | 2023-04-01 00:00:00 | 2026-03-31 00:00:00 | Vinnova                   |     4100000 | 2023        |
 | 2021-00527_Formas  | A bio-based composite material for enhancing the sustainability in road infrastructures                                | 2022-01-01 00:00:00 | 2025-12-31 00:00:00 | Formas                    |     4000000 | 2022        |
 | 2021-00678_Formas  | Catalytic Conversion of Waste to Value                                                                                 | 2022-01-01 00:00:00 | 2025-12-31 00:00:00 | Formas                    |     4000000 | 2022        |
 | 2021-00728_Formas  | Turning shortcomings of lignin to advantages for green anti-corrosion and anti-wear coatings                           | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     3000000 | 2022        |
@@ -127,7 +129,6 @@ knitr::kable(projects)
 | 2021-01532_Formas  | DATASETS: exploring DynAmic environmental TAxation for a Sustainable, Efficient urban Transport System                 | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     2933001 | 2022        |
 | 2021-01561_Formas  | Environmental Impact of underwater noise from leisure boats - quantifying impact and estimating efficiency of measures | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     2997791 | 2022        |
 | 2021-01595_VR      | Utopia 2.0: “Nature-Thinking” in the Nordic New Towns of the Past, Present, and Future                                 | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Swedish Research Council  |     4491000 | 2022        |
-| 2021-01666_Formas  | Mechanisms controlling the self-assembly of keratin macromolecules and nanofibrils during fibre spinning               | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     3000000 | 2022        |
 
 Swedish list (the first few records):
 
@@ -185,13 +186,13 @@ glimpze(f)
 ```
 
 | id_jufo | level | title                             | type            | issn_isbn      | issn      | abbr | country            | DOAJ | sherpa_romeo | active   | level_2012 | level_2013 | level_2014 | level_2015 | level_2016 | level_2017 | level_2018 | level_2019 | level_2020 |
-|--------:|------:|:----------------------------------|:----------------|:---------------|:----------|:-----|:-------------------|-----:|:-------------|:---------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|
-|   65510 |     1 | PROCEEDINGS OF THE PMR CONFERENCE | Lehti/sarja     | 0272-8710      | NA        | NA   | UNITED STATES      |   NA | NA           | Inactive |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |
-|    8856 |     0 | ADVANCED BUILDING SKINS           | Kirjakustantaja | 978-3-9812053; | NA        | NA   | GERMANY            |   NA | NA           | Active   |         NA |         NA |         NA |         NA |         NA |          0 |          0 |          0 |          0 |
-|   88598 |     0 | AESTHETICA UNIVERSALIS            | Lehti/sarja     | 2686-6943      | NA        | NA   | RUSSIAN FEDERATION |   NA | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
-|   89424 |     0 | ANNALS OF DISASTER RISK SCIENCES  | Lehti/sarja     | 2584-4873      | 2623-8934 | NA   | CROATIA            |   NA | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
-|   89386 |     1 | COMPOSITES PART C : OPEN ACCESS   | Lehti/sarja     | NA             | 2666-6820 | NA   | NETHERLANDS        |   NA | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
-|   87002 |     1 | ESTUDOS LINGUISTICOS              | Lehti/sarja     | 1413-0939      | NA        | NA   | BRAZIL             |    1 | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |          1 |          1 |
+|:--------|:------|:----------------------------------|:----------------|:---------------|:----------|:-----|:-------------------|:-----|:-------------|:---------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|
+| 65510   | 1     | PROCEEDINGS OF THE PMR CONFERENCE | Lehti/sarja     | 0272-8710      | NA        | NA   | UNITED STATES      | NA   | NA           | Inactive |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |
+| 8856    | 0     | ADVANCED BUILDING SKINS           | Kirjakustantaja | 978-3-9812053; | NA        | NA   | GERMANY            | NA   | NA           | Active   |         NA |         NA |         NA |         NA |         NA |          0 |          0 |          0 |          0 |
+| 88598   | 0     | AESTHETICA UNIVERSALIS            | Lehti/sarja     | 2686-6943      | NA        | NA   | RUSSIAN FEDERATION | NA   | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
+| 89424   | 0     | ANNALS OF DISASTER RISK SCIENCES  | Lehti/sarja     | 2584-4873      | 2623-8934 | NA   | CROATIA            | NA   | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
+| 89386   | 1     | COMPOSITES PART C : OPEN ACCESS   | Lehti/sarja     | NA             | 2666-6820 | NA   | NETHERLANDS        | 1    | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
+| 87002   | 1     | ESTUDOS LINGUISTICOS              | Lehti/sarja     | 1413-0939      | NA        | NA   | BRAZIL             | 1    | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |          1 |          1 |
 
 ``` r
 glimpze(n)

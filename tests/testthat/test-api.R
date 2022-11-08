@@ -58,6 +58,7 @@ test_that("Danish list function is defunct (no longer provided)", {
 })
 
 test_that("Finnish list can be retrieved", {
+  skip_on_ci()
   fl <- swecris_list_finnish()
   is_valid <- nrow(fl) > 1e4
   expect_true(is_valid)

@@ -1,5 +1,7 @@
 # swecris 0.1.3
 
+* Added functions for searching, getting data for specific project and related persons and SCB codes
+* Refactored functions that used the older "betasearch" API to use new API routes
 * Updated Finnish list to work better when used on Windows OS
 * Added function for getting projects data given an ORCiD
 

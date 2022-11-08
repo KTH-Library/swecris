@@ -39,7 +39,8 @@ test_that("retrieving persons for KTH projects works", {
   kthid <-
     so %>%
     filter(grepl("^KTH, ", organisationNameSv)) %>%
-    dplyr::pull(organisationId)
+    dplyr::pull(organisationId) %>%
+    purrr::pluck(1)
 
   kthp <- swecris_persons(kthid)
   is_valid <- nrow(kthp) > 500
@@ -73,6 +74,12 @@ test_that("Norwegian list can be retrieved", {
 test_that("Fundings for KTH project works", {
   kthf <- swecris_funding()
   is_valid <- nrow(kthf) > 2600
+  expect_true(is_valid)
+})
+
+test_that("Projects data can be retrieved from an ORCiD", {
+  o <- "0000-0003-1102-4342" |> swecris_projects_from_orcid()
+  is_valid <- nrow(o$projects) > 10 & nrow(o$peopleList) > 100 & nrow(o$scbs) > 10
   expect_true(is_valid)
 })
 

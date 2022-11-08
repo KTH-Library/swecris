@@ -1,3 +1,8 @@
+# swecris 0.1.3
+
+* Updated Finnish list to work better when used on Windows OS
+* Added function for getting projects data given an ORCiD
+
 # swecris 0.1.2
 
 * Removed Danish list (no longer updated at source)

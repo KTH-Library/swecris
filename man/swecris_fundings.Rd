@@ -10,7 +10,7 @@ swecris_fundings()
 a tibble
 }
 \description{
-Fundings in SweCRIS, more than 190k records of fundings for projects
+Fundings in SweCRIS, more than 211k records of fundings for projects
 }
 \details{
 see \href{https://swecris-api.vr.se/index.html}{details about available data}

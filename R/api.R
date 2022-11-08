@@ -122,7 +122,7 @@ swecris_organisations <- function() {
 
 #' Fundings
 #'
-#' Fundings in SweCRIS, more than 190k records of fundings for projects
+#' Fundings in SweCRIS, more than 211k records of fundings for projects
 #'
 #' @return a tibble
 #' @details see [details about available data](https://swecris-api.vr.se/index.html)
@@ -130,6 +130,7 @@ swecris_organisations <- function() {
 #' @export
 swecris_fundings <- function() {
 
+  message("Please be patient, this request may take a couple of minutes to process...")
   data <-
     swecris_get("https://swecris-api.vr.se/v1/fundings") %>%
     replace_nulls()
@@ -203,9 +204,86 @@ swecris_persons <- function(orgid) {
     swecris_get(route) %>%
     replace_nulls()
 
-
   tidyr::tibble(data)  %>%
     tidyr::unnest_wider(data)
 
 }
 
+#' Projects data from ORCiD
+#'
+#' Given an ORCiD, this function retrieves information about related projects,
+#'   about subject classification codes (a.k.a scbs) and about
+#'   involved people (peopleList)
+#' @param orcid A character string with a valid ORCiD
+#' @return a list with three slots (projects, peopleList, scbs)
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  o <- "0000-0003-1102-4342" |> swecris_projects_from_orcid()
+#'  o$projects
+#'  o |> purrr::pluck("peopleList")
+#'  o$scbs
+#'  }
+#' }
+#' @export
+#' @importFrom purrr map_df pluck
+#' @importFrom tidyr unnest_wider
+#' @importFrom dplyr tibble bind_cols distinct
+swecris_projects_from_orcid <- function(orcid) {
+
+  route <-
+    sprintf(
+      paste0("https://swecris-api.vr.se",
+      "/v%s/projects/persons/orcId/%s")
+      , 1, URLencode(orcid)
+    )
+
+  res <- swecris_get(route)
+
+  fields <- c(
+    "projectId",
+    "projectTitleSv",
+    "projectTitleEn",
+    "projectAbstractSv",
+    "projectAbstractEn",
+    "projectStartDate",
+    "projectEndDate",
+    "coordinatingOrganisationId",
+    "coordinatingOrganisationNameSv",
+    "coordinatingOrganisationNameEn",
+    "coordinatingOrganisationTypeOfOrganisationSv",
+    "coordinatingOrganisationTypeOfOrganisationEn",
+    "fundingOrganisationId",
+    "fundingOrganisationNameSv",
+    "fundingOrganisationNameEn",
+    "fundingOrganisationTypeOfOrganisationSv",
+    "fundingOrganisationTypeOfOrganisationEn",
+    "fundingsSek",
+    "fundingYear",
+    "fundingStartDate",
+    "fundingEndDate",
+    "typeOfAwardId",
+    "typeOfAwardDescrSv",
+    "typeOfAwardDescrEn")
+
+  projects <-
+    res %>%
+    purrr::map_df(.f = function(x) x[fields] %>% as_tibble())
+
+  accessor <- function(x, sibling_node, id_node = "projectId")
+    tibble(sibling_node = pluck(x, sibling_node)) %>%
+    unnest_wider(col = sibling_node) %>%
+    bind_cols(id = pluck(x, id_node)) %>%
+    select(id, everything()) %>%
+    distinct()
+
+  scbs <-
+    res %>% map_df(function(x) accessor(x, "scbs"))
+
+  peopleList <-
+    res %>%
+    purrr::map_df(function(x) accessor(x, "peopleList"))
+
+  list(projects = projects, peopleList = peopleList, scbs = scbs)
+
+}

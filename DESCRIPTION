@@ -15,7 +15,8 @@ Description: SweCRIS is a national database that allows you to
     Swedish Research Council on behalf of the Government. This R package
     uses the open API at SweCRIS to make data available for use from R.
 License: MIT + file LICENSE
-URL: https://github.com/KTH-Library/swecris
+URL: https://github.com/KTH-Library/swecris,
+    https://kth-library.github.io/swecris/
 BugReports: https://github.com/KTH-Library/swecris/issues
 Encoding: UTF-8
 LazyData: true

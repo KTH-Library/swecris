@@ -120,6 +120,16 @@ swecris_list_swedish <- function() {
 #' @importFrom readr read_delim locale
 #' @export
 swecris_list_finnish <- function() {
+
+  if (.Platform$OS.type != "unix") {
+    # temporarily set Windows curl requests to use "openssl" SSL backend
+    # to work around issue with curl requests to older web servers
+    # see https://github.com/KWB-R/kwb.pkgbuild/commit/983c2b02a630e7bd1c0cdf4b13a9880d2fe898ea#diff-1a8ed3fe2070a27e0bc9a1adc04acd1776eb71ea8397bc4cfdaa3faee0a1278e
+    backend <- Sys.getenv("CURL_SSL_BACKEND")
+    Sys.setenv(CURL_SSL_BACKEND = "openssl")
+    on.exit(Sys.setenv(CURL_SSL_BACKEND = backend))
+  }
+
   fin <- readr::read_delim(
     file = "https://www.tsv.fi/julkaisufoorumi/kokonaisluettelo.php",
     delim = ";", col_select = -21,

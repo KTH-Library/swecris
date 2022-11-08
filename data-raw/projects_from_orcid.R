@@ -11,14 +11,50 @@ lookup <- ug$kthid_with_unit
 caze <- bibliotools::case()
 
 # any external identifiers we can use?
-caze$`Project ID`
+caze$`Project Number`
+
 caze %>% filter(!is.na(`Project Number`)) %>% select(`Project Number`)
 
-# 1. can we use ProjectID in swecris to match? CASE har Project Number.
-# 2. can we use Name to match? "Projekttitel". Kompletterat med andra fält såsom beg, end?
-# 3. could we match by ORCiD to catch the "residual"?
+# 1. Can we use ProjectID in Swecris to match? CASE has `Project Number`.
 
-# Q1. går det att "komplettera" med Grant Amount från Swecris? I vilken utsträckning?
+swecris::swecris_kth$ProjectId %>%
+  gsub(pattern = ".*?_(.*?)$", replacement = "\\1") %>%
+  unique() %>%
+  paste(collapse = "|")
+
+# We could strip off the last section of the identifier, one of these
+#[1] "VR"      "Vinnova" "Formas"  "Forte"   "RJ"      "Energi"  "SNSB"
+
+swec <-
+  swecris::swecris_kth$ProjectId %>%
+  gsub(pattern = "(.*?)_(VR|Vinnova|Formas|Forte|RJ|Energi|SNSB)$", replacement = "\\1")
+
+caz <-
+  caze$`Project Number` %>%
+  grep(pattern = "(\\d{4,}[-|/]\\d{1,})", value = TRUE)
+
+# we can get some exact matches
+intersect(swec, caz)
+
+# some partial
+Reduce('+', lapply(caz, grepl, x = swec)) |> sum()
+Reduce('+', lapply(swec, grepl, x = caz)) |> sum()
+
+# 2. can we use Project Title/Name to match?
+
+caz <-
+  caze$Name |>
+  tolower() |> substr(1, 20) |> unique() |> janitor::make_clean_names()
+
+# swedish or english titles?
+swec <-
+  swecris::swecris_kth$ProjectTitleSv |>
+  tolower() |> substr(1, 20) |> unique() |> janitor::make_clean_names()
+
+Reduce('+', lapply(caz, grepl, x = swec)) |> sum()
+Reduce('+', lapply(swec, grepl, x = caz)) |> sum()
+
+# 3. could we match by ORCiD to catch the "residual"?
 
 # could we use ORCiD? It is used in SweCRIS
 caze2 <-
@@ -34,61 +70,11 @@ caze2
 swecris::swecris_kth %>% View()
 
 # can we match by ORCiD?
-# we need a function to lookup projects from SweCRIS from ORCiD
-swecris_projects_from_orcid <- function(orcid) {
-
-  route <-
-    sprintf(
-      paste0("https://swecris-api.vr.se",
-      "/v%s/projects/persons/orcId/%s")
-      , 1, URLencode(orcid)
-    )
-
-  res <- swecris:::swecris_get(route)
-
-  fields <- c(
-    "projectId",
-    "projectTitleSv",
-    "projectTitleEn",
-    "projectAbstractSv",
-    "projectAbstractEn",
-    "projectStartDate",
-    "projectEndDate",
-    "coordinatingOrganisationId",
-    "coordinatingOrganisationNameSv",
-    "coordinatingOrganisationNameEn",
-    "coordinatingOrganisationTypeOfOrganisationSv",
-    "coordinatingOrganisationTypeOfOrganisationEn",
-    "fundingOrganisationId",
-    "fundingOrganisationNameSv",
-    "fundingOrganisationNameEn",
-    "fundingOrganisationTypeOfOrganisationSv",
-    "fundingOrganisationTypeOfOrganisationEn",
-    "fundingsSek",
-    "fundingYear",
-    "fundingStartDate",
-    "fundingEndDate",
-    "typeOfAwardId",
-    "typeOfAwardDescrSv",
-    "typeOfAwardDescrEn")
-
-  projects <-
-    res %>%
-    purrr::map_df(.f = function(x) x[fields] %>% as_tibble())
-
-  peopleList <-
-    res %>%
-    purrr::map_df(.f = purrr::pluck(c("peopleList")))
-
-  scbs <-
-    res %>%
-    purrr::map_df(.f = purrr::pluck(c("peopleList")))
-
-  list(projects = projects, peopleList = peopleList, scbs = scbs)
-
-}
 
 # if we pick one ORCiD from a CASE-project, what does SweCRIS provide?
 caze2$ugOrcid[1] %>%
   swecris_projects_from_orcid()
+
+# Q1. Once matched, can we add/compare Grant Amount from Swecris? Begin/End dates?
+
 

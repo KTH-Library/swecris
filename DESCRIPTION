@@ -28,7 +28,6 @@ Imports:
     jsonlite,
     dplyr,
     purrr,
-    tidyjson,
     httr,
     readr,
     tidyr,

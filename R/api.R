@@ -28,9 +28,10 @@ swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskola
     readr::read_delim(delim = ";", quote = '"')
 }
 
+#' @importFrom httr add_headers GET stop_for_status content
 swecris_get <- function(route, token = swecris_token()) {
-  res <- httr::GET(route, add_headers(Authorization = paste("Bearer", token)))
-  stop_for_status(res)
+  res <- httr::GET(route, httr::add_headers(Authorization = paste("Bearer", token)))
+  httr::stop_for_status(res)
   httr::content(res)
 }
 
@@ -287,3 +288,139 @@ swecris_projects_from_orcid <- function(orcid) {
   list(projects = projects, peopleList = peopleList, scbs = scbs)
 
 }
+
+#' Search the SweCRIS  API for an organization
+#'
+#' Performs a search and exports results as an R object
+#'
+#' @param orgs string to search for, Default: "KTH, Kungliga Tekniska Högskolan"
+#' @return an R object with the search result in the form of a data frame
+#' @details see [details about available data](https://swecris-api.vr.se/index.html)
+#' @importFrom httr stop_for_status GET content
+#' @importFrom utils URLencode
+#' @importFrom readr read_delim
+#' @export
+swecris_search <- function(orgs = "KTH, Kungliga tekniska h\u00f6gskolan") {
+
+  w1 <- sprintf(paste0(
+    "https://swecris-api.vr.se/v1/scp/export",
+    "?sortOrder=desc&sortColumn=FundingStartDate&searchText=%s&token=%s"),
+    URLencode(orgs), swecris_token())
+
+  res <- httr::GET(w1)
+
+  httr::stop_for_status(res)
+
+  httr::content(httr::GET(w1), as = "raw") |>
+    readr::read_delim(delim = ";", show_col_types = FALSE)
+}
+
+
+#' Retrieve details about a project
+#'
+#' Given the project identifier, retrieve details about a project.
+#'
+#' @param project_id string identifier for the project
+#' @param format one of "object" or "tbl"
+#' @return R object or tbl with results
+#' @importFrom jsonlite fromJSON
+#' @importFrom utils URLencode
+#' @export
+swecris_project <- function(project_id, format = c("tbl", "object")) {
+
+  route <- sprintf(
+    "https://swecris-api.vr.se/v1/projects/%s",
+    URLencode(project_id)
+  )
+
+  res <- swecris_get(route)
+
+  if (match.arg(format) == "object") return (res)
+
+  fields <- c(
+    "projectId",
+    "projectTitleSv",
+    "projectTitleEn",
+    "projectAbstractSv",
+    "projectAbstractEn",
+    "projectStartDate",
+    "projectEndDate",
+    "coordinatingOrganisationId",
+    "coordinatingOrganisationNameSv",
+    "coordinatingOrganisationNameEn",
+    "coordinatingOrganisationTypeOfOrganisationSv",
+    "coordinatingOrganisationTypeOfOrganisationEn",
+    "fundingOrganisationId",
+    "fundingOrganisationNameSv",
+    "fundingOrganisationNameEn",
+    "fundingOrganisationTypeOfOrganisationSv",
+    "fundingOrganisationTypeOfOrganisationEn",
+    "fundingsSek",
+    "fundingYear",
+    "fundingStartDate",
+    "fundingEndDate",
+    "typeOfAwardId",
+    "typeOfAwardDescrSv",
+    "typeOfAwardDescrEn")
+
+  res[fields] %>% as_tibble()
+
+}
+
+#' Retrieve project people data
+#'
+#' Given the project identifier, retrieve details about a people involved with
+#' a project.
+#'
+#' @param project_id string identifier for project
+#' @return R data frame with results
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  "2021-00157_VR" |> swecris_project_people()
+#'  }
+#' }
+#' @importFrom dplyr as_tibble bind_cols everything
+#' @importFrom purrr pluck
+#' @export
+swecris_project_people <- function(project_id) {
+
+  project <- swecris_project(project_id, format = "object")
+
+  project %>%
+    pluck("peopleList") %>%
+    purrr::map_df(as.data.frame) %>%
+    dplyr::as_tibble() %>%
+    bind_cols(project_id = project_id) %>%
+    select(project_id, everything())
+
+}
+
+#' Retrieve project SCB codes data
+#'
+#' Given the project identifier, retrieve details about subject matter codes.
+#'
+#' @param project_id string identifier for project
+#' @return R data frame with results
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  "2021-00157_VR" |> swecris_project_scbs()
+#'  }
+#' }
+#' @importFrom dplyr as_tibble bind_cols everything
+#' @importFrom purrr pluck
+#' @export
+swecris_project_scbs <- function(project_id) {
+
+  project <- swecris_project(project_id, format = "object")
+
+  project %>%
+    pluck("scbs") %>%
+    purrr::map_df(as.data.frame) %>%
+    dplyr::as_tibble() %>%
+    bind_cols(project_id = project_id) %>%
+    select(project_id, everything())
+
+}
+

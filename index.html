@@ -78,7 +78,8 @@
 <div class="page-header"><h1 id="swecris">swecris<a class="anchor" aria-label="anchor" href="#swecris"></a>
 </h1></div>
 <!-- badges: start -->
-<p>The goal of the <code>swecris</code> R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the open API at SweCRIS to make data available for use from R.</p>
+<p>The goal of the <code>swecris</code> R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients.</p>
+<p>SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the <a href="https://swecris-api.vr.se/index.html" class="external-link">API at SweCRIS</a> to make data available for use from R.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -101,7 +102,7 @@
 <span><span class="co"># or use the bundled data</span></span>
 <span><span class="va">kthf</span> <span class="op">&lt;-</span> <span class="va">swecris_kth</span></span>
 <span></span>
-<span><span class="co"># top ten largest fundings containing abstracts with the word "data"</span></span>
+<span><span class="co"># top three largest fundings containing abstracts with the word "data"</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fundings</span> <span class="op">&lt;-</span> </span>
@@ -109,20 +110,20 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">FundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">ProjectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># display an example record</span></span>
 <span><span class="va">fundings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 1</span></span>
 <span><span class="co">#&gt; Columns: 27</span></span>
-<span><span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2020-05052_VR"</span></span>
-<span><span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "Terrorism i svensk polit…</span></span>
-<span><span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "Terrorism in Swedish pol…</span></span>
+<span><span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2017-00630_VR"</span></span>
+<span><span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "Nationell Infrastruktur …</span></span>
+<span><span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "National Genomics Infras…</span></span>
 <span><span class="co">#&gt; $ ProjectAbstractSv                            &lt;chr&gt; NA</span></span>
-<span><span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "SweTerror makes a signif…</span></span>
-<span><span class="co">#&gt; $ ProjectStartDate                             &lt;dttm&gt; 2021-01-01</span></span>
-<span><span class="co">#&gt; $ ProjectEndDate                               &lt;dttm&gt; 2024-12-31</span></span>
+<span><span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "The National Genomics In…</span></span>
+<span><span class="co">#&gt; $ ProjectStartDate                             &lt;dttm&gt; 2018-01-01</span></span>
+<span><span class="co">#&gt; $ ProjectEndDate                               &lt;dttm&gt; 2020-12-31</span></span>
 <span><span class="co">#&gt; $ CoordinatingOrganisationId                   &lt;chr&gt; "202100-3054"</span></span>
 <span><span class="co">#&gt; $ CoordinatingOrganisationNameSv               &lt;chr&gt; "KTH, Kungliga tekniska h…</span></span>
 <span><span class="co">#&gt; $ CoordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of …</span></span>
@@ -133,27 +134,28 @@
 <span><span class="co">#&gt; $ FundingOrganisationNameEn                    &lt;chr&gt; "Swedish Research Council"</span></span>
 <span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationSv      &lt;chr&gt; "Stat, regioner, kommune…</span></span>
 <span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationEn      &lt;chr&gt; "Governmental"</span></span>
-<span><span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 2.2e+07</span></span>
-<span><span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2021</span></span>
-<span><span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2021-01-01</span></span>
-<span><span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2024-12-31</span></span>
-<span><span class="co">#&gt; $ TypeOfAwardId                                &lt;dbl&gt; 1</span></span>
-<span><span class="co">#&gt; $ TypeOfAwardDescrSv                           &lt;chr&gt; "Projektbidrag"</span></span>
-<span><span class="co">#&gt; $ TypeOfAwardDescrEn                           &lt;chr&gt; "Project grant"</span></span>
-<span><span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤17617¤Magnus Ängsal¤…</span></span>
+<span><span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 49450000</span></span>
+<span><span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2018</span></span>
+<span><span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2018-01-01</span></span>
+<span><span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2020-12-31</span></span>
+<span><span class="co">#&gt; $ TypeOfAwardId                                &lt;dbl&gt; 5</span></span>
+<span><span class="co">#&gt; $ TypeOfAwardDescrSv                           &lt;chr&gt; "Forskningsinfrastruktur"</span></span>
+<span><span class="co">#&gt; $ TypeOfAwardDescrEn                           &lt;chr&gt; "Research infrastructure"</span></span>
+<span><span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤32027¤Joakim Lundebe…</span></span>
 <span><span class="co">#&gt; $ Scbs                                         &lt;chr&gt; "¤¤¤ 1: Naturvetenskap, N…</span></span>
-<span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 2.2e+07</span></span></code></pre></div>
+<span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 49450000</span></span></code></pre></div>
 <p>Given an organisation, get information about projects:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">orgid</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="reference/swecris_organisations.html">swecris_organisations</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^KTH, "</span>, <span class="va">organisationNameSv</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">organisationId</span><span class="op">)</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">organisationId</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kthp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_projects.html">swecris_projects</a></span><span class="op">(</span><span class="va">orgid</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># ten upcoming projects</span></span>
+<span><span class="co"># three upcoming projects</span></span>
 <span><span class="va">projects</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">kthp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -166,16 +168,16 @@
 <span>    <span class="va">fundingsSek</span>, </span>
 <span>    <span class="va">fundingYear</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">projects</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="8%">
-<col width="51%">
-<col width="8%">
-<col width="8%">
-<col width="11%">
+<col width="48%">
+<col width="9%">
+<col width="9%">
+<col width="12%">
 <col width="5%">
 <col width="5%">
 </colgroup>
@@ -216,73 +218,63 @@
 <td align="right">4100000</td>
 <td align="left">2023</td>
 </tr>
-<tr class="even">
-<td align="left">2021-00527_Formas</td>
-<td align="left">A bio-based composite material for enhancing the sustainability in road infrastructures</td>
-<td align="left">2022-01-01 00:00:00</td>
-<td align="left">2025-12-31 00:00:00</td>
-<td align="left">Formas</td>
-<td align="right">4000000</td>
-<td align="left">2022</td>
-</tr>
-<tr class="odd">
-<td align="left">2021-00678_Formas</td>
-<td align="left">Catalytic Conversion of Waste to Value</td>
-<td align="left">2022-01-01 00:00:00</td>
-<td align="left">2025-12-31 00:00:00</td>
-<td align="left">Formas</td>
-<td align="right">4000000</td>
-<td align="left">2022</td>
-</tr>
-<tr class="even">
-<td align="left">2021-00728_Formas</td>
-<td align="left">Turning shortcomings of lignin to advantages for green anti-corrosion and anti-wear coatings</td>
-<td align="left">2022-01-01 00:00:00</td>
-<td align="left">2024-12-31 00:00:00</td>
-<td align="left">Formas</td>
-<td align="right">3000000</td>
-<td align="left">2022</td>
-</tr>
-<tr class="odd">
-<td align="left">2021-00730_Formas</td>
-<td align="left">Recyclable cellulose thermosets with sunlight triggered self-destruction in open natural environments</td>
-<td align="left">2022-01-01 00:00:00</td>
-<td align="left">2024-12-31 00:00:00</td>
-<td align="left">Formas</td>
-<td align="right">3000000</td>
-<td align="left">2022</td>
-</tr>
-<tr class="even">
-<td align="left">2021-01532_Formas</td>
-<td align="left">DATASETS: exploring DynAmic environmental TAxation for a Sustainable, Efficient urban Transport System</td>
-<td align="left">2022-01-01 00:00:00</td>
-<td align="left">2024-12-31 00:00:00</td>
-<td align="left">Formas</td>
-<td align="right">2933001</td>
-<td align="left">2022</td>
-</tr>
-<tr class="odd">
-<td align="left">2021-01561_Formas</td>
-<td align="left">Environmental Impact of underwater noise from leisure boats - quantifying impact and estimating efficiency of measures</td>
-<td align="left">2022-01-01 00:00:00</td>
-<td align="left">2024-12-31 00:00:00</td>
-<td align="left">Formas</td>
-<td align="right">2997791</td>
-<td align="left">2022</td>
-</tr>
-<tr class="even">
-<td align="left">2021-01595_VR</td>
-<td align="left">Utopia 2.0: “Nature-Thinking” in the Nordic New Towns of the Past, Present, and Future</td>
-<td align="left">2022-01-01 00:00:00</td>
-<td align="left">2024-12-31 00:00:00</td>
-<td align="left">Swedish Research Council</td>
-<td align="right">4491000</td>
-<td align="left">2022</td>
-</tr>
 </tbody>
 </table>
-<p>Swedish list (the first few records):</p>
+<p>Given a project, get more information:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># some details for a specific project</span></span>
+<span><span class="fu"><a href="reference/swecris_project.html">swecris_project</a></span><span class="op">(</span><span class="st">"2021-00157_VR"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projectAbstractEn"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                              [,1]                                    </span></span>
+<span><span class="co">#&gt; projectId                                    "2021-00157_VR"                         </span></span>
+<span><span class="co">#&gt; projectTitleSv                               "Petra III svensk nod"                  </span></span>
+<span><span class="co">#&gt; projectTitleEn                               "Petra III Swedish Node"                </span></span>
+<span><span class="co">#&gt; projectAbstractSv                            ""                                      </span></span>
+<span><span class="co">#&gt; projectStartDate                             "2023-01-01 00:00:00"                   </span></span>
+<span><span class="co">#&gt; projectEndDate                               "2026-12-31 00:00:00"                   </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationId                   "202100-3054"                           </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationNameSv               "KTH, Kungliga tekniska högskolan"      </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationNameEn               "KTH, Royal Institute of Technology"    </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationTypeOfOrganisationSv "Universitet"                           </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationTypeOfOrganisationEn "University"                            </span></span>
+<span><span class="co">#&gt; fundingOrganisationId                        "202100-5208"                           </span></span>
+<span><span class="co">#&gt; fundingOrganisationNameSv                    "Vetenskapsrådet"                       </span></span>
+<span><span class="co">#&gt; fundingOrganisationNameEn                    "Swedish Research Council"              </span></span>
+<span><span class="co">#&gt; fundingOrganisationTypeOfOrganisationSv      "Stat, regioner, kommuner, församlingar"</span></span>
+<span><span class="co">#&gt; fundingOrganisationTypeOfOrganisationEn      "Governmental"                          </span></span>
+<span><span class="co">#&gt; fundingsSek                                  "25636000"                              </span></span>
+<span><span class="co">#&gt; fundingYear                                  "2023"                                  </span></span>
+<span><span class="co">#&gt; fundingStartDate                             "2023-01-01"                            </span></span>
+<span><span class="co">#&gt; fundingEndDate                               "2026-12-31"                            </span></span>
+<span><span class="co">#&gt; typeOfAwardId                                "5"                                     </span></span>
+<span><span class="co">#&gt; typeOfAwardDescrSv                           "Forskningsinfrastruktur"               </span></span>
+<span><span class="co">#&gt; typeOfAwardDescrEn                           "Research infrastructure"</span></span>
+<span></span>
+<span><span class="co"># some people involved in this project</span></span>
+<span><span class="fu"><a href="reference/swecris_project_people.html">swecris_project_people</a></span><span class="op">(</span><span class="st">"2021-00157_VR"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 7</span></span>
+<span><span class="co">#&gt;   project_id    personId fullName       orcId               roleEn roleSv gender</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;               &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 2021-00157_VR 11820    Peter Hedström ""                  Princ… Proje… Male  </span></span>
+<span><span class="co">#&gt; 2 2021-00157_VR 21322    Peter Hedström "0000-0003-1102-43… Princ… Proje… Male  </span></span>
+<span><span class="co">#&gt; 3 2021-00157_VR 13505    Peter Hedström ""                  Princ… Proje… Female</span></span>
+<span><span class="co">#&gt; 4 2021-00157_VR 12329    Peter Hedström ""                  Princ… Proje… Male</span></span>
+<span></span>
+<span><span class="co"># SCB classification codes for this project</span></span>
+<span><span class="fu"><a href="reference/swecris_project_scbs.html">swecris_project_scbs</a></span><span class="op">(</span><span class="st">"2021-00157_VR"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 10</span></span>
+<span><span class="co">#&gt;   project…¹ scb5Id scb5N…² scb5N…³ scb3Id scb3N…⁴ scb3N…⁵ scb1Id scb1N…⁶ scb1N…⁷</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 2021-001… 10399  Annan … Other … 103    Fysik   Physic… 1      Naturv… Natura…</span></span>
+<span><span class="co">#&gt; 2 2021-001… 20599  Annan … Other … 205    Materi… Materi… 2      Teknik  Engine…</span></span>
+<span><span class="co">#&gt; # … with abbreviated variable names ¹​project_id, ²​scb5NameSv, ³​scb5NameEn,</span></span>
+<span><span class="co">#&gt; #   ⁴​scb3NameSv, ⁵​scb3NameEn, ⁶​scb1NameSv, ⁷​scb1NameEn</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="swedish-danish-finnish-and-norwegian-lists">Swedish, Danish, Finnish and Norwegian lists<a class="anchor" aria-label="anchor" href="#swedish-danish-finnish-and-norwegian-lists"></a>
+</h2>
+<p>Swedish list (the first few records):</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sl</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="reference/swecris_list_swedish.html">swecris_list_swedish</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 36614 Columns: 12</span></span>
@@ -428,7 +420,7 @@
 </tbody>
 </table>
 <p>Some other Nordic list referenced at SweCRIS are also provided:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_list_finnish.html">swecris_list_finnish</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="va">swecris_list_norwegian</span></span>
 <span></span>
@@ -617,7 +609,7 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">glimpze</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <table style="width:100%;" class="table">
 <colgroup>

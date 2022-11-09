@@ -89,14 +89,17 @@
 <span><span class="fu">install_github</span><span class="op">(</span><span class="st">"swecris"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>This is a basic example which shows you how to get data about projects at KTH Royal Institute of Technology:</p>
+<div class="section level3">
+<h3 id="projects-for-an-organization">Projects for an organization<a class="anchor" aria-label="anchor" href="#projects-for-an-organization"></a>
+</h3>
+<p><strong>Goal</strong>: Using bundled data for KTH. This is a basic example which shows you how to get bundled data about projects at KTH Royal Institute of Technology:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/KTH-Library/swecris" class="external-link">swecris</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># either fetch the data from the API</span></span>
+<span><span class="co"># either fetch data live from the API</span></span>
 <span><span class="co">#kth_projects &lt;- swecris_funding()</span></span>
 <span></span>
 <span><span class="co"># or use the bundled data</span></span>
@@ -144,7 +147,7 @@
 <span><span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤32027¤Joakim Lundebe…</span></span>
 <span><span class="co">#&gt; $ Scbs                                         &lt;chr&gt; "¤¤¤ 1: Naturvetenskap, N…</span></span>
 <span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 49450000</span></span></code></pre></div>
-<p>Given an organisation, get information about projects:</p>
+<p><strong>Goal</strong>: Given an organisation, get its id and then get information about three associated projects whose funding start date soon will be here:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">orgid</span> <span class="op">&lt;-</span> </span>
@@ -157,7 +160,10 @@
 <span></span>
 <span><span class="co"># three upcoming projects</span></span>
 <span><span class="va">projects</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">kthp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="va">kthp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>fsd <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fsd</span> <span class="op">&gt;</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">now</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">fsd</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">projectId</span>, </span>
@@ -220,11 +226,15 @@
 </tr>
 </tbody>
 </table>
-<p>Given a project, get more information:</p>
+</div>
+<div class="section level3">
+<h3 id="project-details">Project details<a class="anchor" aria-label="anchor" href="#project-details"></a>
+</h3>
+<p><strong>Goal</strong>: Given a projects id, get more information about the project and associated people and SCB classification codes:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># some details for a specific project</span></span>
-<span><span class="fu"><a href="reference/swecris_project.html">swecris_project</a></span><span class="op">(</span><span class="st">"2021-00157_VR"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projectAbstractEn"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/swecris_project.html">swecris_project</a></span><span class="op">(</span><span class="st">"2021-00157_VR"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projectAbstractEn"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                              [,1]                                    </span></span>
 <span><span class="co">#&gt; projectId                                    "2021-00157_VR"                         </span></span>
 <span><span class="co">#&gt; projectTitleSv                               "Petra III svensk nod"                  </span></span>
@@ -270,9 +280,11 @@
 <span><span class="co">#&gt; # … with abbreviated variable names ¹​project_id, ²​scb5NameSv, ³​scb5NameEn,</span></span>
 <span><span class="co">#&gt; #   ⁴​scb3NameSv, ⁵​scb3NameEn, ⁶​scb1NameSv, ⁷​scb1NameEn</span></span></code></pre></div>
 </div>
+</div>
 <div class="section level2">
 <h2 id="swedish-danish-finnish-and-norwegian-lists">Swedish, Danish, Finnish and Norwegian lists<a class="anchor" aria-label="anchor" href="#swedish-danish-finnish-and-norwegian-lists"></a>
 </h2>
+<p><strong>Goal</strong>: Not part of the SweCRIS API, but mentioned on SweCRIS website. Get data for some Nordic “lists”.</p>
 <p>Swedish list (the first few records):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sl</span> <span class="op">&lt;-</span> </span>

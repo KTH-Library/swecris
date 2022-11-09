@@ -20,7 +20,9 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/KTH-Library/swecris/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/KTH-Library/swecris/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of the `swecris` R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the open API at SweCRIS to make data available for use from R.
+The goal of the `swecris` R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. 
+
+SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the [API at SweCRIS](https://swecris-api.vr.se/index.html) to make data available for use from R.
 
 ## Installation
 
@@ -45,7 +47,7 @@ suppressPackageStartupMessages(library(dplyr))
 # or use the bundled data
 kthf <- swecris_kth
 
-# top ten largest fundings containing abstracts with the word "data"
+# top three largest fundings containing abstracts with the word "data"
 library(dplyr)
 
 fundings <- 
@@ -53,7 +55,7 @@ fundings <-
   mutate(total_funding = as.numeric(FundingsSek)) %>%
   arrange(desc(total_funding)) %>%
   filter(grepl("data", ProjectAbstractEn)) %>%
-  slice(10)
+  slice(3)
 
 # display an example record
 fundings %>%
@@ -68,11 +70,12 @@ Given an organisation, get information about projects:
 orgid <- 
   swecris_organisations() %>%
   filter(grepl("^KTH, ", organisationNameSv)) %>%
-  dplyr::pull(organisationId)
+  dplyr::pull(organisationId) %>%
+  purrr::pluck(1)
 
 kthp <- swecris_projects(orgid)
 
-# ten upcoming projects
+# three upcoming projects
 projects <- 
   kthp %>% arrange(desc(lubridate::ymd(fundingStartDate))) %>% 
   select(-starts_with("projectAbstract")) %>%
@@ -85,10 +88,27 @@ projects <-
     fundingsSek, 
     fundingYear
   ) %>%
-  head(10)
+  head(3)
 
 knitr::kable(projects)
 ```
+
+Given a project, get more information:
+
+```{r}
+
+# some details for a specific project
+swecris_project("2021-00157_VR") |> select(-c("projectAbstractEn")) |> t()
+
+# some people involved in this project
+swecris_project_people("2021-00157_VR")
+
+# SCB classification codes for this project
+swecris_project_scbs("2021-00157_VR")
+
+```
+
+## Swedish, Danish, Finnish and Norwegian lists
 
 Swedish list (the first few records):
 

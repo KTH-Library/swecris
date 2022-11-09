@@ -13,9 +13,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 The goal of the `swecris` R package is to provide access to data from
 SweCRIS, a national database that allows you to see how participating
 research funding bodies has distributed their money to Swedish
-recipients. SweCRIS is managed by the Swedish Research Council on behalf
-of the Government. This R package uses the open API at SweCRIS to make
-data available for use from R.
+recipients.
+
+SweCRIS is managed by the Swedish Research Council on behalf of the
+Government. This R package uses the [API at
+SweCRIS](https://swecris-api.vr.se/index.html) to make data available
+for use from R.
 
 ## Installation
 
@@ -42,7 +45,7 @@ suppressPackageStartupMessages(library(dplyr))
 # or use the bundled data
 kthf <- swecris_kth
 
-# top ten largest fundings containing abstracts with the word "data"
+# top three largest fundings containing abstracts with the word "data"
 library(dplyr)
 
 fundings <- 
@@ -50,20 +53,20 @@ fundings <-
   mutate(total_funding = as.numeric(FundingsSek)) %>%
   arrange(desc(total_funding)) %>%
   filter(grepl("data", ProjectAbstractEn)) %>%
-  slice(10)
+  slice(3)
 
 # display an example record
 fundings %>%
   glimpse()
 #> Rows: 1
 #> Columns: 27
-#> $ ProjectId                                    <chr> "2020-05052_VR"
-#> $ ProjectTitleSv                               <chr> "Terrorism i svensk polit…
-#> $ ProjectTitleEn                               <chr> "Terrorism in Swedish pol…
+#> $ ProjectId                                    <chr> "2017-00630_VR"
+#> $ ProjectTitleSv                               <chr> "Nationell Infrastruktur …
+#> $ ProjectTitleEn                               <chr> "National Genomics Infras…
 #> $ ProjectAbstractSv                            <chr> NA
-#> $ ProjectAbstractEn                            <chr> "SweTerror makes a signif…
-#> $ ProjectStartDate                             <dttm> 2021-01-01
-#> $ ProjectEndDate                               <dttm> 2024-12-31
+#> $ ProjectAbstractEn                            <chr> "The National Genomics In…
+#> $ ProjectStartDate                             <dttm> 2018-01-01
+#> $ ProjectEndDate                               <dttm> 2020-12-31
 #> $ CoordinatingOrganisationId                   <chr> "202100-3054"
 #> $ CoordinatingOrganisationNameSv               <chr> "KTH, Kungliga tekniska h…
 #> $ CoordinatingOrganisationNameEn               <chr> "KTH, Royal Institute of …
@@ -74,16 +77,16 @@ fundings %>%
 #> $ FundingOrganisationNameEn                    <chr> "Swedish Research Council"
 #> $ FundingOrganisationTypeOfOrganisationSv      <chr> "Stat, regioner, kommune…
 #> $ FundingOrganisationTypeOfOrganisationEn      <chr> "Governmental"
-#> $ FundingsSek                                  <dbl> 2.2e+07
-#> $ FundingYear                                  <dbl> 2021
-#> $ FundingStartDate                             <date> 2021-01-01
-#> $ FundingEndDate                               <date> 2024-12-31
-#> $ TypeOfAwardId                                <dbl> 1
-#> $ TypeOfAwardDescrSv                           <chr> "Projektbidrag"
-#> $ TypeOfAwardDescrEn                           <chr> "Project grant"
-#> $ InvolvedPeople                               <chr> "¤¤¤17617¤Magnus Ängsal¤…
+#> $ FundingsSek                                  <dbl> 49450000
+#> $ FundingYear                                  <dbl> 2018
+#> $ FundingStartDate                             <date> 2018-01-01
+#> $ FundingEndDate                               <date> 2020-12-31
+#> $ TypeOfAwardId                                <dbl> 5
+#> $ TypeOfAwardDescrSv                           <chr> "Forskningsinfrastruktur"
+#> $ TypeOfAwardDescrEn                           <chr> "Research infrastructure"
+#> $ InvolvedPeople                               <chr> "¤¤¤32027¤Joakim Lundebe…
 #> $ Scbs                                         <chr> "¤¤¤ 1: Naturvetenskap, N…
-#> $ total_funding                                <dbl> 2.2e+07
+#> $ total_funding                                <dbl> 49450000
 ```
 
 Given an organisation, get information about projects:
@@ -93,11 +96,12 @@ Given an organisation, get information about projects:
 orgid <- 
   swecris_organisations() %>%
   filter(grepl("^KTH, ", organisationNameSv)) %>%
-  dplyr::pull(organisationId)
+  dplyr::pull(organisationId) %>%
+  purrr::pluck(1)
 
 kthp <- swecris_projects(orgid)
 
-# ten upcoming projects
+# three upcoming projects
 projects <- 
   kthp %>% arrange(desc(lubridate::ymd(fundingStartDate))) %>% 
   select(-starts_with("projectAbstract")) %>%
@@ -110,23 +114,70 @@ projects <-
     fundingsSek, 
     fundingYear
   ) %>%
-  head(10)
+  head(3)
 
 knitr::kable(projects)
 ```
 
-| projectId          | projectTitleEn                                                                                                         | projectStartDate    | projectEndDate      | fundingOrganisationNameEn | fundingsSek | fundingYear |
-|:-------------------|:-----------------------------------------------------------------------------------------------------------------------|:--------------------|:--------------------|:--------------------------|------------:|:------------|
-| 2021-00157_VR      | Petra III Swedish Node                                                                                                 | 2023-01-01 00:00:00 | 2026-12-31 00:00:00 | Swedish Research Council  |    25636000 | 2023        |
-| 2022-01624_Vinnova | Nanoscale organization and dynamics of ER-mitochondria contact sites upon induction of synaptic plasticity             | 2023-02-01 00:00:00 | 2025-01-31 00:00:00 | Vinnova                   |     2068800 | 2023        |
-| 2022-02413_Vinnova | Eureka SMART Dynamic SALSA                                                                                             | 2023-04-01 00:00:00 | 2026-03-31 00:00:00 | Vinnova                   |     4100000 | 2023        |
-| 2021-00527_Formas  | A bio-based composite material for enhancing the sustainability in road infrastructures                                | 2022-01-01 00:00:00 | 2025-12-31 00:00:00 | Formas                    |     4000000 | 2022        |
-| 2021-00678_Formas  | Catalytic Conversion of Waste to Value                                                                                 | 2022-01-01 00:00:00 | 2025-12-31 00:00:00 | Formas                    |     4000000 | 2022        |
-| 2021-00728_Formas  | Turning shortcomings of lignin to advantages for green anti-corrosion and anti-wear coatings                           | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     3000000 | 2022        |
-| 2021-00730_Formas  | Recyclable cellulose thermosets with sunlight triggered self-destruction in open natural environments                  | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     3000000 | 2022        |
-| 2021-01532_Formas  | DATASETS: exploring DynAmic environmental TAxation for a Sustainable, Efficient urban Transport System                 | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     2933001 | 2022        |
-| 2021-01561_Formas  | Environmental Impact of underwater noise from leisure boats - quantifying impact and estimating efficiency of measures | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Formas                    |     2997791 | 2022        |
-| 2021-01595_VR      | Utopia 2.0: “Nature-Thinking” in the Nordic New Towns of the Past, Present, and Future                                 | 2022-01-01 00:00:00 | 2024-12-31 00:00:00 | Swedish Research Council  |     4491000 | 2022        |
+| projectId          | projectTitleEn                                                                                             | projectStartDate    | projectEndDate      | fundingOrganisationNameEn | fundingsSek | fundingYear |
+|:-------------------|:-----------------------------------------------------------------------------------------------------------|:--------------------|:--------------------|:--------------------------|------------:|:------------|
+| 2021-00157_VR      | Petra III Swedish Node                                                                                     | 2023-01-01 00:00:00 | 2026-12-31 00:00:00 | Swedish Research Council  |    25636000 | 2023        |
+| 2022-01624_Vinnova | Nanoscale organization and dynamics of ER-mitochondria contact sites upon induction of synaptic plasticity | 2023-02-01 00:00:00 | 2025-01-31 00:00:00 | Vinnova                   |     2068800 | 2023        |
+| 2022-02413_Vinnova | Eureka SMART Dynamic SALSA                                                                                 | 2023-04-01 00:00:00 | 2026-03-31 00:00:00 | Vinnova                   |     4100000 | 2023        |
+
+Given a project, get more information:
+
+``` r
+
+# some details for a specific project
+swecris_project("2021-00157_VR") |> select(-c("projectAbstractEn")) |> t()
+#>                                              [,1]                                    
+#> projectId                                    "2021-00157_VR"                         
+#> projectTitleSv                               "Petra III svensk nod"                  
+#> projectTitleEn                               "Petra III Swedish Node"                
+#> projectAbstractSv                            ""                                      
+#> projectStartDate                             "2023-01-01 00:00:00"                   
+#> projectEndDate                               "2026-12-31 00:00:00"                   
+#> coordinatingOrganisationId                   "202100-3054"                           
+#> coordinatingOrganisationNameSv               "KTH, Kungliga tekniska högskolan"      
+#> coordinatingOrganisationNameEn               "KTH, Royal Institute of Technology"    
+#> coordinatingOrganisationTypeOfOrganisationSv "Universitet"                           
+#> coordinatingOrganisationTypeOfOrganisationEn "University"                            
+#> fundingOrganisationId                        "202100-5208"                           
+#> fundingOrganisationNameSv                    "Vetenskapsrådet"                       
+#> fundingOrganisationNameEn                    "Swedish Research Council"              
+#> fundingOrganisationTypeOfOrganisationSv      "Stat, regioner, kommuner, församlingar"
+#> fundingOrganisationTypeOfOrganisationEn      "Governmental"                          
+#> fundingsSek                                  "25636000"                              
+#> fundingYear                                  "2023"                                  
+#> fundingStartDate                             "2023-01-01"                            
+#> fundingEndDate                               "2026-12-31"                            
+#> typeOfAwardId                                "5"                                     
+#> typeOfAwardDescrSv                           "Forskningsinfrastruktur"               
+#> typeOfAwardDescrEn                           "Research infrastructure"
+
+# some people involved in this project
+swecris_project_people("2021-00157_VR")
+#> # A tibble: 4 × 7
+#>   project_id    personId fullName       orcId               roleEn roleSv gender
+#>   <chr>         <chr>    <chr>          <chr>               <chr>  <chr>  <chr> 
+#> 1 2021-00157_VR 11820    Peter Hedström ""                  Princ… Proje… Male  
+#> 2 2021-00157_VR 21322    Peter Hedström "0000-0003-1102-43… Princ… Proje… Male  
+#> 3 2021-00157_VR 13505    Peter Hedström ""                  Princ… Proje… Female
+#> 4 2021-00157_VR 12329    Peter Hedström ""                  Princ… Proje… Male
+
+# SCB classification codes for this project
+swecris_project_scbs("2021-00157_VR")
+#> # A tibble: 2 × 10
+#>   project…¹ scb5Id scb5N…² scb5N…³ scb3Id scb3N…⁴ scb3N…⁵ scb1Id scb1N…⁶ scb1N…⁷
+#>   <chr>     <chr>  <chr>   <chr>   <chr>  <chr>   <chr>   <chr>  <chr>   <chr>  
+#> 1 2021-001… 10399  Annan … Other … 103    Fysik   Physic… 1      Naturv… Natura…
+#> 2 2021-001… 20599  Annan … Other … 205    Materi… Materi… 2      Teknik  Engine…
+#> # … with abbreviated variable names ¹​project_id, ²​scb5NameSv, ³​scb5NameEn,
+#> #   ⁴​scb3NameSv, ⁵​scb3NameEn, ⁶​scb1NameSv, ⁷​scb1NameEn
+```
+
+## Swedish, Danish, Finnish and Norwegian lists
 
 Swedish list (the first few records):
 

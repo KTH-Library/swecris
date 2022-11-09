@@ -25,7 +25,7 @@ swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskola
     token = token)
   ) %>%
     httr::content(as = "text") %>%
-    readr::read_delim(delim = ";", quote = '"')
+    readr::read_delim(delim = ";", quote = '"', show_col_types = FALSE)
 }
 
 #' @importFrom httr add_headers GET stop_for_status content

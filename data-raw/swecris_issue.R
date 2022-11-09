@@ -5,8 +5,8 @@ swecris_persons(orgid)
 
 # oops - compacted firstName, lastName, fullName string values
 GET("https://swecris-api.vr.se/v1/persons/organisations/202100-3054",
-    add_headers(Authorization = paste("Bearer", swecris_token()))) |>
-  content(as = "raw") |> rawToChar() |> jsonlite::prettify()
+    add_headers(Authorization = paste("Bearer", swecris_token()))) %>%
+  content(as = "raw") %>% rawToChar() %>% jsonlite::prettify()
 
 # {
 #     "personId": 37091,

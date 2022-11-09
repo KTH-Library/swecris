@@ -30,16 +30,19 @@ library(devtools)
 install_github("swecris", dependencies = TRUE)
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to get data about projects
-at KTH Royal Institute of Technology:
+### Projects for an organization
+
+**Goal**: Using bundled data for KTH. This is a basic example which
+shows you how to get bundled data about projects at KTH Royal Institute
+of Technology:
 
 ``` r
 library(swecris)
 suppressPackageStartupMessages(library(dplyr))
 
-# either fetch the data from the API
+# either fetch data live from the API
 #kth_projects <- swecris_funding()
 
 # or use the bundled data
@@ -89,7 +92,9 @@ fundings %>%
 #> $ total_funding                                <dbl> 49450000
 ```
 
-Given an organisation, get information about projects:
+**Goal**: Given an organisation, get its id and then get information
+about three associated projects whose funding start date soon will be
+here:
 
 ``` r
 
@@ -103,7 +108,10 @@ kthp <- swecris_projects(orgid)
 
 # three upcoming projects
 projects <- 
-  kthp %>% arrange(desc(lubridate::ymd(fundingStartDate))) %>% 
+  kthp %>% 
+  mutate(fsd = lubridate::ymd(fundingStartDate)) %>%
+  filter(fsd > lubridate::now()) %>%
+  arrange(desc(fsd)) %>% 
   select(-starts_with("projectAbstract")) %>%
   select(
     projectId, 
@@ -125,12 +133,15 @@ knitr::kable(projects)
 | 2022-01624_Vinnova | Nanoscale organization and dynamics of ER-mitochondria contact sites upon induction of synaptic plasticity | 2023-02-01 00:00:00 | 2025-01-31 00:00:00 | Vinnova                   |     2068800 | 2023        |
 | 2022-02413_Vinnova | Eureka SMART Dynamic SALSA                                                                                 | 2023-04-01 00:00:00 | 2026-03-31 00:00:00 | Vinnova                   |     4100000 | 2023        |
 
-Given a project, get more information:
+### Project details
+
+**Goal**: Given a projects id, get more information about the project
+and associated people and SCB classification codes:
 
 ``` r
 
 # some details for a specific project
-swecris_project("2021-00157_VR") |> select(-c("projectAbstractEn")) |> t()
+swecris_project("2021-00157_VR") %>% select(-c("projectAbstractEn")) %>% t()
 #>                                              [,1]                                    
 #> projectId                                    "2021-00157_VR"                         
 #> projectTitleSv                               "Petra III svensk nod"                  
@@ -178,6 +189,9 @@ swecris_project_scbs("2021-00157_VR")
 ```
 
 ## Swedish, Danish, Finnish and Norwegian lists
+
+**Goal**: Not part of the SweCRIS API, but mentioned on SweCRIS website.
+Get data for some Nordic “lists”.
 
 Swedish list (the first few records):
 

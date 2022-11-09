@@ -78,25 +78,25 @@ test_that("Fundings for KTH project works", {
 })
 
 test_that("Projects data can be retrieved from an ORCiD", {
-  o <- "0000-0003-1102-4342" |> swecris_projects_from_orcid()
+  o <- "0000-0003-1102-4342" %>% swecris_projects_from_orcid()
   is_valid <- nrow(o$projects) > 10 & nrow(o$peopleList) > 100 & nrow(o$scbs) > 10
   expect_true(is_valid)
 })
 
 test_that("A single project can be retrieved from a project identifier", {
-  res <- "2021-00157_VR" |> swecris_project()
+  res <- "2021-00157_VR" %>% swecris_project()
   is_valid <- ncol(res) == 24
   expect_true(is_valid)
 })
 
 test_that("A single project's associated people can be retrieved from a project identifier", {
-  res <- "2021-00157_VR" |> swecris_project_people()
+  res <- "2021-00157_VR" %>% swecris_project_people()
   is_valid <- ncol(res) > 4 & nrow(res) > 2
   expect_true(is_valid)
 })
 
 test_that("A single project's associated SCB codes can be retrieved from a project identifier", {
-  res <- "2021-00157_VR" |> swecris_project_scbs()
+  res <- "2021-00157_VR" %>% swecris_project_scbs()
   is_valid <- ncol(res) > 2 & nrow(res) > 1
   expect_true(is_valid)
 })

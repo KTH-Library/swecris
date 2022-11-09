@@ -37,22 +37,22 @@ caz <-
 intersect(swec, caz)
 
 # some partial
-Reduce('+', lapply(caz, grepl, x = swec)) |> sum()
-Reduce('+', lapply(swec, grepl, x = caz)) |> sum()
+Reduce('+', lapply(caz, grepl, x = swec)) %>% sum()
+Reduce('+', lapply(swec, grepl, x = caz)) %>% sum()
 
 # 2. can we use Project Title/Name to match?
 
 caz <-
-  caze$Name |>
-  tolower() |> substr(1, 20) |> unique() |> janitor::make_clean_names()
+  caze$Name %>%
+  tolower() %>% substr(1, 20) %>% unique() %>% janitor::make_clean_names()
 
 # swedish or english titles?
 swec <-
-  swecris::swecris_kth$ProjectTitleSv |>
-  tolower() |> substr(1, 20) |> unique() |> janitor::make_clean_names()
+  swecris::swecris_kth$ProjectTitleSv %>%
+  tolower() %>% substr(1, 20) %>% unique() %>% janitor::make_clean_names()
 
-Reduce('+', lapply(caz, grepl, x = swec)) |> sum()
-Reduce('+', lapply(swec, grepl, x = caz)) |> sum()
+Reduce('+', lapply(caz, grepl, x = swec)) %>% sum()
+Reduce('+', lapply(swec, grepl, x = caz)) %>% sum()
 
 # 3. could we match by ORCiD to catch the "residual"?
 

@@ -11,11 +11,9 @@ parse_involved_people(x)
 \item{x}{the InvolvedPeople string}
 }
 \description{
-InvolvedPeople is a field where strings are provided like
+InvolvedPeople is a field where strings are provided like \code{¤¤¤Peter Hedstroem¤0000-0003-1102-4342¤Principal Investigator¤Projektledare¤Male}
 }
 \details{
-¤¤¤Peter Hedstroem¤0000-0003-1102-4342¤Principal Investigator¤Projektledare¤Male
-
 These strings encode a dataset equivalent to what a call using \code{swecris_project_people("2021-00157_VR")}
 would provide.
 

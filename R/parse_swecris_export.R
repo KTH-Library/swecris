@@ -1,8 +1,6 @@
 #' Parse "InvolvedPeople" field from a SweCRIS export
 #'
-#' InvolvedPeople is a field where strings are provided like
-#'
-#' ¤¤¤Peter Hedstroem¤0000-0003-1102-4342¤Principal Investigator¤Projektledare¤Male
+#' InvolvedPeople is a field where strings are provided like \code{¤¤¤Peter Hedstroem¤0000-0003-1102-4342¤Principal Investigator¤Projektledare¤Male}
 #'
 #' These strings encode a dataset equivalent to what a call using \code{swecris_project_people("2021-00157_VR")}
 #' would provide.
@@ -46,9 +44,7 @@ parse_involved_people <- function(x) {
 
 #' Parse "Scbs" field from a SweCRIS export
 #'
-#' Scbs is a field where strings are provided like
-#'
-#' ¤¤¤ 1: Naturvetenskap, Natural Sciences, 103: Fysik, Physical Sciences, 10399: Annan fysik, Other Physics Topics ¤¤¤ 2: Teknik, Engineering and Technology, 205: Materialteknik, Materials Engineering, 20599: Annan materialteknik, Other Materials Engineering
+#' Scbs is a field where strings are provided like \code{¤¤¤ 1: Naturvetenskap, Natural Sciences, 103: Fysik, Physical Sciences, 10399: Annan fysik, Other Physics Topics ¤¤¤ 2: Teknik, Engineering and Technology, 205: Materialteknik, Materials Engineering, 20599: Annan materialteknik, Other Materials Engineering}
 #'
 #' These strings encode a dataset roughly equivalent to what a call using \code{swecris_project_scbs("2021-00157_VR")}
 #' would provide

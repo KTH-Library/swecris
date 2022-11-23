@@ -11,11 +11,9 @@ parse_scb_codes(x)
 \item{x}{the Scbs string}
 }
 \description{
-Scbs is a field where strings are provided like
+Scbs is a field where strings are provided like \code{¤¤¤ 1: Naturvetenskap, Natural Sciences, 103: Fysik, Physical Sciences, 10399: Annan fysik, Other Physics Topics ¤¤¤ 2: Teknik, Engineering and Technology, 205: Materialteknik, Materials Engineering, 20599: Annan materialteknik, Other Materials Engineering}
 }
 \details{
-¤¤¤ 1: Naturvetenskap, Natural Sciences, 103: Fysik, Physical Sciences, 10399: Annan fysik, Other Physics Topics ¤¤¤ 2: Teknik, Engineering and Technology, 205: Materialteknik, Materials Engineering, 20599: Annan materialteknik, Other Materials Engineering
-
 These strings encode a dataset roughly equivalent to what a call using \code{swecris_project_scbs("2021-00157_VR")}
 would provide
 

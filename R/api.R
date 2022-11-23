@@ -24,9 +24,13 @@ swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskola
     searchText = URLencode(searchstring),
     token = token)
   ) %>%
-    httr::content(as = "text") %>%
+    httr::content(as = "text", encoding = "UTF-8") %>%
     readr::read_delim(delim = ";", quote = '"', show_col_types = FALSE)
 }
+
+# curl https://swecris-api.vr.se/v1/projects/2015-04490_VR \
+#    -H "Accept: application/json" \
+#    -H "Authorization: Bearer u5pau934k45SJ8a497a6325j"
 
 #' @importFrom httr add_headers GET stop_for_status content
 swecris_get <- function(route, token = swecris_token()) {
@@ -121,6 +125,22 @@ swecris_organisations <- function() {
 
 }
 
+swecris_organisations_for_project <- function(project_id) {
+
+  route <- sprintf(
+    "https://swecris-api.vr.se/v1/organisations/projects/%s",
+    project_id
+  )
+
+  data <-
+    swecris_get(route) %>%
+    replace_nulls()
+
+  dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
+  dplyr::as_tibble(bind_rows(dfs))
+
+}
+
 #' Fundings
 #'
 #' Fundings in SweCRIS, more than 211k records of fundings for projects
@@ -207,6 +227,21 @@ swecris_persons <- function(orgid) {
 
   tidyr::tibble(data)  %>%
     tidyr::unnest_wider(data)
+
+}
+
+swecris_person <- function(personid) {
+
+  route <- sprintf(
+    "https://swecris-api.vr.se/v1/persons/%s",
+    personid
+  )
+
+  data <-
+    swecris_get(route) %>%
+    replace_nulls()
+
+  data %>% as.data.frame() %>% tidyr::as_tibble()
 
 }
 

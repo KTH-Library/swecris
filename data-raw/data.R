@@ -2,6 +2,14 @@ library(readr)
 
 ## code to prepare `swecris_kth` dataset goes here
 
+## update nov 2022
+#‘kth’ vs. ‘swecris_kth’
+#2022-11-23 09:28:46
+#	Modified	Reordered	Deleted	Added
+#Rows	3137 → 3068	2972	1527	69	0
+#Columns	26	6	0	0	0
+
+
 swecris_kth <- swecris_funding()
 usethis::use_data(swecris_kth, overwrite = TRUE)
 

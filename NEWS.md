@@ -1,3 +1,8 @@
+# swecris 0.1.4
+
+* Added functions for parsing SweCRIS export fields for InvolvedPeople and Scbs
+* Added updated swecris_kth data which corrects some earlier outdated fields
+
 # swecris 0.1.3
 
 * Added functions for searching, getting data for specific project and related persons and SCB codes

@@ -28,10 +28,6 @@ swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskola
     readr::read_delim(delim = ";", quote = '"', show_col_types = FALSE)
 }
 
-# curl https://swecris-api.vr.se/v1/projects/2015-04490_VR \
-#    -H "Accept: application/json" \
-#    -H "Authorization: Bearer u5pau934k45SJ8a497a6325j"
-
 #' @importFrom httr add_headers GET stop_for_status content
 swecris_get <- function(route, token = swecris_token()) {
   res <- httr::GET(route, httr::add_headers(Authorization = paste("Bearer", token)))

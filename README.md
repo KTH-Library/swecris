@@ -87,7 +87,7 @@ fundings %>%
 #> $ TypeOfAwardId                                <dbl> 5
 #> $ TypeOfAwardDescrSv                           <chr> "Forskningsinfrastruktur"
 #> $ TypeOfAwardDescrEn                           <chr> "Research infrastructure"
-#> $ InvolvedPeople                               <chr> "¤¤¤32027¤Joakim Lundebe…
+#> $ InvolvedPeople                               <chr> "¤¤¤69418¤Joakim Lundebe…
 #> $ Scbs                                         <chr> "¤¤¤ 1: Naturvetenskap, N…
 #> $ total_funding                                <dbl> 49450000
 ```
@@ -127,11 +127,11 @@ projects <-
 knitr::kable(projects)
 ```
 
-| projectId          | projectTitleEn                                                                                             | projectStartDate    | projectEndDate      | fundingOrganisationNameEn | fundingsSek | fundingYear |
-|:-------------------|:-----------------------------------------------------------------------------------------------------------|:--------------------|:--------------------|:--------------------------|------------:|:------------|
-| 2021-00157_VR      | Petra III Swedish Node                                                                                     | 2023-01-01 00:00:00 | 2026-12-31 00:00:00 | Swedish Research Council  |    25636000 | 2023        |
-| 2022-01624_Vinnova | Nanoscale organization and dynamics of ER-mitochondria contact sites upon induction of synaptic plasticity | 2023-02-01 00:00:00 | 2025-01-31 00:00:00 | Vinnova                   |     2068800 | 2023        |
-| 2022-02413_Vinnova | Eureka SMART Dynamic SALSA                                                                                 | 2023-04-01 00:00:00 | 2026-03-31 00:00:00 | Vinnova                   |     4100000 | 2023        |
+| projectId     | projectTitleEn                                                                                                                   | projectStartDate    | projectEndDate      | fundingOrganisationNameEn | fundingsSek | fundingYear |
+|:--------------|:---------------------------------------------------------------------------------------------------------------------------------|:--------------------|:--------------------|:--------------------------|------------:|:------------|
+| 2021-00157_VR | Petra III Swedish Node                                                                                                           | 2023-01-01 00:00:00 | 2026-12-31 00:00:00 | Swedish Research Council  |    25636000 | 2023        |
+| 2022-00901_VR | How estrogen receptors of the colon create a microenvironment that suppress carcinogenesis - for cancer prevention and treatment | 2023-01-01 00:00:00 | 2026-12-31 00:00:00 | Swedish Research Council  |     6000000 | 2023        |
+| 2022-01079_VR | Characterization and quantification of synaptic populations                                                                      | 2023-01-01 00:00:00 | 2025-12-31 00:00:00 | Swedish Research Council  |     2400000 | 2023        |
 
 ### Project details
 
@@ -141,7 +141,7 @@ and associated people and SCB classification codes:
 ``` r
 
 # some details for a specific project
-swecris_project("2021-00157_VR") %>% select(-c("projectAbstractEn")) %>% t()
+"2021-00157_VR" %>% swecris_project() %>% select(-c("projectAbstractEn")) %>% t()
 #>                                              [,1]                                    
 #> projectId                                    "2021-00157_VR"                         
 #> projectTitleSv                               "Petra III svensk nod"                  
@@ -168,17 +168,14 @@ swecris_project("2021-00157_VR") %>% select(-c("projectAbstractEn")) %>% t()
 #> typeOfAwardDescrEn                           "Research infrastructure"
 
 # some people involved in this project
-swecris_project_people("2021-00157_VR")
-#> # A tibble: 4 × 7
+"2021-00157_VR" %>% swecris_project_people()
+#> # A tibble: 1 × 7
 #>   project_id    personId fullName       orcId               roleEn roleSv gender
 #>   <chr>         <chr>    <chr>          <chr>               <chr>  <chr>  <chr> 
-#> 1 2021-00157_VR 11820    Peter Hedström ""                  Princ… Proje… Male  
-#> 2 2021-00157_VR 21322    Peter Hedström "0000-0003-1102-43… Princ… Proje… Male  
-#> 3 2021-00157_VR 13505    Peter Hedström ""                  Princ… Proje… Female
-#> 4 2021-00157_VR 12329    Peter Hedström ""                  Princ… Proje… Male
+#> 1 2021-00157_VR 52223    Peter Hedström 0000-0003-1102-4342 Princ… Proje… Male
 
 # SCB classification codes for this project
-swecris_project_scbs("2021-00157_VR")
+"2021-00157_VR" %>% swecris_project_scbs()
 #> # A tibble: 2 × 10
 #>   project…¹ scb5Id scb5N…² scb5N…³ scb3Id scb3N…⁴ scb3N…⁵ scb1Id scb1N…⁶ scb1N…⁷
 #>   <chr>     <chr>  <chr>   <chr>   <chr>  <chr>   <chr>   <chr>  <chr>   <chr>  
@@ -207,23 +204,23 @@ sl <-
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-glimpse(sl %>% head() %>% collect())
-#> Rows: 6
+glimpse(sl %>% head(3) %>% collect())
+#> Rows: 3
 #> Columns: 12
-#> $ ISSN   <chr> "8756-9728", "8756-7938", "8756-758X", "8756-6583", "8756-6575"…
+#> $ ISSN   <chr> "8756-9728", "8756-7938", "8756-758X"
 #> $ Titel  <chr> "Project Management Journal", "Biotechnology progress (Print)",…
-#> $ `2012` <dbl> 1, NA, 1, 1, 1, 1
-#> $ `2013` <dbl> NA, 1, 1, 1, NA, NA
-#> $ `2014` <dbl> 1, 1, 1, 1, NA, NA
-#> $ `2015` <dbl> 1, NA, 1, 1, NA, NA
-#> $ `2016` <dbl> 1, 1, 1, NA, NA, NA
-#> $ `2017` <dbl> 1, 1, NA, 1, 1, NA
-#> $ `2018` <dbl> 1, NA, 1, NA, NA, NA
-#> $ `2019` <dbl> 1, 1, NA, NA, 1, 1
-#> $ `2020` <dbl> 1, 1, 1, NA, NA, NA
-#> $ `2021` <dbl> 1, 1, 1, NA, NA, NA
+#> $ `2012` <dbl> 1, NA, 1
+#> $ `2013` <dbl> NA, 1, 1
+#> $ `2014` <dbl> 1, 1, 1
+#> $ `2015` <dbl> 1, NA, 1
+#> $ `2016` <dbl> 1, 1, 1
+#> $ `2017` <dbl> 1, 1, NA
+#> $ `2018` <dbl> 1, NA, 1
+#> $ `2019` <dbl> 1, 1, NA
+#> $ `2020` <dbl> 1, 1, 1
+#> $ `2021` <dbl> 1, 1, 1
 
-knitr::kable(sl %>% head() %>% collect())
+knitr::kable(sl %>% head(3) %>% collect())
 ```
 
 | ISSN      | Titel                                                            | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 |
@@ -231,9 +228,6 @@ knitr::kable(sl %>% head() %>% collect())
 | 8756-9728 | Project Management Journal                                       |    1 |   NA |    1 |    1 |    1 |    1 |    1 |    1 |    1 |    1 |
 | 8756-7938 | Biotechnology progress (Print)                                   |   NA |    1 |    1 |   NA |    1 |    1 |   NA |    1 |    1 |    1 |
 | 8756-758X | Fatigue & Fracture of Engineering Materials & Structures (FFEMS) |    1 |    1 |    1 |    1 |    1 |   NA |    1 |   NA |    1 |    1 |
-| 8756-6583 | Holocaust and Genocide Studies                                   |    1 |    1 |    1 |    1 |   NA |    1 |   NA |   NA |   NA |   NA |
-| 8756-6575 | PHILOSOPHY OF EDUCATION                                          |    1 |   NA |   NA |   NA |   NA |    1 |   NA |    1 |   NA |   NA |
-| 8756-6222 | Journal of Law, Economics & Organization                         |    1 |   NA |   NA |   NA |   NA |   NA |   NA |    1 |   NA |   NA |
 
 Some other Nordic list referenced at SweCRIS are also provided:
 
@@ -242,30 +236,24 @@ f <- swecris_list_finnish()
 n <- swecris_list_norwegian
 
 glimpze <- function(df) {
-  df %>% head() %>% knitr::kable()
+  df %>% slice(1:3) %>% knitr::kable()
 }
 
 glimpze(f)
 ```
 
-| id_jufo | level | title                             | type            | issn_isbn      | issn      | abbr | country            | DOAJ | sherpa_romeo | active   | level_2012 | level_2013 | level_2014 | level_2015 | level_2016 | level_2017 | level_2018 | level_2019 | level_2020 |
-|:--------|:------|:----------------------------------|:----------------|:---------------|:----------|:-----|:-------------------|:-----|:-------------|:---------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|
-| 65510   | 1     | PROCEEDINGS OF THE PMR CONFERENCE | Lehti/sarja     | 0272-8710      | NA        | NA   | UNITED STATES      | NA   | NA           | Inactive |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |
-| 8856    | 0     | ADVANCED BUILDING SKINS           | Kirjakustantaja | 978-3-9812053; | NA        | NA   | GERMANY            | NA   | NA           | Active   |         NA |         NA |         NA |         NA |         NA |          0 |          0 |          0 |          0 |
-| 88598   | 0     | AESTHETICA UNIVERSALIS            | Lehti/sarja     | 2686-6943      | NA        | NA   | RUSSIAN FEDERATION | NA   | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
-| 89424   | 0     | ANNALS OF DISASTER RISK SCIENCES  | Lehti/sarja     | 2584-4873      | 2623-8934 | NA   | CROATIA            | NA   | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
-| 89386   | 1     | COMPOSITES PART C : OPEN ACCESS   | Lehti/sarja     | NA             | 2666-6820 | NA   | NETHERLANDS        | 1    | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
-| 87002   | 1     | ESTUDOS LINGUISTICOS              | Lehti/sarja     | 1413-0939      | NA        | NA   | BRAZIL             | 1    | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |          1 |          1 |
+| id_jufo | level | title                             | type            | issn_isbn      | issn | abbr | country            | DOAJ | sherpa_romeo | active   | level_2012 | level_2013 | level_2014 | level_2015 | level_2016 | level_2017 | level_2018 | level_2019 | level_2020 |
+|--------:|------:|:----------------------------------|:----------------|:---------------|:-----|:-----|:-------------------|-----:|:-------------|:---------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|
+|   65510 |     1 | PROCEEDINGS OF THE PMR CONFERENCE | Lehti/sarja     | 0272-8710      | NA   | NA   | UNITED STATES      |   NA | NA           | Inactive |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |
+|    8856 |     0 | ADVANCED BUILDING SKINS           | Kirjakustantaja | 978-3-9812053; | NA   | NA   | GERMANY            |   NA | NA           | Active   |         NA |         NA |         NA |         NA |         NA |          0 |          0 |          0 |          0 |
+|   88598 |     0 | AESTHETICA UNIVERSALIS            | Lehti/sarja     | 2686-6943      | NA   | NA   | RUSSIAN FEDERATION |   NA | NA           | Active   |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |
 
 ``` r
 glimpze(n)
 ```
 
-| tidsskrift_id | title             | title_en          | issn_print | issn_online | Åpen tilgang | Publiseringsavtale | NPI fagområde     | NPI fagfelt             | level_2023 | level_2022 | level_2021 | level_2020 | level_2019 | level_2018 | level_2017 | level_2016 | level_2015 | level_2014 | level_2013 | level_2012 | level_2011 | level_2010 | level_2009 | level_2008 | level_2007 | level_2006 | level_2005 | level_2004 | forlag_id | publisher_company | publisher                                                                      | publisher_country | language       | conference_report | Serie | established | discontinued | url                                                                                | Sist oppdatert      | set      | ISBN-prefiks | Land |
-|--------------:|:------------------|:------------------|:-----------|:------------|:-------------|-------------------:|:------------------|:------------------------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|----------:|:------------------|:-------------------------------------------------------------------------------|:------------------|:---------------|------------------:|------:|------------:|-------------:|:-----------------------------------------------------------------------------------|:--------------------|:---------|:-------------|:-----|
-|        480486 | \# ISOJ Journal   | \# ISOJ Journal   | 2328-0700  | 2328-0662   | NA           |                  0 | Humaniora         | Medier og kommunikasjon |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |        NA | NA                | University of Texas at Austin, UT College of Commu                             | USA               | Engelsk        |                 0 |     0 |        2013 |           NA | <https://online.journalism.utexas.edu/ebook.php>                                   | 2022-08-10 12:17:54 | journals | NA           | NA   |
-|        469872 | (Pré)publications | (Pré)publications | NA         | 1604-5394   | NA           |                  0 | Humaniora         | Historie og Idéhistorie |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |        NA | NA                | Afdeling for Fransk Institut for Sprog Litteratur og Kultur Aarhus Universitet | Danmark           | Flerspråklig   |                 0 |     0 |        2005 |           NA | <https://cc.au.dk/forskning/tidsskrifter/prepublications/>                         | 2022-08-04 14:46:30 | journals | NA           | NA   |
-|        485792 | @nalyses          | @nalyses          | NA         | 1715-9261   | NA           |                  0 | Humaniora         | Romansk                 |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |        NA | NA                | Université d’Ottawa. Département de français                                   | Canada            | Fransk         |                 0 |     0 |        2006 |           NA | <https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index>           | 2022-08-04 14:46:30 | journals | NA           | NA   |
-|        492970 | @ulaMEdieval      | @ulaMEdieval      | NA         | 2340-3748   | NA           |                  0 | Humaniora         | Litteraturvitenskap     |         NA |          0 |          0 |          0 |          0 |          0 |          0 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |        NA | NA                | University of Valencia, Spain (Parnaseo Project)                               | Spania            | Spansk         |                 0 |     0 |        2013 |           NA | <http://parnaseo2.uv.es/AulaMedieval/AulaMedieval.php?valor=monografias&lengua=es> | 2022-08-04 14:46:30 | journals | NA           | NA   |
-|        499037 | \[in\]Transition  | \[in\]Transition  | NA         | 2469-4312   | NA           |                  0 | Humaniora         | Medier og kommunikasjon |         NA |          1 |          1 |          1 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |        NA | NA                | MediaCommons                                                                   | USA               | Engelsk        |                 0 |     0 |        2014 |           NA | <http://mediacommons.org/intransition/>                                            | 2022-08-10 12:46:11 | journals | NA           | NA   |
-|        475372 | \[tilt\]          | \[tilt\]          | 1502-2471  | 1892-3100   | NA           |                  0 | Samfunnsvitenskap | Pedagogikk og utdanning |         NA |          0 |          0 |          0 |          0 |          0 |          0 |          0 |          0 |          0 |          0 |          0 |          0 |          0 |          0 |         NA |         NA |         NA |         NA |         NA |        NA | NA                | Landslaget for Medieundervisning                                               | Norge             | Norsk (bokmål) |                 0 |     0 |        1986 |           NA | <http://www.lmu.no/default.asp?uid=65&CID=65>                                      | 2022-08-04 14:46:30 | journals | NA           | NA   |
+| tidsskrift_id | title             | title_en          | issn_print | issn_online | Åpen tilgang | Publiseringsavtale | NPI fagområde | NPI fagfelt             | level_2023 | level_2022 | level_2021 | level_2020 | level_2019 | level_2018 | level_2017 | level_2016 | level_2015 | level_2014 | level_2013 | level_2012 | level_2011 | level_2010 | level_2009 | level_2008 | level_2007 | level_2006 | level_2005 | level_2004 | forlag_id | publisher_company | publisher                                                                      | publisher_country | language     | conference_report | Serie | established | discontinued | url                                                                      | Sist oppdatert      | set      | ISBN-prefiks | Land |
+|--------------:|:------------------|:------------------|:-----------|:------------|:-------------|-------------------:|:--------------|:------------------------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|----------:|:------------------|:-------------------------------------------------------------------------------|:------------------|:-------------|------------------:|------:|------------:|-------------:|:-------------------------------------------------------------------------|:--------------------|:---------|:-------------|:-----|
+|        480486 | \# ISOJ Journal   | \# ISOJ Journal   | 2328-0700  | 2328-0662   | NA           |                  0 | Humaniora     | Medier og kommunikasjon |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |        NA | NA                | University of Texas at Austin, UT College of Commu                             | USA               | Engelsk      |                 0 |     0 |        2013 |           NA | <https://online.journalism.utexas.edu/ebook.php>                         | 2022-08-10 12:17:54 | journals | NA           | NA   |
+|        469872 | (Pré)publications | (Pré)publications | NA         | 1604-5394   | NA           |                  0 | Humaniora     | Historie og Idéhistorie |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |        NA | NA                | Afdeling for Fransk Institut for Sprog Litteratur og Kultur Aarhus Universitet | Danmark           | Flerspråklig |                 0 |     0 |        2005 |           NA | <https://cc.au.dk/forskning/tidsskrifter/prepublications/>               | 2022-08-04 14:46:30 | journals | NA           | NA   |
+|        485792 | @nalyses          | @nalyses          | NA         | 1715-9261   | NA           |                  0 | Humaniora     | Romansk                 |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |        NA | NA                | Université d’Ottawa. Département de français                                   | Canada            | Fransk       |                 0 |     0 |        2006 |           NA | <https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index> | 2022-08-04 14:46:30 | journals | NA           | NA   |

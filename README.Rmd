@@ -20,7 +20,9 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/KTH-Library/swecris/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/KTH-Library/swecris/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of the `swecris` R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the open API at SweCRIS to make data available for use from R.
+The goal of the `swecris` R package is to provide access to data from SweCRIS, a national database that allows you to see how participating research funding bodies has distributed their money to Swedish recipients. 
+
+SweCRIS is managed by the Swedish Research Council on behalf of the Government. This R package uses the [API at SweCRIS](https://swecris-api.vr.se/index.html) to make data available for use from R.
 
 ## Installation
 
@@ -31,21 +33,24 @@ library(devtools)
 install_github("swecris", dependencies = TRUE)
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to get data about projects at KTH Royal Institute of Technology:
+
+### Projects for an organization
+
+**Goal**: Using bundled data for KTH. This is a basic example which shows you how to get bundled data about projects at KTH Royal Institute of Technology:
 
 ```{r example, message=FALSE}
 library(swecris)
 suppressPackageStartupMessages(library(dplyr))
 
-# either fetch the data from the API
+# either fetch data live from the API
 #kth_projects <- swecris_funding()
 
 # or use the bundled data
 kthf <- swecris_kth
 
-# top ten largest fundings containing abstracts with the word "data"
+# top three largest fundings containing abstracts with the word "data"
 library(dplyr)
 
 fundings <- 
@@ -53,7 +58,7 @@ fundings <-
   mutate(total_funding = as.numeric(FundingsSek)) %>%
   arrange(desc(total_funding)) %>%
   filter(grepl("data", ProjectAbstractEn)) %>%
-  slice(10)
+  slice(3)
 
 # display an example record
 fundings %>%
@@ -61,20 +66,24 @@ fundings %>%
 
 ```
 
-Given an organisation, get information about projects:
+**Goal**: Given an organisation, get its id and then get information about three associated projects whose funding start date soon will be here:
 
 ```{r}
 
 orgid <- 
   swecris_organisations() %>%
   filter(grepl("^KTH, ", organisationNameSv)) %>%
-  dplyr::pull(organisationId)
+  dplyr::pull(organisationId) %>%
+  purrr::pluck(1)
 
 kthp <- swecris_projects(orgid)
 
-# ten upcoming projects
+# three upcoming projects
 projects <- 
-  kthp %>% arrange(desc(lubridate::ymd(fundingStartDate))) %>% 
+  kthp %>% 
+  mutate(fsd = lubridate::ymd(fundingStartDate)) %>%
+  filter(fsd > lubridate::now()) %>%
+  arrange(desc(fsd)) %>% 
   select(-starts_with("projectAbstract")) %>%
   select(
     projectId, 
@@ -85,10 +94,30 @@ projects <-
     fundingsSek, 
     fundingYear
   ) %>%
-  head(10)
+  head(3)
 
 knitr::kable(projects)
 ```
+### Project details
+
+**Goal**: Given a projects id, get more information about the project and associated people and SCB classification codes:
+
+```{r}
+
+# some details for a specific project
+"2021-00157_VR" %>% swecris_project() %>% select(-c("projectAbstractEn")) %>% t()
+
+# some people involved in this project
+"2021-00157_VR" %>% swecris_project_people()
+
+# SCB classification codes for this project
+"2021-00157_VR" %>% swecris_project_scbs()
+
+```
+
+## Swedish, Danish, Finnish and Norwegian lists
+
+**Goal**: Not part of the SweCRIS API, but mentioned on SweCRIS website. Get data for some Nordic "lists".
 
 Swedish list (the first few records):
 
@@ -96,9 +125,9 @@ Swedish list (the first few records):
 sl <- 
   swecris_list_swedish()
 
-glimpse(sl %>% head() %>% collect())
+glimpse(sl %>% head(3) %>% collect())
 
-knitr::kable(sl %>% head() %>% collect())
+knitr::kable(sl %>% head(3) %>% collect())
 ```
 
 Some other Nordic list referenced at SweCRIS are also provided:
@@ -108,7 +137,7 @@ f <- swecris_list_finnish()
 n <- swecris_list_norwegian
 
 glimpze <- function(df) {
-  df %>% head() %>% knitr::kable()
+  df %>% slice(1:3) %>% knitr::kable()
 }
 
 glimpze(f)

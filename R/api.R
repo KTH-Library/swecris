@@ -24,8 +24,8 @@ swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskola
     searchText = URLencode(searchstring),
     token = token)
   ) %>%
-    httr::content(as = "text") %>%
-    readr::read_delim(delim = ";", quote = '"')
+    httr::content(as = "text", encoding = "UTF-8") %>%
+    readr::read_delim(delim = ";", quote = '"', show_col_types = FALSE)
 }
 
 #' @importFrom httr add_headers GET stop_for_status content
@@ -114,6 +114,22 @@ swecris_organisations <- function() {
 
   data <-
     swecris_get("https://swecris-api.vr.se/v1/organisations") %>%
+    replace_nulls()
+
+  dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
+  dplyr::as_tibble(bind_rows(dfs))
+
+}
+
+swecris_organisations_for_project <- function(project_id) {
+
+  route <- sprintf(
+    "https://swecris-api.vr.se/v1/organisations/projects/%s",
+    project_id
+  )
+
+  data <-
+    swecris_get(route) %>%
     replace_nulls()
 
   dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
@@ -210,6 +226,21 @@ swecris_persons <- function(orgid) {
 
 }
 
+swecris_person <- function(personid) {
+
+  route <- sprintf(
+    "https://swecris-api.vr.se/v1/persons/%s",
+    personid
+  )
+
+  data <-
+    swecris_get(route) %>%
+    replace_nulls()
+
+  data %>% as.data.frame() %>% tidyr::as_tibble()
+
+}
+
 #' Projects data from ORCiD
 #'
 #' Given an ORCiD, this function retrieves information about related projects,
@@ -220,9 +251,9 @@ swecris_persons <- function(orgid) {
 #' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  o <- "0000-0003-1102-4342" |> swecris_projects_from_orcid()
+#'  o <- "0000-0003-1102-4342" %>% swecris_projects_from_orcid()
 #'  o$projects
-#'  o |> purrr::pluck("peopleList")
+#'  o %>% purrr::pluck("peopleList")
 #'  o$scbs
 #'  }
 #' }
@@ -311,7 +342,7 @@ swecris_search <- function(orgs = "KTH, Kungliga tekniska h\u00f6gskolan") {
 
   httr::stop_for_status(res)
 
-  httr::content(httr::GET(w1), as = "raw") |>
+  httr::content(httr::GET(w1), as = "raw") %>%
     readr::read_delim(delim = ";", show_col_types = FALSE)
 }
 
@@ -377,7 +408,7 @@ swecris_project <- function(project_id, format = c("tbl", "object")) {
 #' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  "2021-00157_VR" |> swecris_project_people()
+#'  "2021-00157_VR" %>% swecris_project_people()
 #'  }
 #' }
 #' @importFrom dplyr as_tibble bind_cols everything
@@ -405,7 +436,7 @@ swecris_project_people <- function(project_id) {
 #' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  "2021-00157_VR" |> swecris_project_scbs()
+#'  "2021-00157_VR" %>% swecris_project_scbs()
 #'  }
 #' }
 #' @importFrom dplyr as_tibble bind_cols everything

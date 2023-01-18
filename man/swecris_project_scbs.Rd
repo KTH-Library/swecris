@@ -18,7 +18,7 @@ Given the project identifier, retrieve details about subject matter codes.
 \examples{
 \dontrun{
 if(interactive()){
- "2021-00157_VR" |> swecris_project_scbs()
+ "2021-00157_VR" \%>\% swecris_project_scbs()
  }
 }
 }

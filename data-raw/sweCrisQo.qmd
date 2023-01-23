@@ -39,7 +39,7 @@ R.packages <- c("devtools","bibliotools","dplyr","swecris","kthapi","grid",
                 "fuzzyjoin","naniar","furrr","stringr","qpcR","dlookr",
                 "cordis","openairegraph")
 
-invisible(lapply(R.packages, library, character.only = TRUE))
+(lapply(R.packages, library, character.only = TRUE))
 ```
 
 ```{r}

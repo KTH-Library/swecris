@@ -44,7 +44,7 @@ invisible(lapply(R.packages, library, character.only = TRUE))
 ```
 
 ```{r}
-source(file = "/swecris/data-raw/customFunction.R")
+source(file = "C:/Repos/swecris/data-raw/customFunction.R")
 ```
 
 ## Data sources
@@ -69,16 +69,16 @@ colnames(ca.Df)[14] <- "PrimaryResearcher"
 colnames(ca.Df)[6] <- "FundingOrganisation"
 ```
 
-```{r echo=TRUE,out.width="50%",fig.cap="Data-driven flowchart (matching keys)."}
-include_graphics("/swecris/analytic img/Old Images/Figure-1.png")
+```{r echo=TRUE,out.width="50%",fig.cap="Data-driven flowchart (keys)."}
+include_graphics("C:/Repos/swecris/analytic-img/DataDriven-Flowchart.png")
 ```
 
 ```{r echo=TRUE,out.width="50%",fig.cap="Entity/Relationship (ER) diagram."}
-include_graphics("/swecris/analytic img/Old Images/Figure-2.png")
+include_graphics("C:/Repos/swecris/analytic-img/entityGraph.png")
 ```
 
 ```{r echo=TRUE,out.width="80%"}
-db_connections <- read.csv2(file = "/swecris/alluvialGraph.csv",header = T)
+db_connections <- read.csv2(file = "C:/Repos/swecris/data-raw/alluvial-graph-data.csv",header = T)
 # Plot. 
 # chordDiagram(db_connections,
 #              col = cols,
@@ -148,9 +148,9 @@ do.call("grid.arrange", c(ls.plot, ncol=3))
 
 On a school level, ABE has 17 fields with a missingness rate of more than 50%. CBH has 18 fields with a missingness of more than 50%. EECS and SCI schools both have 25 fields with missingness \> 50%. ITM has only 13 fields with missingness greater than 50%. In total, 28 fields were missing for NA.
 
-## sweCris data-quality
+## Swecris data-quality
 
-```{r echo=TRUE, fig.cap="Figure 5. Pareto chart for missing values (counts and proportions) in sweCris."}
+```{r echo=TRUE, fig.cap="Pareto chart for missing values (counts and proportions) in Swecris"}
 # Convert all Unknown to NA.
 sw.Df[,] <- apply(sw.Df, 2, function(x) ifelse(x == "Unknown", NA, x))
 # Plot.
@@ -163,7 +163,7 @@ bazzi.na.Total(x = sw.Df, col = "black",typographic = T) +
 
 In the sweCris dataset, the column-wise completeness is generally satisfactory. The only notable exceptions are the abstract fields in both Swedish and English, which tend to have a high prevalence of missing data. Additionally, the project title in English is not consistently recorded with a high degree of accuracy. The involved people field is also not 100% complete.
 
-#### What does sweCris contain not present in Case?
+#### What does Swecris contain not present in Case?
 
 #### Range
 
@@ -180,7 +180,9 @@ k_1 <- ca.Df %>% group_by(type,startYear) %>%
   count(sort = F) %>%
   ggplot2::ggplot(mapping = aes(x = startYear,y = n)) +
   labs(title = "Case: Research Projects") +
-  geom_col() + theme(axis.text.x = element_text(angle = 45))
+  geom_col() +
+  scale_fill_manual(values = c("NA" = "red")) +
+  theme(axis.text.x = element_text(angle = 45))
 # Check sweCris
 k_2 <- sw.Df %>% group_by(startYear) %>%
   count(sort = F) %>%
@@ -691,7 +693,7 @@ ggarrange(mP2) + theme(aspect.ratio = 1)
 
 **Combined results**
 
-```{r fig.cap="Figure 10. Comparison of results",fig.align='center'}
+```{r fig.cap="Comparison of results",fig.align='center'}
 ggarrange(mP1,mP2) + theme(aspect.ratio = 1/2)
 ```
 
@@ -785,7 +787,7 @@ for(i in 1:length(sw.Df$InvolvedPeople)) {
 }
 ```
 
-```{r echo=TRUE,results='hide', fig.cap="Figure X. Primary Researchers in sweCris with projects > 10"}
+```{r echo=TRUE,results='hide', fig.cap="Primary Researchers in sweCris with projects > 10"}
 # Summarize.
 sw.Df %>% group_by(Leading.Role) %>% count(sort = T)
 
@@ -852,7 +854,7 @@ Match.3B <- ca.Df %>%
 Match.3C <- bind_rows(Match.3A,Match.3B) %>% filter(!duplicated(Name))
 ```
 
-```{r echo=TRUE,fig.cap="Figure 12. Pareto chart for missing values (counts and proportions) in the reduced CASE dataset."}
+```{r echo=TRUE,fig.cap="Pareto chart for missing values (counts and proportions) in the reduced CASE dataset."}
 bazzi.na.Total(x = Match.3C, col = "black",typographic = T) + 
   theme(axis.text.x = element_text(size = 9,angle = 45),
         axis.title.x = element_text(size = 9),
@@ -876,7 +878,7 @@ mP3 <- draw.pairwise.venn(area1= 3068,area2 = 746,
                           rotation.degree = 45)
 ```
 
-```{r echo=TRUE,fig.cap="Figure 13. Venn diagram showing project overlap based on Primary Researcher Area 1 (Grey) = sweCris. Area 2 (Red) = Case"}
+```{r echo=TRUE,fig.cap="Venn diagram showing project overlap based on Primary Researcher Area 1 (Grey) = sweCris. Area 2 (Red) = Case"}
 ggarrange(mP3) + theme(aspect.ratio = 1)
 ```
 
@@ -902,7 +904,7 @@ knitr::kable(x = Total.M3 %>%
   kable_styling()
 ```
 
-```{r echo=TRUE,fig.cap="Figure 14. Venn diagram showing project overlap based on Id, Title, and Primary Researcher."}
+```{r echo=TRUE,fig.cap="Venn diagram showing project overlap based on Id, Title, and Primary Researcher."}
 ggarrange(mP1,mP2,mP3,nrow = 1,heights = c(2,2),widths = c(4,4)) + 
   theme(aspect.ratio = 1/2)
 ```

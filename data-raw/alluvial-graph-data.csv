@@ -1,0 +1,32 @@
+db;identifer
+Case;Project ID
+sweCris;Project ID
+OpenAire;Project ID
+Cordis;Project ID
+Case;Project Title
+sweCris;Project Title
+OpenAire;Project Title
+Cordis;Project Title
+Case;Funding Start Date
+sweCris;Funding Start Date
+OpenAire;Funding Start Date
+Cordis;Funding Start Date
+Case;Funding End Date
+sweCris;Funding End Date
+OpenAire;Funding End Date
+Cordis;Funding End Date
+Case;Funding Organisation
+sweCris;Funding Organisation
+OpenAire;Funding Organisation
+Cordis;Funding Organisation
+Case;Grant Amount
+sweCris;Grant Amount
+OpenAire;Grant Amount
+Cordis;Grant Amount
+Case;Primary Researcher
+sweCris;Primary Researcher
+Case;username/ugUsername
+sweCris;username/ugUsername
+uG;username/ugUsername
+sweCris;summary/Abstract
+OpenAire;summary/Abstract

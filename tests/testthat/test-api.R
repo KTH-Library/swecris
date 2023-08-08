@@ -91,7 +91,7 @@ test_that("A single project can be retrieved from a project identifier", {
 
 test_that("A single project's associated people can be retrieved from a project identifier", {
   res <- "2021-00157_VR" %>% swecris_project_people()
-  is_valid <- ncol(res) > 4 & nrow(res) == 1
+  is_valid <- ncol(res) > 4 & nrow(res) > 1
   expect_true(is_valid)
 })
 

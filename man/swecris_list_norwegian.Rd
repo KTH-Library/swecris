@@ -7,14 +7,17 @@
 \format{
 A table with data returned from the API
 \describe{
-\item{id_nsd}{}
+\item{journal_id}{}
 \item{title}{}
 \item{title_en}{}
 \item{issn_print}{}
 \item{issn_online}{}
 \item{oa}{}
+\item{publishing_agreement}{}
 \item{group_area}{}
 \item{group_field}{}
+\item{level_2024}{}
+\item{level_2023}{}
 \item{level_2022}{}
 \item{level_2021}{}
 \item{level_2020}{}
@@ -34,26 +37,27 @@ A table with data returned from the API
 \item{level_2006}{}
 \item{level_2005}{}
 \item{level_2004}{}
-\item{itar_id}{}
-\item{nsd_publisher_id}{}
+\item{publisher_id}{}
 \item{publisher_company}{}
 \item{publisher}{}
 \item{publisher_country}{}
 \item{language}{}
 \item{conference_report}{}
+\item{series}{}
 \item{established}{}
 \item{discontinued}{}
 \item{url}{}
+\item{last_updated}{}
 \item{set}{}
-\item{ISBN-Prefix}{}
-\item{Land}{}
+\item{isbn_prefix}{}
+\item{country}{}
 }
 }
 \usage{
 swecris_list_norwegian
 }
 \description{
-A static dataset containing the Norwegian lists from 13 Oct 2021.
+A static dataset containing the Norwegian lists fetched 7 Aug 2023.
 }
 \details{
 For details see these URLs:

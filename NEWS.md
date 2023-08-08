@@ -1,3 +1,7 @@
+# swecris 0.1.5
+
+* Updated norwegian list (Aug 7, 2023)
+
 # swecris 0.1.4
 
 * Added functions for parsing SweCRIS export fields for InvolvedPeople and Scbs

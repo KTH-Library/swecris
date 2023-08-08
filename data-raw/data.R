@@ -25,22 +25,38 @@ cm_nor <- readr::read_delim(
   delim = ",", show_col_types = FALSE,
   "col_from,col_to
 NSD tidsskrift_id,id_nsd
+Original Title,title
 Original tittel,title
+International Title,title_en
 Internasjonal tittel,title_en
 Open Access,oa
+Publishing Agreement,publishing_agreement
 Print ISSN,issn_print
 Online ISSN,issn_online
+NPI Academic Discipline,group_area
 NPI Fagområde,group_area
+NPI Scientific Field,group_field
 NPI Fagfelt,group_field
 NSD forlag_id,nsd_publisher_id
 Forlag,publisher_company
+Publishing Company,publisher_company
+Publisher,publisher
 Utgiver,publisher
+Country of Publication,publisher_country
 Utgiverland,publisher_country
+Language,language
 Språk,language
+Conference Proceedings,conference_report
 Konferanserapport,conference_report
+Series,series
+Established,established
 Etablert,established
+Ceased,discontinued
 Nedlagt,discontinued
 URL,url
+Last Updated,last_updated
+ISBN-Prefix,isbn_prefix
+Country,country
 ")
 
 swecris_list_norwegian <- function(f) {
@@ -51,19 +67,23 @@ swecris_list_norwegian <- function(f) {
   ) %>%
     rename_cols(cm_nor$col_from, cm_nor$col_to)
 
-  probs <- readr::problems()
+  probs <- readr::problems(nor)
 
   #if (nrow(probs) > 0)
     print(probs)
 
   nor %>%
     rename_cols_re("Nivå (\\d{4})", "level_\\1") %>%
-    rename_cols_re("[\\.]{3}(*)", "col_\\1")
+    rename_cols_re("Level (\\d{4})", "level_\\1") %>%
+    rename_cols_re("[\\.]{3}(*)", "col_\\1") #|>
+#    mutate(level_2023 = case_match(level_2023, "X" ~ NA))
 
 }
 
-slnj <- swecris_list_norwegian(f = "data-raw/norway_journals.csv")
-slnp <- swecris_list_norwegian(f = "data-raw/norway_publishers.csv")
+slnj <- swecris_list_norwegian(f = "data-raw/norway_journals_2023.csv")
+#problems(slnj) |>  View()
+#slnj[problems(slnj)$row,] |> View()
+slnp <- swecris_list_norwegian(f = "data-raw/norway_publishers_2023.csv")
 
 slnj$set <- "journals"
 slnp$set <- "publishers"

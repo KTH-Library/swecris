@@ -21,7 +21,7 @@ swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskola
     `organizationType[]`= "Universitet",
     sortOrder = "desc",
     sortColumn = "FundingStartDate",
-    searchText = URLencode(searchstring),
+    searchText = URLencode(searchstring, reserved = TRUE),
     token = token)
   ) %>%
     httr::content(as = "text", encoding = "UTF-8") %>%
@@ -176,6 +176,28 @@ depth <- function(this, thisdepth = 0) {
   }
 }
 
+#' @importFrom lubridate parse_date_time
+#' @noRd
+parse_swecris_dates <- function(x) {
+  x |>
+    mutate(across(
+      any_of(c("loadedDate", "updatedDate")),
+      \(x) lubridate::parse_date_time(x, "bdY HM")
+    )) |>
+    mutate(across(
+      any_of(c("projectStartDate", "projectEndDate")),
+      \(x) lubridate::parse_date_time(x, "Ymd HMS")
+    )) |>
+    mutate(across(
+      any_of(c("fundingStartDate", "fundingEndDate")),
+      \(x) lubridate::parse_date_time(x, "Ymd")
+    )) |>
+    mutate(across(
+      any_of(c("fundingYear")),
+      \(x) as.integer(x)
+    ))
+}
+
 #' Projects
 #'
 #' Projects in SweCRIS
@@ -194,12 +216,15 @@ swecris_projects <- function(orgid) {
   )
 
   data <-
-    swecris_get(route) %>%
+    swecris_get(route) |>
     replace_nulls()
 
-  tidyr::tibble(data)  %>%
-    tidyr::unnest_wider(data)
+  tidyr::tibble(data) |>
+    tidyr::unnest_wider(data) |>
+    parse_swecris_dates()
 }
+
+
 
 #' Persons
 #'
@@ -299,21 +324,23 @@ swecris_projects_from_orcid <- function(orcid) {
     "typeOfAwardDescrEn")
 
   projects <-
-    res %>%
-    purrr::map_df(.f = function(x) x[fields] %>% as_tibble())
+    res |>
+    purrr::map_df(.f = function(x) x[fields] |> as_tibble()) |>
+    parse_swecris_dates()
+#    purrr::map_df(.f = function(x) x[!names(x) %in% c("scbs", "peopleList")] |> as_tibble())
 
   accessor <- function(x, sibling_node, id_node = "projectId")
-    tibble(sibling_node = pluck(x, sibling_node)) %>%
-    unnest_wider(col = sibling_node) %>%
-    bind_cols(id = pluck(x, id_node)) %>%
-    select(id, everything()) %>%
+    tibble(sibling_node = pluck(x, sibling_node)) |>
+    unnest_wider(col = sibling_node) |>
+    bind_cols(id = pluck(x, id_node)) |>
+    select(id, everything()) |>
     distinct()
 
   scbs <-
-    res %>% map_df(function(x) accessor(x, "scbs"))
+    res |> map_df(function(x) accessor(x, "scbs"))
 
   peopleList <-
-    res %>%
+    res |>
     purrr::map_df(function(x) accessor(x, "peopleList"))
 
   list(projects = projects, peopleList = peopleList, scbs = scbs)
@@ -336,7 +363,7 @@ swecris_search <- function(orgs = "KTH, Kungliga tekniska h\u00f6gskolan") {
   w1 <- sprintf(paste0(
     "https://swecris-api.vr.se/v1/scp/export",
     "?sortOrder=desc&sortColumn=FundingStartDate&searchText=%s&token=%s"),
-    URLencode(orgs), swecris_token())
+    URLencode(orgs, reserved = TRUE), swecris_token())
 
   res <- httr::GET(w1)
 
@@ -361,40 +388,42 @@ swecris_project <- function(project_id, format = c("tbl", "object")) {
 
   route <- sprintf(
     "https://swecris-api.vr.se/v1/projects/%s",
-    URLencode(project_id)
+    URLencode(project_id, reserved = TRUE)
   )
 
   res <- swecris_get(route)
 
   if (match.arg(format) == "object") return (res)
 
-  fields <- c(
-    "projectId",
-    "projectTitleSv",
-    "projectTitleEn",
-    "projectAbstractSv",
-    "projectAbstractEn",
-    "projectStartDate",
-    "projectEndDate",
-    "coordinatingOrganisationId",
-    "coordinatingOrganisationNameSv",
-    "coordinatingOrganisationNameEn",
-    "coordinatingOrganisationTypeOfOrganisationSv",
-    "coordinatingOrganisationTypeOfOrganisationEn",
-    "fundingOrganisationId",
-    "fundingOrganisationNameSv",
-    "fundingOrganisationNameEn",
-    "fundingOrganisationTypeOfOrganisationSv",
-    "fundingOrganisationTypeOfOrganisationEn",
-    "fundingsSek",
-    "fundingYear",
-    "fundingStartDate",
-    "fundingEndDate",
-    "typeOfAwardId",
-    "typeOfAwardDescrSv",
-    "typeOfAwardDescrEn")
+  # fields <- c(
+  #   "projectId",
+  #   "projectTitleSv",
+  #   "projectTitleEn",
+  #   "projectAbstractSv",
+  #   "projectAbstractEn",
+  #   "projectStartDate",
+  #   "projectEndDate",
+  #   "coordinatingOrganisationId",
+  #   "coordinatingOrganisationNameSv",
+  #   "coordinatingOrganisationNameEn",
+  #   "coordinatingOrganisationTypeOfOrganisationSv",
+  #   "coordinatingOrganisationTypeOfOrganisationEn",
+  #   "fundingOrganisationId",
+  #   "fundingOrganisationNameSv",
+  #   "fundingOrganisationNameEn",
+  #   "fundingOrganisationTypeOfOrganisationSv",
+  #   "fundingOrganisationTypeOfOrganisationEn",
+  #   "fundingsSek",
+  #   "fundingYear",
+  #   "fundingStartDate",
+  #   "fundingEndDate",
+  #   "typeOfAwardId",
+  #   "typeOfAwardDescrSv",
+  #   "typeOfAwardDescrEn")
 
-  res[fields] %>% as_tibble()
+  res[!names(res) %in% c("scbs", "peopleList")] |>
+    replace_nulls() |> as_tibble() |>
+    parse_swecris_dates()
 
 }
 

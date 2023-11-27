@@ -15,8 +15,8 @@
 <title>SweCRIS - Grant Decisions From Swedish Funding Bodies And
     EU • swecris</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="SweCRIS - Grant Decisions From Swedish Funding Bodies And
     EU">
@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="index.html">swecris</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,27 +110,27 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fundings</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">kthf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">FundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">ProjectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="va">kthf</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">FundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">ProjectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># display an example record</span></span>
-<span><span class="va">fundings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">fundings</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 1</span></span>
-<span><span class="co">#&gt; Columns: 27</span></span>
-<span><span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2017-00630_VR"</span></span>
-<span><span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "Nationell Infrastruktur …</span></span>
-<span><span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "National Genomics Infras…</span></span>
-<span><span class="co">#&gt; $ ProjectAbstractSv                            &lt;chr&gt; NA</span></span>
-<span><span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "The National Genomics In…</span></span>
-<span><span class="co">#&gt; $ ProjectStartDate                             &lt;dttm&gt; 2018-01-01</span></span>
-<span><span class="co">#&gt; $ ProjectEndDate                               &lt;dttm&gt; 2020-12-31</span></span>
+<span><span class="co">#&gt; Columns: 29</span></span>
+<span><span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2019-00217_VR"</span></span>
+<span><span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "Nationell infrastruktur …</span></span>
+<span><span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "National Microscopy Infr…</span></span>
+<span><span class="co">#&gt; $ ProjectAbstractSv                            &lt;chr&gt; "Den nationella infrastru…</span></span>
+<span><span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "NMI is a distributed nat…</span></span>
+<span><span class="co">#&gt; $ ProjectStartDate                             &lt;dttm&gt; 2020-01-01</span></span>
+<span><span class="co">#&gt; $ ProjectEndDate                               &lt;dttm&gt; 2024-12-31</span></span>
 <span><span class="co">#&gt; $ CoordinatingOrganisationId                   &lt;chr&gt; "202100-3054"</span></span>
 <span><span class="co">#&gt; $ CoordinatingOrganisationNameSv               &lt;chr&gt; "KTH, Kungliga tekniska h…</span></span>
-<span><span class="co">#&gt; $ CoordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of …</span></span>
+<span><span class="co">#&gt; $ CoordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of…</span></span>
 <span><span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationSv &lt;chr&gt; "Universitet"</span></span>
 <span><span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationEn &lt;chr&gt; "University"</span></span>
 <span><span class="co">#&gt; $ FundingOrganisationId                        &lt;chr&gt; "202100-5208"</span></span>
@@ -138,34 +138,36 @@
 <span><span class="co">#&gt; $ FundingOrganisationNameEn                    &lt;chr&gt; "Swedish Research Council"</span></span>
 <span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationSv      &lt;chr&gt; "Stat, regioner, kommune…</span></span>
 <span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationEn      &lt;chr&gt; "Governmental"</span></span>
-<span><span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 49450000</span></span>
-<span><span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2018</span></span>
-<span><span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2018-01-01</span></span>
-<span><span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2020-12-31</span></span>
+<span><span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 4e+07</span></span>
+<span><span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2020</span></span>
+<span><span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2020-01-01</span></span>
+<span><span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2024-12-31</span></span>
 <span><span class="co">#&gt; $ TypeOfAwardId                                &lt;dbl&gt; 5</span></span>
 <span><span class="co">#&gt; $ TypeOfAwardDescrSv                           &lt;chr&gt; "Forskningsinfrastruktur"</span></span>
 <span><span class="co">#&gt; $ TypeOfAwardDescrEn                           &lt;chr&gt; "Research infrastructure"</span></span>
-<span><span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤69418¤Joakim Lundebe…</span></span>
+<span><span class="co">#&gt; $ UpdatedDate                                  &lt;chr&gt; NA</span></span>
+<span><span class="co">#&gt; $ LoadedDate                                   &lt;chr&gt; "Sep  8 2023  5:12AM"</span></span>
+<span><span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤65340¤Hjalmar Brismar…</span></span>
 <span><span class="co">#&gt; $ Scbs                                         &lt;chr&gt; "¤¤¤ 1: Naturvetenskap, N…</span></span>
-<span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 49450000</span></span></code></pre></div>
+<span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 4e+07</span></span></code></pre></div>
 <p><strong>Goal</strong>: Given an organisation, get its id and then get information about three associated projects whose funding start date soon will be here:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">orgid</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="reference/swecris_organisations.html">swecris_organisations</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^KTH, "</span>, <span class="va">organisationNameSv</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">organisationId</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/swecris_organisations.html">swecris_organisations</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^KTH, "</span>, <span class="va">organisationNameSv</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">organisationId</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kthp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_projects.html">swecris_projects</a></span><span class="op">(</span><span class="va">orgid</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># three upcoming projects</span></span>
 <span><span class="va">projects</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">kthp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>fsd <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fsd</span> <span class="op">&gt;</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">now</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">fsd</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="va">kthp</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>fsd <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fsd</span> <span class="op">&gt;</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html" class="external-link">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">fsd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">projectId</span>, </span>
 <span>    <span class="va">projectTitleEn</span>, </span>
@@ -174,19 +176,19 @@
 <span>    <span class="va">fundingOrganisationNameEn</span>, </span>
 <span>    <span class="va">fundingsSek</span>, </span>
 <span>    <span class="va">fundingYear</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">projects</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="6%">
-<col width="54%">
+<col width="10%">
+<col width="41%">
+<col width="10%">
 <col width="8%">
-<col width="8%">
-<col width="11%">
-<col width="5%">
-<col width="5%">
+<col width="15%">
+<col width="7%">
+<col width="7%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">projectId</th>
@@ -195,35 +197,35 @@
 <th align="left">projectEndDate</th>
 <th align="left">fundingOrganisationNameEn</th>
 <th align="right">fundingsSek</th>
-<th align="left">fundingYear</th>
+<th align="right">fundingYear</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">2021-00157_VR</td>
-<td align="left">Petra III Swedish Node</td>
-<td align="left">2023-01-01 00:00:00</td>
-<td align="left">2026-12-31 00:00:00</td>
+<td align="left">2022-06621_VR</td>
+<td align="left">Anthropocene History</td>
+<td align="left">2024-01-01</td>
+<td align="left">2028-12-31</td>
 <td align="left">Swedish Research Council</td>
-<td align="right">25636000</td>
-<td align="left">2023</td>
+<td align="right">29654210</td>
+<td align="right">2024</td>
 </tr>
 <tr class="even">
-<td align="left">2022-00901_VR</td>
-<td align="left">How estrogen receptors of the colon create a microenvironment that suppress carcinogenesis - for cancer prevention and treatment</td>
-<td align="left">2023-01-01 00:00:00</td>
-<td align="left">2026-12-31 00:00:00</td>
-<td align="left">Swedish Research Council</td>
-<td align="right">6000000</td>
-<td align="left">2023</td>
+<td align="left">2023-00543_Formas</td>
+<td align="left">Replacing carcinogen cobalt in hard metal products</td>
+<td align="left">2024-01-01</td>
+<td align="left">2026-12-31</td>
+<td align="left">Formas</td>
+<td align="right">2998915</td>
+<td align="right">2024</td>
 </tr>
 <tr class="odd">
-<td align="left">2022-01079_VR</td>
-<td align="left">Characterization and quantification of synaptic populations</td>
-<td align="left">2023-01-01 00:00:00</td>
-<td align="left">2025-12-31 00:00:00</td>
-<td align="left">Swedish Research Council</td>
-<td align="right">2400000</td>
-<td align="left">2023</td>
+<td align="left">2023-00562_Formas</td>
+<td align="left">TACK-II: an AI Framework for Automated Tunnel Inspections and Assessment</td>
+<td align="left">2024-01-01</td>
+<td align="left">2027-12-31</td>
+<td align="left">Formas</td>
+<td align="right">4000000</td>
+<td align="right">2024</td>
 </tr>
 </tbody>
 </table>
@@ -235,48 +237,49 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># some details for a specific project</span></span>
-<span><span class="st">"2021-00157_VR"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="reference/swecris_project.html">swecris_project</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projectAbstractEn"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                              [,1]                                    </span></span>
-<span><span class="co">#&gt; projectId                                    "2021-00157_VR"                         </span></span>
-<span><span class="co">#&gt; projectTitleSv                               "Petra III svensk nod"                  </span></span>
-<span><span class="co">#&gt; projectTitleEn                               "Petra III Swedish Node"                </span></span>
-<span><span class="co">#&gt; projectAbstractSv                            ""                                      </span></span>
-<span><span class="co">#&gt; projectStartDate                             "2023-01-01 00:00:00"                   </span></span>
-<span><span class="co">#&gt; projectEndDate                               "2026-12-31 00:00:00"                   </span></span>
-<span><span class="co">#&gt; coordinatingOrganisationId                   "202100-3054"                           </span></span>
-<span><span class="co">#&gt; coordinatingOrganisationNameSv               "KTH, Kungliga tekniska högskolan"      </span></span>
-<span><span class="co">#&gt; coordinatingOrganisationNameEn               "KTH, Royal Institute of Technology"    </span></span>
-<span><span class="co">#&gt; coordinatingOrganisationTypeOfOrganisationSv "Universitet"                           </span></span>
-<span><span class="co">#&gt; coordinatingOrganisationTypeOfOrganisationEn "University"                            </span></span>
-<span><span class="co">#&gt; fundingOrganisationId                        "202100-5208"                           </span></span>
-<span><span class="co">#&gt; fundingOrganisationNameSv                    "Vetenskapsrådet"                       </span></span>
-<span><span class="co">#&gt; fundingOrganisationNameEn                    "Swedish Research Council"              </span></span>
-<span><span class="co">#&gt; fundingOrganisationTypeOfOrganisationSv      "Stat, regioner, kommuner, församlingar"</span></span>
-<span><span class="co">#&gt; fundingOrganisationTypeOfOrganisationEn      "Governmental"                          </span></span>
-<span><span class="co">#&gt; fundingsSek                                  "25636000"                              </span></span>
-<span><span class="co">#&gt; fundingYear                                  "2023"                                  </span></span>
-<span><span class="co">#&gt; fundingStartDate                             "2023-01-01"                            </span></span>
-<span><span class="co">#&gt; fundingEndDate                               "2026-12-31"                            </span></span>
-<span><span class="co">#&gt; typeOfAwardId                                "5"                                     </span></span>
-<span><span class="co">#&gt; typeOfAwardDescrSv                           "Forskningsinfrastruktur"               </span></span>
-<span><span class="co">#&gt; typeOfAwardDescrEn                           "Research infrastructure"</span></span>
+<span><span class="st">"2021-00157_VR"</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/swecris_project.html">swecris_project</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projectAbstractEn"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                              [,1]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </span></span>
+<span><span class="co">#&gt; projectId                                    "2021-00157_VR"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </span></span>
+<span><span class="co">#&gt; projectTitleSv                               "Petra III svensk nod"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </span></span>
+<span><span class="co">#&gt; projectTitleEn                               "Petra III Swedish Node"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span></span>
+<span><span class="co">#&gt; projectAbstractSv                            "Röntgenstrålning används dagligen inom sjukvården för att undersöka människors kroppar. Det är också möjligt att använda sig av röntgenstrålning för att studera virus, funktionella ytor, miljöteknik, energiprocesser, egenskaperna hos olika material, mm. För sådana studier krävs särskilda storskaliga forskningsanläggningar (synkrotroner) som producerar röntgenstrålning av extremt hög intensitet som forskarna bestrålar sina prover med och sedan mäter interaktionen mellan röntgenstrålningen och provet med hjälp av avancerade detektorer. Genom avancerad databehandling och simuleringar kan man sedan dra slutsatser om hur olika material är uppbyggda atom för atom och hur detta förändras under dynamiska processer vid t.ex. tillverkning eller användning. En synkrotronljusanläggning är en påkostad investering och olika länder samarbetar därför för att bygga och bedriva forskning vid dessa synkrotroner. Exempelvis finns ett samarbetsavtal mellan Sverige och Tyskland där organisationen Deutsches Elektronen-Synchrotron (DESY) i Hamburg har byggt och driver synkrotronljusanläggningen PETRA III, som även har en svensk nod finansierad av det svenska Vetenskapsrådet. Center for X-rays in Swedish materials science (CeXS) har ansvaret att se efter Sveriges intressen vid PETRA III. CeXS bedrivs av Kungliga Tekniska högskolan (KTH) och Linköpings Universitetet (LiU) tillsammans. Den svenska noden vid PETRA III är inriktad mot materialvetenskaplig forskning som t ex handlar om vad som händer med strukturen djupt inuti ett material under tillverkning och användning, och hur kemiska och fysikaliska fenomen sker i realtid på ett materials yta. Röntgenmätningarna ger kunskaper som på sikt leder till t ex starkare metaller, ökad livslängd hos batterier, verktyg som håller längre när de skär metall, ökad effektivitet vid additiv tillverkning, hur en katalysator konverterar skadliga utsläpp till ofarliga ämnen, hur en solpanel fungerar, osv. All denna forskning bidrar starkt till att uppfylla flera av FNs globala mål för en hållbar utveckling. Utmaningen är att synkrotronljusforskning är komplex och kräver, förutom ämneskunskaper inom materialvetenskap, speciell kompetens inom teori och praktisk användning av röntgenstrålning, specialiserad forskningsutrustning, samt dataanalys. I detta projekt vill CeXS därför bedriva utbildning inom området för forskare från universitets-, instituts-och industrisfärerna. CeXS vill också utveckla forskningsprocesser och instrumenteringen för att effektivisera användning av den svenska noden vid PETRA III samt förenkla dataanalysen.CeXS verkar också för att informera fler forskare om de nya möjligheterna vid PETRA III samt att åtkomsten till användning av PETRA III är rättvis och transparent och att det svenska forskarsamhället får den tillgång som Sverige har betalat för. Kunskapen som generas i och med användning av den svenska noden vid PETRA III bidrar till framtidens industribehov av innovationer, förbättrade produkter, mindre energikrävande processeroch processer som har lägre utsläpp. Detta inkluderar energiprodukter som batterier och solpaneler som bidrar till en omvandling av våra energisystem."</span></span>
+<span><span class="co">#&gt; projectStartDate                             "2023-01-01"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span><span class="co">#&gt; projectEndDate                               "2026-12-31"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationId                   "202100-3054"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationNameSv               "KTH, Kungliga tekniska högskolan"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationNameEn               "KTH, Royal Institute of Technology"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationTypeOfOrganisationSv "Universitet"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span><span class="co">#&gt; coordinatingOrganisationTypeOfOrganisationEn "University"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span><span class="co">#&gt; fundingOrganisationId                        "202100-5208"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span><span class="co">#&gt; fundingOrganisationNameSv                    "Vetenskapsrådet"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               </span></span>
+<span><span class="co">#&gt; fundingOrganisationNameEn                    "Swedish Research Council"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </span></span>
+<span><span class="co">#&gt; fundingOrganisationTypeOfOrganisationSv      "Stat, regioner, kommuner, församlingar"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span></span>
+<span><span class="co">#&gt; fundingOrganisationTypeOfOrganisationEn      "Governmental"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </span></span>
+<span><span class="co">#&gt; fundingsSek                                  "25636000"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </span></span>
+<span><span class="co">#&gt; fundingYear                                  "2023"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </span></span>
+<span><span class="co">#&gt; fundingStartDate                             "2023-01-01"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span><span class="co">#&gt; fundingEndDate                               "2026-12-31"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span><span class="co">#&gt; typeOfAwardId                                "5"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </span></span>
+<span><span class="co">#&gt; typeOfAwardDescrSv                           "Forskningsinfrastruktur"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span></span>
+<span><span class="co">#&gt; typeOfAwardDescrEn                           "Research infrastructure"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span></span>
+<span><span class="co">#&gt; updatedDate                                  NA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </span></span>
+<span><span class="co">#&gt; loadedDate                                   "2023-09-08 05:12:00"</span></span>
 <span></span>
 <span><span class="co"># some people involved in this project</span></span>
-<span><span class="st">"2021-00157_VR"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="reference/swecris_project_people.html">swecris_project_people</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="st">"2021-00157_VR"</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/swecris_project_people.html">swecris_project_people</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 7</span></span>
 <span><span class="co">#&gt;   project_id    personId fullName       orcId               roleEn roleSv gender</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;               &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span></span>
 <span><span class="co">#&gt; 1 2021-00157_VR 52223    Peter Hedström 0000-0003-1102-4342 Princ… Proje… Male</span></span>
 <span></span>
 <span><span class="co"># SCB classification codes for this project</span></span>
-<span><span class="st">"2021-00157_VR"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="reference/swecris_project_scbs.html">swecris_project_scbs</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="st">"2021-00157_VR"</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/swecris_project_scbs.html">swecris_project_scbs</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 10</span></span>
-<span><span class="co">#&gt;   project…¹ scb5Id scb5N…² scb5N…³ scb3Id scb3N…⁴ scb3N…⁵ scb1Id scb1N…⁶ scb1N…⁷</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 2021-001… 10399  Annan … Other … 103    Fysik   Physic… 1      Naturv… Natura…</span></span>
-<span><span class="co">#&gt; 2 2021-001… 20599  Annan … Other … 205    Materi… Materi… 2      Teknik  Engine…</span></span>
-<span><span class="co">#&gt; # … with abbreviated variable names ¹​project_id, ²​scb5NameSv, ³​scb5NameEn,</span></span>
-<span><span class="co">#&gt; #   ⁴​scb3NameSv, ⁵​scb3NameEn, ⁶​scb1NameSv, ⁷​scb1NameEn</span></span></code></pre></div>
+<span><span class="co">#&gt;   project_id    scb5Id scb5NameSv scb5NameEn scb3Id scb3NameSv scb3NameEn scb1Id</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 2021-00157_VR 10399  Annan fys… Other Phy… 103    Fysik      Physical … 1     </span></span>
+<span><span class="co">#&gt; 2 2021-00157_VR 20599  Annan mat… Other Mat… 205    Materialt… Materials… 2     </span></span>
+<span><span class="co">#&gt; # ℹ 2 more variables: scb1NameSv &lt;chr&gt;, scb1NameEn &lt;chr&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -287,46 +290,48 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sl</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="reference/swecris_list_swedish.html">swecris_list_swedish</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 36614 Columns: 12</span></span>
+<span><span class="co">#&gt; Rows: 42816 Columns: 13</span></span>
 <span><span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Delimiter: ";"</span></span>
 <span><span class="co">#&gt; chr  (2): ISSN, Titel</span></span>
-<span><span class="co">#&gt; dbl (10): 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021</span></span>
+<span><span class="co">#&gt; dbl (11): 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
 <span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
 <span></span>
-<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">sl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 3</span></span>
-<span><span class="co">#&gt; Columns: 12</span></span>
-<span><span class="co">#&gt; $ ISSN   &lt;chr&gt; "8756-9728", "8756-7938", "8756-758X"</span></span>
-<span><span class="co">#&gt; $ Titel  &lt;chr&gt; "Project Management Journal", "Biotechnology progress (Print)",…</span></span>
-<span><span class="co">#&gt; $ `2012` &lt;dbl&gt; 1, NA, 1</span></span>
-<span><span class="co">#&gt; $ `2013` &lt;dbl&gt; NA, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2014` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2015` &lt;dbl&gt; 1, NA, 1</span></span>
+<span><span class="co">#&gt; Columns: 13</span></span>
+<span><span class="co">#&gt; $ ISSN   &lt;chr&gt; "0001-0782", "0001-1452", "0001-1541"</span></span>
+<span><span class="co">#&gt; $ Titel  &lt;chr&gt; "Communications of the ACM", "AIAA Journal", "AIChE Journal"</span></span>
+<span><span class="co">#&gt; $ `2012` &lt;dbl&gt; NA, 1, NA</span></span>
+<span><span class="co">#&gt; $ `2013` &lt;dbl&gt; 1, 1, 1</span></span>
+<span><span class="co">#&gt; $ `2014` &lt;dbl&gt; NA, 1, 1</span></span>
+<span><span class="co">#&gt; $ `2015` &lt;dbl&gt; 1, 1, 1</span></span>
 <span><span class="co">#&gt; $ `2016` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2017` &lt;dbl&gt; 1, 1, NA</span></span>
-<span><span class="co">#&gt; $ `2018` &lt;dbl&gt; 1, NA, 1</span></span>
-<span><span class="co">#&gt; $ `2019` &lt;dbl&gt; 1, 1, NA</span></span>
+<span><span class="co">#&gt; $ `2017` &lt;dbl&gt; 1, 1, 1</span></span>
+<span><span class="co">#&gt; $ `2018` &lt;dbl&gt; 1, 1, 1</span></span>
+<span><span class="co">#&gt; $ `2019` &lt;dbl&gt; 1, 1, 1</span></span>
 <span><span class="co">#&gt; $ `2020` &lt;dbl&gt; 1, 1, 1</span></span>
 <span><span class="co">#&gt; $ `2021` &lt;dbl&gt; 1, 1, 1</span></span>
+<span><span class="co">#&gt; $ `2022` &lt;dbl&gt; 1, NA, 1</span></span>
 <span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">sl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
 <colgroup>
-<col width="8%">
-<col width="48%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
+<col width="10%">
+<col width="25%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">ISSN</th>
@@ -341,11 +346,13 @@
 <th align="right">2019</th>
 <th align="right">2020</th>
 <th align="right">2021</th>
+<th align="right">2022</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">8756-9728</td>
-<td align="left">Project Management Journal</td>
+<td align="left">0001-0782</td>
+<td align="left">Communications of the ACM</td>
+<td align="right">NA</td>
 <td align="right">1</td>
 <td align="right">NA</td>
 <td align="right">1</td>
@@ -358,30 +365,32 @@
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">8756-7938</td>
-<td align="left">Biotechnology progress (Print)</td>
-<td align="right">NA</td>
+<td align="left">0001-1452</td>
+<td align="left">AIAA Journal</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">8756-758X</td>
-<td align="left">Fatigue &amp; Fracture of Engineering Materials &amp; Structures (FFEMS)</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="left">0001-1541</td>
+<td align="left">AIChE Journal</td>
 <td align="right">NA</td>
 <td align="right">1</td>
-<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
@@ -393,7 +402,7 @@
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="va">swecris_list_norwegian</span></span>
 <span></span>
 <span><span class="va">glimpze</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">glimpze</span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span></code></pre></div>
@@ -401,15 +410,15 @@
 <colgroup>
 <col width="3%">
 <col width="2%">
-<col width="13%">
-<col width="6%">
-<col width="6%">
+<col width="14%">
+<col width="5%">
+<col width="4%">
+<col width="4%">
 <col width="2%">
-<col width="2%">
-<col width="7%">
+<col width="6%">
 <col width="2%">
 <col width="5%">
-<col width="3%">
+<col width="4%">
 <col width="4%">
 <col width="4%">
 <col width="4%">
@@ -421,8 +430,8 @@
 <col width="4%">
 </colgroup>
 <thead><tr class="header">
-<th align="right">id_jufo</th>
-<th align="right">level</th>
+<th align="left">id_jufo</th>
+<th align="left">level</th>
 <th align="left">title</th>
 <th align="left">type</th>
 <th align="left">issn_isbn</th>
@@ -444,8 +453,8 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">65510</td>
-<td align="right">1</td>
+<td align="left">65510</td>
+<td align="left">1</td>
 <td align="left">PROCEEDINGS OF THE PMR CONFERENCE</td>
 <td align="left">Lehti/sarja</td>
 <td align="left">0272-8710</td>
@@ -466,14 +475,14 @@
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="right">8856</td>
-<td align="right">0</td>
-<td align="left">ADVANCED BUILDING SKINS</td>
-<td align="left">Kirjakustantaja</td>
-<td align="left">978-3-9812053;</td>
+<td align="left">89424</td>
+<td align="left">0</td>
+<td align="left">ANNALS OF DISASTER RISK SCIENCES</td>
+<td align="left">Lehti/sarja</td>
+<td align="left">2584-4873</td>
+<td align="left">2623-8934</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">GERMANY</td>
+<td align="left">CROATIA</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
 <td align="left">Active</td>
@@ -482,21 +491,21 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 </tr>
 <tr class="odd">
-<td align="right">88598</td>
-<td align="right">0</td>
-<td align="left">AESTHETICA UNIVERSALIS</td>
+<td align="left">87002</td>
+<td align="left">1</td>
+<td align="left">ESTUDOS LINGUISTICOS</td>
 <td align="left">Lehti/sarja</td>
-<td align="left">2686-6943</td>
+<td align="left">1413-0939</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">RUSSIAN FEDERATION</td>
-<td align="right">NA</td>
+<td align="left">BRAZIL</td>
+<td align="right">1</td>
 <td align="left">NA</td>
 <td align="left">Active</td>
 <td align="right">NA</td>
@@ -506,8 +515,8 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
 </tr>
 </tbody>
 </table>
@@ -515,15 +524,16 @@
 <code class="sourceCode R"><span><span class="fu">glimpze</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <table style="width:100%;" class="table">
 <colgroup>
-<col width="2%">
+<col width="1%">
 <col width="2%">
 <col width="2%">
 <col width="1%">
 <col width="1%">
-<col width="1%">
-<col width="2%">
-<col width="2%">
+<col width="0%">
 <col width="3%">
+<col width="1%">
+<col width="3%">
+<col width="1%">
 <col width="1%">
 <col width="1%">
 <col width="1%">
@@ -550,25 +560,26 @@
 <col width="2%">
 <col width="1%">
 <col width="2%">
-<col width="0%">
+<col width="1%">
 <col width="1%">
 <col width="1%">
 <col width="10%">
 <col width="2%">
 <col width="1%">
 <col width="1%">
-<col width="0%">
+<col width="1%">
 </colgroup>
 <thead><tr class="header">
-<th align="right">tidsskrift_id</th>
+<th align="right">journal_id</th>
 <th align="left">title</th>
 <th align="left">title_en</th>
 <th align="left">issn_print</th>
 <th align="left">issn_online</th>
-<th align="left">Åpen tilgang</th>
-<th align="right">Publiseringsavtale</th>
-<th align="left">NPI fagområde</th>
-<th align="left">NPI fagfelt</th>
+<th align="left">oa</th>
+<th align="left">publishing_agreement</th>
+<th align="left">group_area</th>
+<th align="left">group_field</th>
+<th align="right">level_2024</th>
 <th align="right">level_2023</th>
 <th align="right">level_2022</th>
 <th align="right">level_2021</th>
@@ -589,20 +600,20 @@
 <th align="right">level_2006</th>
 <th align="right">level_2005</th>
 <th align="right">level_2004</th>
-<th align="right">forlag_id</th>
+<th align="right">publisher_id</th>
 <th align="left">publisher_company</th>
 <th align="left">publisher</th>
 <th align="left">publisher_country</th>
 <th align="left">language</th>
 <th align="right">conference_report</th>
-<th align="right">Serie</th>
+<th align="right">series</th>
 <th align="right">established</th>
 <th align="right">discontinued</th>
 <th align="left">url</th>
-<th align="left">Sist oppdatert</th>
+<th align="left">last_updated</th>
 <th align="left">set</th>
-<th align="left">ISBN-prefiks</th>
-<th align="left">Land</th>
+<th align="left">isbn_prefix</th>
+<th align="left">country</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -612,10 +623,11 @@
 <td align="left">2328-0700</td>
 <td align="left">2328-0662</td>
 <td align="left">NA</td>
-<td align="right">0</td>
+<td align="left">NA</td>
 <td align="left">Humaniora</td>
 <td align="left">Medier og kommunikasjon</td>
-<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
@@ -645,7 +657,7 @@
 <td align="right">2013</td>
 <td align="right">NA</td>
 <td align="left"><a href="https://online.journalism.utexas.edu/ebook.php" class="external-link uri">https://online.journalism.utexas.edu/ebook.php</a></td>
-<td align="left">2022-08-10 12:17:54</td>
+<td align="left">2023-08-15 13:31:38</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -657,10 +669,11 @@
 <td align="left">NA</td>
 <td align="left">1604-5394</td>
 <td align="left">NA</td>
-<td align="right">0</td>
+<td align="left">NA</td>
 <td align="left">Humaniora</td>
 <td align="left">Historie og Idéhistorie</td>
 <td align="right">NA</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
@@ -690,7 +703,7 @@
 <td align="right">2005</td>
 <td align="right">NA</td>
 <td align="left"><a href="https://cc.au.dk/forskning/tidsskrifter/prepublications/" class="external-link uri">https://cc.au.dk/forskning/tidsskrifter/prepublications/</a></td>
-<td align="left">2022-08-04 14:46:30</td>
+<td align="left">2023-06-06 12:22:29</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -702,10 +715,11 @@
 <td align="left">NA</td>
 <td align="left">1715-9261</td>
 <td align="left">NA</td>
-<td align="right">0</td>
+<td align="left">NA</td>
 <td align="left">Humaniora</td>
 <td align="left">Romansk</td>
 <td align="right">NA</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
@@ -735,7 +749,7 @@
 <td align="right">2006</td>
 <td align="right">NA</td>
 <td align="left"><a href="https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index" class="external-link uri">https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index</a></td>
-<td align="left">2022-08-04 14:46:30</td>
+<td align="left">2023-06-06 12:22:29</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>

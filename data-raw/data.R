@@ -9,8 +9,15 @@ library(readr)
 #Rows	3137 → 3068	2972	1527	69	0
 #Columns	26	6	0	0	0
 
+## update dec 2023
+# "2023-11-27 12:09:18 CET"
+#	Modified	Reordered	Deleted	Added
+#Rows 	3204 → 1020 426 1 2655 471
+#Columns 	26 → 28 15 0 0 2
 
-swecris_kth <- swecris_funding()
+swecris_kth <- swecris_funding("KTH")
+swecris_kth <- swecris_kth |> replace_nulls() |> as_tibble()
+
 usethis::use_data(swecris_kth, overwrite = TRUE)
 
 # document in R/data.R, using this roxygen

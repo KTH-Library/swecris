@@ -1,6 +1,8 @@
 # swecris 0.1.6
 
 * Added support for new fields (updatedDate, loadedDate) returned for projects
+* Updated norwegian list (Nov 27, 2023) and embedded data for norwegian list
+* Updated swedish list url and embedded data for swecris_kth fundings
 
 # swecris 0.1.5
 

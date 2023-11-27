@@ -148,12 +148,15 @@ swecris_organisations_for_project <- function(project_id) {
 swecris_fundings <- function() {
 
   message("Please be patient, this request may take a couple of minutes to process...")
+
   data <-
-    swecris_get("https://swecris-api.vr.se/v1/fundings") %>%
+    swecris_get("https://swecris-api.vr.se/v1/fundings") |>
     replace_nulls()
 
   dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
-  dplyr::as_tibble(bind_rows(dfs))
+
+  dplyr::as_tibble(bind_rows(dfs)) |>
+    parse_swecris_dates()
 
 }
 
@@ -321,11 +324,13 @@ swecris_projects_from_orcid <- function(orcid) {
     "fundingEndDate",
     "typeOfAwardId",
     "typeOfAwardDescrSv",
-    "typeOfAwardDescrEn")
+    "typeOfAwardDescrEn",
+    "loadedDate",
+    "updatedDate")
 
   projects <-
     res |>
-    purrr::map_df(.f = function(x) x[fields] |> as_tibble()) |>
+    purrr::map_df(.f = function(x) x[fields] |> replace_nulls() |> as_tibble()) |>
     parse_swecris_dates()
 #    purrr::map_df(.f = function(x) x[!names(x) %in% c("scbs", "peopleList")] |> as_tibble())
 

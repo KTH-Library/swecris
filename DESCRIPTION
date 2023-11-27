@@ -1,7 +1,7 @@
 Package: swecris
 Title: SweCRIS - Grant Decisions From Swedish Funding Bodies And
     EU
-Version: 0.1.4
+Version: 0.1.6
 Authors@R: 
     person(given = "Markus",
            family = "Skyttner",
@@ -31,6 +31,7 @@ Imports:
     httr,
     readr,
     tidyr,
-    readxl
+    readxl,
+    lubridate
 Depends: 
     R (>= 2.10)

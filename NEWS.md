@@ -1,3 +1,7 @@
+# swecris 0.1.6
+
+* Added support for new fields (updatedDate, loadedDate) returned for projects
+
 # swecris 0.1.5
 
 * Updated norwegian list (Aug 7, 2023)

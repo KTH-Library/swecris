@@ -10,6 +10,7 @@
 #' @importFrom readr read_delim
 #' @importFrom utils URLencode
 #' @importFrom httr GET content
+#' @importFrom stats setNames
 #' @export
 swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskolan",
                             token) {

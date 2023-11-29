@@ -1,7 +1,7 @@
 Package: swecris
 Title: SweCRIS - Grant Decisions From Swedish Funding Bodies And
     EU
-Version: 0.1.6
+Version: 0.1.7
 Authors@R: 
     person(given = "Markus",
            family = "Skyttner",

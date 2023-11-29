@@ -20,9 +20,9 @@ involved people (peopleList)
 \examples{
 \dontrun{
 if(interactive()){
- o <- "0000-0003-1102-4342" \%>\% swecris_projects_from_orcid()
+ o <- "0000-0003-1102-4342" |> swecris_projects_from_orcid()
  o$projects
- o \%>\% purrr::pluck("peopleList")
+ o |> purrr::pluck("peopleList")
  o$scbs
  }
 }

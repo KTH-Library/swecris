@@ -1,3 +1,10 @@
+# swecris 0.1.7
+
+* Fix to improve parsing of varying date formats
+* Use |> instead of %>%
+* Updated field names for embedded swecris_kth data
+* Embedded data is now compressed with .xz
+
 # swecris 0.1.6
 
 * Added support for new fields (updatedDate, loadedDate) returned for projects

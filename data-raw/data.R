@@ -125,4 +125,6 @@ usethis::use_data(swecris_list_norwegian, overwrite = TRUE)
 # document "swecris_list_norwegian" in dataset in R/data.R
 cat(sprintf("#'   \\item{%s}{}\n", names(sln)))
 
-
+tools::resaveRdaFiles("data/swecris_kth.rda", compress="xz")
+tools::resaveRdaFiles("data/swecris_list_norwegian.rda", compress="xz")
+tools::checkRdaFiles("data/")

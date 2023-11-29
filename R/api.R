@@ -10,6 +10,7 @@
 #' @importFrom readr read_delim
 #' @importFrom utils URLencode
 #' @importFrom httr GET content
+#' @importFrom stats setNames
 #' @export
 swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskolan",
                             token) {
@@ -17,15 +18,19 @@ swecris_funding <- function(searchstring = "KTH, Kungliga Tekniska H\u00f6gskola
   if (missing(token))
     token <- "RWNDZ3FDRVVSMmNUNlZkMkN3"
 
-  httr::GET("https://swecris-api.vr.se/v1/scp/export", query = list(
-    `organizationType[]`= "Universitet",
-    sortOrder = "desc",
-    sortColumn = "FundingStartDate",
-    searchText = URLencode(searchstring, reserved = TRUE),
-    token = token)
-  ) %>%
-    httr::content(as = "text", encoding = "UTF-8") %>%
+  res <-
+    httr::GET("https://swecris-api.vr.se/v1/scp/export", query = list(
+      `organizationType[]`= "Universitet",
+      sortOrder = "desc",
+      sortColumn = "FundingStartDate",
+      searchText = URLencode(searchstring, reserved = TRUE),
+      token = token)
+    ) |>
+    httr::content(as = "text", encoding = "UTF-8") |>
     readr::read_delim(delim = ";", quote = '"', show_col_types = FALSE)
+
+  setNames(res, first_to_lower(names(res)))
+
 }
 
 #' @importFrom httr add_headers GET stop_for_status content
@@ -113,7 +118,7 @@ remove_slot <- function(l, slot)
 swecris_organisations <- function() {
 
   data <-
-    swecris_get("https://swecris-api.vr.se/v1/organisations") %>%
+    swecris_get("https://swecris-api.vr.se/v1/organisations") |>
     replace_nulls()
 
   dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
@@ -129,7 +134,7 @@ swecris_organisations_for_project <- function(project_id) {
   )
 
   data <-
-    swecris_get(route) %>%
+    swecris_get(route) |>
     replace_nulls()
 
   dfs <- lapply(data, data.frame, stringsAsFactors = FALSE)
@@ -179,6 +184,10 @@ depth <- function(this, thisdepth = 0) {
   }
 }
 
+first_to_lower <- function(text) {
+  sub("(\\w)(\\w*)", "\\L\\1\\E\\2", text, perl=TRUE)
+}
+
 #' @importFrom lubridate parse_date_time
 #' @noRd
 parse_swecris_dates <- function(x) {
@@ -193,7 +202,7 @@ parse_swecris_dates <- function(x) {
     )) |>
     mutate(across(
       any_of(c("fundingStartDate", "fundingEndDate")),
-      \(x) lubridate::parse_date_time(x, "Ymd")
+      \(x) lubridate::parse_date_time(x, c("Ymd", "Y"))
     )) |>
     mutate(across(
       any_of(c("fundingYear")),
@@ -246,10 +255,10 @@ swecris_persons <- function(orgid) {
   )
 
   data <-
-    swecris_get(route) %>%
+    swecris_get(route) |>
     replace_nulls()
 
-  tidyr::tibble(data)  %>%
+  tidyr::tibble(data)  |>
     tidyr::unnest_wider(data)
 
 }
@@ -262,10 +271,10 @@ swecris_person <- function(personid) {
   )
 
   data <-
-    swecris_get(route) %>%
+    swecris_get(route) |>
     replace_nulls()
 
-  data %>% as.data.frame() %>% tidyr::as_tibble()
+  data |> as.data.frame() |> tidyr::as_tibble()
 
 }
 
@@ -279,9 +288,9 @@ swecris_person <- function(personid) {
 #' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  o <- "0000-0003-1102-4342" %>% swecris_projects_from_orcid()
+#'  o <- "0000-0003-1102-4342" |> swecris_projects_from_orcid()
 #'  o$projects
-#'  o %>% purrr::pluck("peopleList")
+#'  o |> purrr::pluck("peopleList")
 #'  o$scbs
 #'  }
 #' }
@@ -374,7 +383,7 @@ swecris_search <- function(orgs = "KTH, Kungliga tekniska h\u00f6gskolan") {
 
   httr::stop_for_status(res)
 
-  httr::content(httr::GET(w1), as = "raw") %>%
+  httr::content(httr::GET(w1), as = "raw") |>
     readr::read_delim(delim = ";", show_col_types = FALSE)
 }
 
@@ -442,7 +451,7 @@ swecris_project <- function(project_id, format = c("tbl", "object")) {
 #' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  "2021-00157_VR" %>% swecris_project_people()
+#'  "2021-00157_VR" |> swecris_project_people()
 #'  }
 #' }
 #' @importFrom dplyr as_tibble bind_cols everything
@@ -452,11 +461,11 @@ swecris_project_people <- function(project_id) {
 
   project <- swecris_project(project_id, format = "object")
 
-  project %>%
-    pluck("peopleList") %>%
-    purrr::map_df(as.data.frame) %>%
-    dplyr::as_tibble() %>%
-    bind_cols(project_id = project_id) %>%
+  project |>
+    pluck("peopleList") |>
+    purrr::map_df(as.data.frame) |>
+    dplyr::as_tibble() |>
+    bind_cols(project_id = project_id) |>
     select(project_id, everything())
 
 }
@@ -470,7 +479,7 @@ swecris_project_people <- function(project_id) {
 #' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  "2021-00157_VR" %>% swecris_project_scbs()
+#'  "2021-00157_VR" |> swecris_project_scbs()
 #'  }
 #' }
 #' @importFrom dplyr as_tibble bind_cols everything
@@ -480,11 +489,11 @@ swecris_project_scbs <- function(project_id) {
 
   project <- swecris_project(project_id, format = "object")
 
-  project %>%
-    pluck("scbs") %>%
-    purrr::map_df(as.data.frame) %>%
-    dplyr::as_tibble() %>%
-    bind_cols(project_id = project_id) %>%
+  project |>
+    pluck("scbs") |>
+    purrr::map_df(as.data.frame) |>
+    dplyr::as_tibble() |>
+    bind_cols(project_id = project_id) |>
     select(project_id, everything())
 
 }

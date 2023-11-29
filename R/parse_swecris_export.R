@@ -23,11 +23,11 @@ parse_involved_people <- function(x) {
   if (is.na(x)) return(data.frame())
 
   fields <- c("personId", "fullName", "orcId", "roleEn", "roleSv", "gender")
-  suns <- "\u00a4\u00a4\u00a4"  # from stringi::stri_escape_unicode() %>% cat()
+  suns <- "\u00a4\u00a4\u00a4"  # from stringi::stri_escape_unicode() |> cat()
   sun <- "\u00a4"
   tbl <-
-    strsplit(x, suns) %>% unlist() %>% trimws() %>%
-    paste0(collapse = "\n") %>%  paste0("\n") %>%
+    strsplit(x, suns) |> unlist() |> trimws() |>
+    paste0(collapse = "\n") |>  paste0("\n") |>
     readr::read_delim(
       show_col_types = F,
       delim = sun,
@@ -67,14 +67,14 @@ parse_scb_codes <- function(x) {
   if (is.na(x)) return(data.frame())
 
   fields <- c("scb_code", "scb_sv_en")
-  suns <- "\u00a4\u00a4\u00a4"  # from stringi::stri_escape_unicode() %>% cat()
+  suns <- "\u00a4\u00a4\u00a4"  # from stringi::stri_escape_unicode() |> cat()
   rowbreak <- function(x) gsub(", (\\d+)", "\n\\1", x)
 
   tbl <-
-    strsplit(x, suns) %>% unlist() %>% trimws() %>%
-    paste0(collapse = "\n") %>%  paste0("\n") %>% trimws() %>%
-    rowbreak() %>%
-#    gsub(": ", ", ", .) %>%
+    strsplit(x, suns) |> unlist() |> trimws() |>
+    paste0(collapse = "\n") |>  paste0("\n") |> trimws() |>
+    rowbreak() |>
+#    gsub(": ", ", ", .) |>
     readr::read_delim(
       show_col_types = F,
       delim = ": ",

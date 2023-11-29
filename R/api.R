@@ -231,7 +231,7 @@ swecris_projects <- function(orgid) {
     replace_nulls()
 
   tidyr::tibble(data) |>
-    tidyr::unnest_wider(data) |> View()
+    tidyr::unnest_wider(data) |>
     parse_swecris_dates()
 }
 

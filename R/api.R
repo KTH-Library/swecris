@@ -168,9 +168,10 @@ swecris_fundings <- function() {
 
 stripname <- function(x, name) {
   thisdepth <- depth(x)
+  nameIndex <- which(names(x) == name)
   if (thisdepth == 0) {
     return (x)
-  } else if (length(nameIndex <- which(names(x) == name))) {
+  } else if (length(nameIndex)) {
     x <- x[-nameIndex]
   }
   return(lapply(x, stripname, name))

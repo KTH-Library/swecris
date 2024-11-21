@@ -1,3 +1,8 @@
+# swecris 0.1.8
+
+* Fix to improve parsing of date formats
+* Refresh of embedded swecris_kth data
+
 # swecris 0.1.7
 
 * Fix to improve parsing of varying date formats

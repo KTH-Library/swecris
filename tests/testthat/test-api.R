@@ -116,6 +116,12 @@ test_that("A single project's associated SCB codes can be retrieved from a proje
   expect_true(is_valid)
 })
 
+test_that("Another single project can be retrieved from a project identifier", {
+  res <- "2024-04925_VR" |> swecris_project()
+  is_valid <- ncol(res) == 26
+  expect_true(is_valid)
+})
+
 # test_that("Coordinating Organisation Name Multiplettes by orgids", {
 #
 #   scf <- swecris_fundings()

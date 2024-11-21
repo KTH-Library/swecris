@@ -194,7 +194,8 @@ parse_swecris_dates <- function(x) {
   x |>
     mutate(across(
       any_of(c("loadedDate", "updatedDate")),
-      \(x) lubridate::parse_date_time(x, "bdY HM")
+      \(x) lubridate::ymd_hms(x, truncated = 2)
+#      \(x) lubridate::parse_date_time(x, "bdY HM")
     )) |>
     mutate(across(
       any_of(c("projectStartDate", "projectEndDate")),
@@ -202,7 +203,7 @@ parse_swecris_dates <- function(x) {
     )) |>
     mutate(across(
       any_of(c("fundingStartDate", "fundingEndDate")),
-      \(x) lubridate::parse_date_time(x, c("Ymd", "Y"))
+      \(x) lubridate::parse_date_time(x, c("Ymd", "Y", "Ymd HMS"))
     )) |>
     mutate(across(
       any_of(c("fundingYear")),

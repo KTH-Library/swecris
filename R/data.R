@@ -1,7 +1,7 @@
 #' SweCRIS data for KTH Royal Institute of Technology
 #'
 #' A static dataset containing the projects in SweCRIS resulting from
-#' a swecris_funding() call on 2023-11-27 12:13:16 CET.
+#' a swecris_funding() call on 2024-11-21 16:49:00 CET.
 #'
 #' @format A table with data returned from the API
 #' \describe{

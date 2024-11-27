@@ -121,27 +121,151 @@ swecris_list_swedish <- function() {
 #' @export
 swecris_list_finnish <- function() {
 
-  if (.Platform$OS.type != "unix") {
-    # temporarily set Windows curl requests to use "openssl" SSL backend
-    # to work around issue with curl requests to older web servers
-    # see https://github.com/KWB-R/kwb.pkgbuild/commit/983c2b02a630e7bd1c0cdf4b13a9880d2fe898ea#diff-1a8ed3fe2070a27e0bc9a1adc04acd1776eb71ea8397bc4cfdaa3faee0a1278e
-    backend <- Sys.getenv("CURL_SSL_BACKEND")
-    Sys.setenv(CURL_SSL_BACKEND = "openssl")
-    on.exit(Sys.setenv(CURL_SSL_BACKEND = backend))
-  }
+  .Defunct(msg = "The data from https://www.tsv.fi/julkaisufoorumi/haku.php?lang=en is no longer available")
 
-  fin <- readr::read_delim(
-    file = "https://www.tsv.fi/julkaisufoorumi/kokonaisluettelo.php",
-    delim = ";", col_select = -21,
-    show_col_types = FALSE, trim_ws = TRUE,
-    local = locale(encoding = "latin1")
-  ) %>% suppressWarnings() %>%
-    suppressMessages() %>%
-    rename_cols(cm_fin$col_from, cm_fin$col_to)
+  # if (.Platform$OS.type != "unix") {
+  #   # temporarily set Windows curl requests to use "openssl" SSL backend
+  #   # to work around issue with curl requests to older web servers
+  #   # see https://github.com/KWB-R/kwb.pkgbuild/commit/983c2b02a630e7bd1c0cdf4b13a9880d2fe898ea#diff-1a8ed3fe2070a27e0bc9a1adc04acd1776eb71ea8397bc4cfdaa3faee0a1278e
+  #   backend <- Sys.getenv("CURL_SSL_BACKEND")
+  #   Sys.setenv(CURL_SSL_BACKEND = "openssl")
+  #   on.exit(Sys.setenv(CURL_SSL_BACKEND = backend))
+  # }
 
-  fin %>%
-    rename_cols_re("TASO (\\d{4})/LEVEL.*", "level_\\1") %>%
-    rename_cols_re("[\\.]{3}(*)", "col_\\1")
+  # fin <- readr::read_delim(
+  #   file = "https://www.tsv.fi/julkaisufoorumi/kokonaisluettelo.php",
+  #   delim = ";", col_select = -21,
+  #   show_col_types = FALSE, trim_ws = TRUE,
+  #   local = locale(encoding = "latin1")
+  # ) %>% suppressWarnings() %>%
+  #   suppressMessages() %>%
+  #   rename_cols(cm_fin$col_from, cm_fin$col_to)
+
+  # fin %>%
+  #   rename_cols_re("TASO (\\d{4})/LEVEL.*", "level_\\1") %>%
+  #   rename_cols_re("[\\.]{3}(*)", "col_\\1")
 }
 
+
+nor_collections <- function() c("uhr_tidsskrift_cache", "uhr_forlag_cache")
+
+#' @import httr2
+#' @importFrom purrr map_dfr possibly
+#' @importFrom tibble tibble enframe
+#' @importFrom tidyr unnest_wider unnest
+nor_kanalregister <- function(collection = nor_collections()) {
+  # https://kanalregister.hkdir.no/
+
+  coll <- match.arg(collection, choices = nor_collections(), several.ok = FALSE)
+
+  url_nor_journals <- function(page = 1, cache = coll) {
+      source <- match.arg(cache, several.ok = FALSE)
+      sprintf(paste0(
+        "https://5tv6sfnzrjemi3h2p.a1.typesense.net/collections/", 
+        source,
+        "/documents/search?q=&query_by=*&prefix=true&per_page=100&page=%s&filter_by="
+      ), page)
+  }
+  
+  req_nor_journal <- function(url) {
+    url |> 
+    request() |> 
+    req_headers(`X-TYPESENSE-API-KEY` = "JSXXNWfHEQoEI1i4vhgoS8GPjgCRZ1tv") |> 
+    req_perform() |> 
+    resp_body_json()
+  }
+  
+  parse_nor_journals <- function(res) {
+    res$hits |> tibble::enframe() |> 
+      tidyr::unnest_wider("value") |> 
+      tidyr::unnest_wider("document")
+  }
+  
+  req_page_one <- req_nor_journal(url_nor_journals())
+  page_one <- parse_nor_journals(req_page_one)
+  
+  n_pages <- ceiling(req_page_one$out_of / req_page_one$request_params$per_page) 
+  
+  crawl_nor_journals <- function(urls) {
+    pn <- possibly(function(url) url |> req_nor_journal() |> parse_nor_journals(), data.frame(0)) 
+    urls |> purrr::map_dfr(pn, .progress = TRUE)
+  }
+  
+  page_rest <- data.frame(0)
+
+  if (n_pages > 1) {
+    pages <- 2:n_pages
+    page_rest <- url_nor_journals(pages) |> crawl_nor_journals()
+  }
+  
+  bind_rows(page_one, page_rest)
+  
+}
+
+#' Norwegian journals from https://kanalregister.hkdir.no/
+#' @export
+#' @return tibble with results from web API call
+nor_journals <- function() {
+
+  journals <- nor_kanalregister(collection = nor_collections()[1])
+
+  lookup <- c(
+    year = "aar", 
+    name = "navn_en", 
+    name_no = "navn", 
+    oa_date_agreement = "oa_avtale_dato", 
+    oa_date_doaj = "oa_doaj_dato",
+    oa_date_romeo = "oa_romeo_dato",
+    lang_id = "spraak_spraak_id",
+    publisher_isbn = "forlagISBN",
+    issne = "tidsskriftISSNE",
+    issnp = "tidsskriftISSNP",
+    level_id = "uhrNivaa_id",
+    publisher = "utgiver",
+    country_id = "land_id",
+    oa_agreement = "oa_avtale",
+    year_inactive = "nedlagt"
+  )
+
+  exclude <- c("name", "text_match_info", "highlight", "highlights", "text_match")
+
+  res <- 
+    journals |> 
+    dplyr::select(-dplyr::any_of(exclude)) |> 
+    dplyr::rename(dplyr::any_of(lookup)) |> 
+    readr::type_convert(guess_integer = TRUE) |> 
+    suppressMessages()
+
+  res
+} 
+
+#' Norwegian publishers from https://kanalregister.hkdir.no/
+#' @export
+#' @return tibble with results from web API call
+nor_publishers <- function() {
+
+  publishers <- nor_kanalregister(collection = nor_collections()[2])
+
+  lookup <- c(
+    year = "aar", 
+    name = "navn_en", 
+    name_no = "navn", 
+    isbn = "forlagISBN", 
+    level_id = "uhrNivaa_id",
+    country_id = "land_id",
+    year_inactive = "nedlagt"
+  )
+
+  exclude <- c("name", "text_match_info", "highlight", "highlights", "text_match")
+
+  res <- 
+    publishers |> 
+    dplyr::select(-dplyr::any_of(exclude)) |> 
+    dplyr::rename(dplyr::any_of(lookup)) |> 
+    readr::type_convert(guess_integer = TRUE) |> 
+    suppressMessages()
+
+  res
+
+}
 

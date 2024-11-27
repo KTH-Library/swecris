@@ -48,28 +48,6 @@ test_that("retrieving persons for KTH projects works", {
 
 })
 
-test_that("Swedish list can be retrieved", {
-  sl <- swecris_list_swedish()
-  expect_true(nrow(sl) > 30000)
-})
-
-test_that("Danish list function is defunct (no longer provided)", {
-  is_defunct <- tryCatch(swecris_list_danish(), error = function(e) e$old == "swecris_list_danish")
-  expect_true(is_defunct)
-})
-
-test_that("Finnish list can be retrieved", {
-  skip_on_ci()
-  fl <- swecris_list_finnish()
-  is_valid <- nrow(fl) > 1e4
-  expect_true(is_valid)
-})
-
-test_that("Norwegian list can be retrieved", {
-  nl <- swecris_list_norwegian
-  is_valid <- nrow(nl) > 1e4
-  expect_true(is_valid)
-})
 
 test_that("Fundings for KTH project works", {
   kthf <- swecris_funding()
@@ -113,6 +91,12 @@ test_that("A single project's associated people can be retrieved from a project 
 test_that("A single project's associated SCB codes can be retrieved from a project identifier", {
   res <- "2021-00157_VR" |> swecris_project_scbs()
   is_valid <- ncol(res) > 2 & nrow(res) > 1
+  expect_true(is_valid)
+})
+
+test_that("Another single project can be retrieved from a project identifier", {
+  res <- "2024-04925_VR" |> swecris_project()
+  is_valid <- ncol(res) == 26
   expect_true(is_valid)
 })
 

@@ -1,84 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://kth-library.github.io/swecris/404.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/parse_involved_people.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/parse_scb_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_funders.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_funding.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_fundings.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_kth.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_list_danish.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_list_finnish.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_list_norwegian.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_list_swedish.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_organisations.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_orgtypes.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_persons.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_project.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_project_people.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_project_scbs.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_projects.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_projects_from_orcid.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_scb.html</loc>
-  </url>
-  <url>
-    <loc>https://kth-library.github.io/swecris/reference/swecris_search.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://kth-library.github.io/swecris/404.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/LICENSE-text.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/LICENSE.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/authors.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/index.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/news/index.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/index.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/nor_journals.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/nor_publishers.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/parse_involved_people.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/parse_scb_codes.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_funders.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_funding.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_fundings.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_kth.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_list_danish.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_list_finnish.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_list_norwegian.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_list_swedish.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_organisations.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_orgtypes.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_persons.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_project.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_project_people.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_project_scbs.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_projects.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_projects_from_orcid.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_scb.html</loc></url>
+<url><loc>https://kth-library.github.io/swecris/reference/swecris_search.html</loc></url>
 </urlset>
+

@@ -2,6 +2,9 @@
 
 * Fix to improve parsing of date formats
 * Refresh of embedded swecris_kth data
+* Deprecation of older fcns for Finnish and Norwegian lists
+* New fcns for retrieving Norwegian lists for publishers and journals
+
 
 # swecris 0.1.7
 

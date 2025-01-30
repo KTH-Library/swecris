@@ -1,3 +1,7 @@
+# swecris 0.1.9
+
+* Allow to fetch all projects and people easier (wo requiring orgid)
+
 # swecris 0.1.8
 
 * Fix to improve parsing of date formats

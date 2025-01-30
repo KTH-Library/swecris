@@ -216,52 +216,57 @@ parse_swecris_dates <- function(x) {
 #'
 #' Projects in SweCRIS
 #'
-#'L
-#' @param orgid orgid to filter for
+#' @param orgid optional orgid to filter for
 #' @return a tibble
 #' @details see [details about available data](https://swecris-api.vr.se/index.html)
 #' @importFrom tidyr unnest_wider tibble
 #' @export
 swecris_projects <- function(orgid) {
 
-  route <- sprintf(
-    "https://swecris-api.vr.se/v1/projects/organisations/%s",
-    orgid
-  )
+  if (missing(orgid)) {
+    route <- "https://swecris-api.vr.se/v1/projects"
+  } else {
+    route <- sprintf(
+      "https://swecris-api.vr.se/v1/projects/organisations/%s",
+      orgid
+    )
+  }
 
   data <-
     swecris_get(route) |>
     replace_nulls()
 
   tidyr::tibble(data) |>
-    tidyr::unnest_wider(data) |>
+    tidyr::unnest_wider(col = 1) |>
     parse_swecris_dates()
 }
-
-
 
 #' Persons
 #'
 #' Persons in SweCRIS
 #'
-#' @param orgid orgid to filter for
+#' @param orgid optional orgid to filter for
 #' @return a tibble
 #' @details see [details about available data](https://swecris-api.vr.se/index.html)
 #' @importFrom tidyr tibble unnest_wider
 #' @export
 swecris_persons <- function(orgid) {
 
-  route <- sprintf(
-    "https://swecris-api.vr.se/v1/persons/organisations/%s",
-    orgid
-  )
+  if (missing(orgid)) {
+    route <- "https://swecris-api.vr.se/v1/persons"
+  } else {
+    route <- sprintf(
+      "https://swecris-api.vr.se/v1/persons/organisations/%s",
+      orgid
+    )
+  }
 
   data <-
     swecris_get(route) |>
     replace_nulls()
 
   tidyr::tibble(data)  |>
-    tidyr::unnest_wider(data)
+    tidyr::unnest_wider(col = 1)
 
 }
 

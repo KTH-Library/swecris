@@ -2,6 +2,7 @@
 
 export(nor_journals)
 export(nor_publishers)
+export(orcid_lookup)
 export(parse_involved_people)
 export(parse_scb_codes)
 export(swecris_funders)

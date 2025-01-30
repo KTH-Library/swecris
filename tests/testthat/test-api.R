@@ -36,18 +36,18 @@ test_that("retrieving persons for KTH projects works", {
 
   so <- swecris_organisations()
 
-  kthid <-
+  orgid_kth <-
     so |>
     filter(grepl("^KTH, ", organisationNameSv)) |>
     dplyr::pull(organisationId) |>
     purrr::pluck(1)
 
-  kthp <- swecris_persons(kthid)
+  message("Using orgid for KTH: ", orgid_kth)
+  kthp <- swecris_persons(orgid_kth)
   is_valid <- nrow(kthp) > 300
   expect_true(is_valid)
 
 })
-
 
 test_that("Fundings for KTH project works", {
   kthf <- swecris_funding()

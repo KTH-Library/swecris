@@ -1,0 +1,355 @@
+---
+title: "SweCRIS API - Organisation and Person data"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::robobook:
+    highlight: kate
+editor: visual
+self-contained: true
+standalone: true
+code-fold: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Checks for Swecris data for KTH
+
+This is a [quarto](https://quarto.org) report with code snippets that perform some checks on data returned from the [Swecris API](https://swecris-api.vr.se/index.html). Data is checked using [tidyverse tooling](https://tidyverse.org) and an R client called `swecris` from <https://github.com/kth-library/swecris>.
+
+This report ran at `r Sys.time()`
+
+```{r}
+#| echo: false
+#| message: false
+library(dplyr)
+library(swecris)
+```
+
+## Organisations
+
+If using data from the Swecris API in an English language application or report, some organisation names are not translated (missing data) or have values such as "NULL" instead of having missing data.
+
+### Multiplettes for coordinating organisations
+
+Sometimes the **string** "NULL" is used for the coordinating organisations name:
+
+```{r}
+
+scf <- swecris_kth # swecris_funding("KTH")
+
+multiplettes_coordinating <-
+  scf |> group_by(coordinatingOrganisationNameEn) |>
+  summarize(n = n_distinct(coordinatingOrganisationId)) |>
+  arrange(desc(n)) |>
+  filter(n > 1, !is.na(coordinatingOrganisationNameEn)) |>
+  ungroup() |>
+  inner_join(scf, by = "coordinatingOrganisationNameEn") |>
+  group_by(coordinatingOrganisationId) |>
+  distinct(coordinatingOrganisationId, n, coordinatingOrganisationNameEn, coordinatingOrganisationNameSv)
+
+multiplettes_coordinating |> knitr::kable()
+
+```
+
+### Names not translated to English
+
+Count of organisation names which are not translated
+
+```{r}
+
+so <- swecris_organisations()
+
+# organisation names in English which are not translated
+so_untranslated <- 
+  so |> 
+  filter(is.na(organisationNameEn) & !is.na(organisationNameSv))
+
+n_untranslated <- 
+  so_untranslated |> 
+  pull(organisationNameEn) |> 
+  length()
+
+n_untranslated
+```
+
+Examples of organisation names which are not translated:
+
+```{r}
+
+so_untranslated |>  
+  select(organisationId, organisationNameSv, organisationNameEn) |> 
+  DT::datatable()
+
+```
+
+### Example of missing data for organisation name
+
+There also seems to be examples of organisations where data is not available and given as a string... instead of a missing value we have **strings** like "Okänt" and "Name in English not available":
+
+```{r}
+
+so |> 
+  filter(organisationId == "000000-0018") |>
+  select(starts_with("organisationName"))
+```
+
+### Translated organisation names
+
+Count of organisation names which not are the same in English and Swedish, and thus are likely translated:
+
+```{r}
+n_translated <- 
+  so |> 
+  filter(organisationNameEn != organisationNameSv) |> 
+  nrow()
+
+n_translated
+
+pct_translated <- n_translated / nrow(so)
+
+sprintf("%.0f%%", pct_translated * 100)
+  
+```
+
+### Formatting issues
+
+Here we can see that one entry has **leading whitespace** in English translation
+
+```{r}
+so |> 
+  filter(grepl("^\\s+", organisationNameEn, perl = TRUE))
+# Organisation Id 098637-7034 has:
+# Swedish Name: Agderforskning, University of Twente 
+# English Name: " Agderforskning, University…"
+
+```
+
+### Consistency in translated variants of names
+
+Some entries have a form "Företag AB" and "Företag" in Swe/Eng variants, but not consistently, for example here this pattern is "reversed":
+
+```         
+# English name: JÖNKÖPINGS UNIVERSITET AB
+# Swedish name: JÖNKÖPINGS UNIVERSITET
+```
+
+### Letter casing
+
+Sometimes organisation names are in UPPER CASE and more often these are given in Proper Case:
+
+```{r}
+uc <- 
+  so |> 
+  filter(toupper(organisationNameEn) == organisationNameEn)
+
+uc |> select(organisationId, starts_with("organisationName"))
+```
+
+For some municipalities, sometimes UPPER CASE is used, sometimes Proper Case. Sometimes a translation is missing, sometimes it is the same in English as in Swedish.
+
+## Checks for Persons data
+
+### Missing identifiers for persons (ORCiD vs personIds)
+
+Sometimes ORCiDs are missing for involved persons, even for quite recent projects and for PIs. Some entries in the table below may involve non-unified personIds, and personIds might now even be an identifier for a person but more like a row id or internal transaction number (the same person can appear in the data with many different personIds).
+
+Some observations:
+
+- ORCiDs are not one-to-one with personIds (which could be expected to indicate an identifier for a person involved in a project). It appears personIds are not unique to a person and instead represents something like a row number in a table. One person can have several personIds. Maybe a new personId is created for every new/changed entry even when the same person is involved?
+- ORCiDs are not one-to-one with names, ie one orcId can appear across several different persons. If an ORCiD is looked up against the official ORCiD source, it may not match what appears to be the persons name. So either the ORCiD is wrong for the name or the name does not match with the ORCiD. It appears that a group of persons with different names can share one ORCiD often likely referring to one of those persons.
+- There are "generic persons" such as "(Rektor) Karolinska Institutet", in which case the fullName refers to a position at an institution where the person is employed. There are also person entries with empty names and missing values.
+
+Conclusion:
+
+- Given the confusion above, it appears there is no systematic name disambiguation in the Swecris data.
+- Matching on ORCiD or personIds would appear to be brittle.
+- About 58% of persons do not have ORCiDs and some entries does not even have a name. 
+- About 3% (at least) of those that do have ORCiDs do not have a corresponding name that matches the ORCiD directory/source.
+ 
+This is based on the following:
+
+```{r}
+library(purrr)
+
+persons <- 
+  swecris_persons()
+
+# orcId are connected to several different personIds
+dupes <- 
+  persons |> group_by(orcId) |> 
+  summarize(nd_personId = n_distinct(personId)) |> 
+  filter(nd_personId > 2) |> 
+  ungroup() |> 
+  filter(!is.na(orcId))
+
+# it turns out that personIds are not identifiers for persons! 
+# it is just a row number or so.
+
+# some persons have names that are "generic" and not real or just a blank space " "
+persons  |> group_by(fullName)  |> summarize(nd = n_distinct(orcId))  |> slice(1:14)
+
+# some persons do not have real names and may have more than one ORCiD associated
+persons  |> group_by(fullName)  |> summarize(nd = n_distinct(orcId))  |> filter(nd > 1) |> 
+  arrange(desc(nd))
+
+# orcids with non-unique fullName, 1125 entries
+dupes <- 
+  persons |> group_by(orcId) |> 
+  summarize(n = n_distinct(fullName)) |> 
+  filter(n > 1, !is.na(orcId)) |> 
+  arrange(desc(n)) |> 
+  left_join(by = c("orcId"),
+    persons |> distinct(orcId, fullName) |> filter(!is.na(orcId))
+  )
+
+# what does ORCiD say - which names are associated with the ORCiDs there?
+says_orcid <- 
+  dupes$orcId |> unique() |> orcid_lookup()
+
+# Assuming the ORCiD API can identify the person we have these "mismatches"
+# which can be adjusted
+
+# about 17655 different ORCiDs
+nd_o <- persons$orcId |> unique() |> length()
+
+# about 533 appears to use inconsistent researcher name
+nd_d <- dupes$orcId |> unique() |> length()
+
+# 3 % are inconsistent 
+pct_mismatch <- nd_d / nd_o 
+
+missings <- 
+  persons |> 
+  mutate(missing_orcid = is.na(orcId)) |> 
+  count(missing_orcid) |> 
+  pull(n) 
+
+# about 58% of persons do not have ORCiD
+missings[2] / sum(missings[1:2])
+
+```
+
+The following corrections could be made assuming a persons name should be unique by ORCiD:
+
+```{r}
+
+dedupe <- 
+  dupes |> left_join(says_orcid$person, by = c("orcId")) |>
+  mutate(is_match = (fullName == paste(firstName, lastName))) |> 
+  inner_join(persons |> distinct(fullName, orcId, personId), by = "orcId") |> 
+  filter(is_match) |> 
+  select(orcId, fullName_wrong = "fullName.y", fullName_right = "fullName.x", personId)
+
+DT::datatable(dedupe)
+
+```
+
+### Projects associated with persons
+
+The projects have a field called "relatedProjectIds".
+
+This allows us to see which persons have been involved in which projects.
+
+```{r}
+# persons involved in projects
+pip <- 
+  persons |> 
+  mutate(projectId = strsplit(relatedProjectIds, ";")) |> 
+  tidyr::unnest_longer(projectId, keep_empty = TRUE) |> 
+  select(projectId, orcId, fullName, everything())
+
+pip
+
+```
+
+Note that:
+
+- We do not have information about organisations (missing values)
+- Since we do not know how to uniquely identify a person, associations not strong
+
+For example, below we can see that several(?) persons sharing the name "Martin Andersson" have amongst them 8 different ORCiDs, 12 different personIds and they are involved in 33 different projects. 
+
+```{r}
+
+martin <- 
+  persons |> 
+  filter(fullName == "Martin Andersson") |> 
+  select(fullName, personId, orcId, relatedProjectIds) |> 
+  mutate(projectId = unique(strsplit(relatedProjectIds, ";"))) |> 
+  tidyr::unnest_longer(projectId) |> 
+  group_by(projectId) |>   
+  distinct(fullName, orcId, personId, projectId)
+
+martin
+
+multis <- 
+  pip |> 
+  group_by(fullName) |> 
+  summarize(nd_orcIds = n_distinct(orcId), nd_personIds = n_distinct(personId), nd_projectIds = n_distinct(projectId)) |>
+  filter(nd_orcIds > 1, nd_personIds > 1, nd_projectIds > 1) |>
+  arrange(desc(nd_personIds), desc(nd_projectIds))
+
+multis
+
+persons |> 
+  group_by(orcId) |> 
+  summarize(n = n_distinct(personId)) |> 
+  filter(n > 1) |> 
+  arrange(desc(n))
+
+
+```
+
+```{r}
+
+library(tidyverse)
+
+projects <- swecris_projects()
+
+# which persons are associated with the KTH organisation?
+orgs <- swecris_organisations()
+orgids_kth <- 
+  orgs |> filter(grepl("KTH", organisationNameEn)) |> pull(organisationId)
+
+persons_kth <- 
+  orgids_kth |> map_dfr(\(x) swecris_persons(orgid = x)) |> 
+  mutate(projectId = strsplit(relatedProjectIds, ";")) |> 
+  unnest(cols = "projectId", keep_empty = TRUE) |> 
+  distinct(personId, fullName, orcId, projectId)
+
+# lets find all projects and people involved
+
+# also_pip <- projects |> 
+# mutate(persons = pmap(.progress = TRUE, 
+#   .l = list(peopleList, projectId), 
+#   .f = \(x, y) tibble(x) |> mutate(projectId = y))) |> 
+# select(persons) |> 
+# tidyr::unnest(persons) |> unnest_wider(x)
+
+also_pip <- 
+  projects |> 
+  select(peopleList, projectId) |> 
+  unnest(peopleList, keep_empty = TRUE) |> 
+  mutate(peopleList = map(peopleList, as_tibble, .progress = TRUE)) |> 
+  unnest(peopleList, keep_empty = TRUE) |> 
+  select(projectId, everything())
+
+projects_with_kth_persons <- 
+  also_pip |> filter(projectId %in% unique(persons_kth$projectId))
+
+projects_with_kth_persons
+
+
+
+
+# NOTE: repeats have been fixed, but there used to be some repeated patterns in firstName, lastName fields for persons...
+
+#repeats <- 
+#  sp |> 
+#  filter(grepl("(\\S+?)\\1", firstName) & grepl("(\\S+?)\\1", lastName)) |> 
+#  filter(!personId %in% 62215)
+
+#repeats
+
+
+```

@@ -7,7 +7,7 @@
 swecris_projects(orgid)
 }
 \arguments{
-\item{orgid}{orgid to filter for}
+\item{orgid}{optional orgid to filter for}
 }
 \value{
 a tibble
@@ -16,7 +16,5 @@ a tibble
 Projects in SweCRIS
 }
 \details{
-L
-
 see \href{https://swecris-api.vr.se/index.html}{details about available data}
 }

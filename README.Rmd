@@ -55,9 +55,9 @@ library(dplyr)
 
 fundings <- 
   kthf |>
-  mutate(total_funding = as.numeric(FundingsSek)) |>
+  mutate(total_funding = as.numeric(fundingsSek)) |>
   arrange(desc(total_funding)) |>
-  filter(grepl("data", ProjectAbstractEn)) |>
+  filter(grepl("data", projectAbstractEn)) |>
   slice(3)
 
 # display an example record
@@ -81,9 +81,8 @@ kthp <- swecris_projects(orgid)
 # three upcoming projects
 projects <- 
   kthp |> 
-  mutate(fsd = lubridate::ymd(fundingStartDate)) |>
-  filter(fsd > lubridate::now()) |>
-  arrange(desc(fsd)) |> 
+  mutate(fundingStartDate > lubridate::now()) |>
+  arrange(desc(fundingStartDate)) |> 
   select(-starts_with("projectAbstract")) |>
   select(
     projectId, 
@@ -133,13 +132,11 @@ knitr::kable(sl |> head(3) |> collect())
 Some other Nordic list referenced at SweCRIS are also provided:
 
 ```{r}
-f <- swecris_list_finnish()
 n <- swecris_list_norwegian
 
 glimpze <- function(df) {
   df |> slice(1:3) |> knitr::kable()
 }
 
-glimpze(f)
 glimpze(n)
 ```

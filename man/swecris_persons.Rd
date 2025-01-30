@@ -7,7 +7,7 @@
 swecris_persons(orgid)
 }
 \arguments{
-\item{orgid}{orgid to filter for}
+\item{orgid}{optional orgid to filter for}
 }
 \value{
 a tibble

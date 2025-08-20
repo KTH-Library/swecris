@@ -116,20 +116,7 @@ knitr::kable(projects)
 
 ## Swedish, Danish, Finnish and Norwegian lists
 
-**Goal**: Not part of the SweCRIS API, but mentioned on SweCRIS website. Get data for some Nordic "lists".
-
-Swedish list (the first few records):
-
-```{r}
-sl <- 
-  swecris_list_swedish()
-
-glimpse(sl |> head(3) |> collect())
-
-knitr::kable(sl |> head(3) |> collect())
-```
-
-Some other Nordic list referenced at SweCRIS are also provided:
+**Goal**: Not part of the SweCRIS API, but mentioned on SweCRIS website. Several of the Nordic "lists" are now deprecated but the Norwegian list is available for reference:
 
 ```{r}
 n <- swecris_list_norwegian

@@ -1,3 +1,8 @@
+# swecris 0.2
+
+* Deprecation of Swedish List
+* Update of embedded data in swecris_list_norwegian (made on aug 2025)
+
 # swecris 0.1.9
 
 * Allow to fetch all projects and people easier (wo requiring orgid)

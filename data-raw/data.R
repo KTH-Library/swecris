@@ -17,6 +17,7 @@ library(readr)
 
 swecris_kth <- swecris_funding("KTH")
 swecris_kth <- swecris_kth |> replace_nulls() |> as_tibble()
+View(swecris_kth)
 
 usethis::use_data(swecris_kth, overwrite = TRUE)
 
@@ -27,6 +28,10 @@ sinew::makeOxygen(swecris_kth)
 #swecris_kth %>% View()
 
 ## code to prepare `swecris_list_norway` goes here
+
+# Note that the Norwegian CSV download is made from 
+# https://kanalregister.hkdir.no/informasjonsartikler/last-ned-gjeldande-liste
+# and requires a login (using markussk@kth.se account) and files then placed in data-raw
 
 cm_nor <- readr::read_delim(
   delim = ",", show_col_types = FALSE,
@@ -78,11 +83,14 @@ Sist oppdatert,last_updated
 
 swecris_list_norwegian <- function(f) {
 
-  nor <- readr::read_delim(
-    file = f,
-    delim = ";",
-    show_col_types = FALSE, trim_ws = TRUE
-  )  |>
+  ct <- readr::cols()
+
+  nor <- 
+    readr::read_delim(
+      file = f,
+      delim = ";",
+      show_col_types = FALSE, trim_ws = TRUE
+    ) |>
     rename_cols(cm_nor$col_from, cm_nor$col_to)
 
   probs <- readr::problems(nor)
@@ -90,28 +98,36 @@ swecris_list_norwegian <- function(f) {
   if (nrow(probs) > 0)
     print(probs)
 
-  nor %>%
-    rename_cols_re("Nivå (\\d{4})", "level_\\1") %>%
-    rename_cols_re("Level (\\d{4})", "level_\\1") %>%
-    rename_cols_re("[\\.]{3}(*)", "col_\\1") #|>
-#    mutate(level_2023 = case_match(level_2023, "X"))
-
+  nor |> 
+    rename_cols_re("Nivå (\\d{4})", "level_\\1") |> 
+    rename_cols_re("Level (\\d{4})", "level_\\1") |> 
+    rename_cols_re("[\\.]{3}(*)", "col_\\1") |> 
+    mutate(across(c(
+      starts_with("level"), ends_with("_id"), 
+      any_of(c("conference_report", "series", "established", "discontinued"))
+    ), \(x) as.integer(x)))  
+  
 }
 
+slnj <- 
+  "data-raw/norway_journals_2025.csv" |> swecris_list_norwegian()
 
-
-#slnj <- swecris_list_norwegian(f = "data-raw/norway_journals_2023.csv")
-slnj <- swecris_list_norwegian(f = "data-raw/2023-11-27 Vitenskapelige tidsskrifter og serier.csv")
 #names(slnj)
 #problems(slnj) |>  View()
 #slnj[problems(slnj)$row,] |> View()
 
-slnp <- swecris_list_norwegian(f = "data-raw/2023-11-27 Vitenskapelige forlag.csv")
+slnp <- 
+  "data-raw/norway_publishers_2025.csv" |> 
+  swecris_list_norwegian()
+
+  #|>
+#    mutate(level_2023 = case_match(level_2023, "X"))
+
 #names(slnp)
 #slnp <- swecris_list_norwegian(f = "data-raw/norway_publishers_2023.csv")
 glimpse(slnp)
 glimpse(slnj)
-slnj$level_2023 <- slnj$level_2023 |> readr::parse_integer(na = c("X"))
+#slnj$level_2025 <- slnj$level_2025 |> readr::parse_integer(na = c("X"))
 slnj$set <- "journals"
 slnp$set <- "publishers"
 

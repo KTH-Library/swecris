@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">swecris</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,9 +83,9 @@
 <span></span>
 <span><span class="va">fundings</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">kthf</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">FundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>total_funding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">fundingsSek</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_funding</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">ProjectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="va">projectAbstractEn</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># display an example record</span></span>
@@ -93,35 +93,35 @@
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 1</span></span>
 <span><span class="co">#&gt; Columns: 29</span></span>
-<span><span class="co">#&gt; $ ProjectId                                    &lt;chr&gt; "2019-00217_VR"</span></span>
-<span><span class="co">#&gt; $ ProjectTitleSv                               &lt;chr&gt; "Nationell infrastruktur …</span></span>
-<span><span class="co">#&gt; $ ProjectTitleEn                               &lt;chr&gt; "National Microscopy Infr…</span></span>
-<span><span class="co">#&gt; $ ProjectAbstractSv                            &lt;chr&gt; "Den nationella infrastru…</span></span>
-<span><span class="co">#&gt; $ ProjectAbstractEn                            &lt;chr&gt; "NMI is a distributed nat…</span></span>
-<span><span class="co">#&gt; $ ProjectStartDate                             &lt;dttm&gt; 2020-01-01</span></span>
-<span><span class="co">#&gt; $ ProjectEndDate                               &lt;dttm&gt; 2024-12-31</span></span>
-<span><span class="co">#&gt; $ CoordinatingOrganisationId                   &lt;chr&gt; "202100-3054"</span></span>
-<span><span class="co">#&gt; $ CoordinatingOrganisationNameSv               &lt;chr&gt; "KTH, Kungliga tekniska h…</span></span>
-<span><span class="co">#&gt; $ CoordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of…</span></span>
-<span><span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationSv &lt;chr&gt; "Universitet"</span></span>
-<span><span class="co">#&gt; $ CoordinatingOrganisationTypeOfOrganisationEn &lt;chr&gt; "University"</span></span>
-<span><span class="co">#&gt; $ FundingOrganisationId                        &lt;chr&gt; "202100-5208"</span></span>
-<span><span class="co">#&gt; $ FundingOrganisationNameSv                    &lt;chr&gt; "Vetenskapsrådet"</span></span>
-<span><span class="co">#&gt; $ FundingOrganisationNameEn                    &lt;chr&gt; "Swedish Research Council"</span></span>
-<span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationSv      &lt;chr&gt; "Stat, regioner, kommune…</span></span>
-<span><span class="co">#&gt; $ FundingOrganisationTypeOfOrganisationEn      &lt;chr&gt; "Governmental"</span></span>
-<span><span class="co">#&gt; $ FundingsSek                                  &lt;dbl&gt; 4e+07</span></span>
-<span><span class="co">#&gt; $ FundingYear                                  &lt;dbl&gt; 2020</span></span>
-<span><span class="co">#&gt; $ FundingStartDate                             &lt;date&gt; 2020-01-01</span></span>
-<span><span class="co">#&gt; $ FundingEndDate                               &lt;date&gt; 2024-12-31</span></span>
-<span><span class="co">#&gt; $ TypeOfAwardId                                &lt;dbl&gt; 5</span></span>
-<span><span class="co">#&gt; $ TypeOfAwardDescrSv                           &lt;chr&gt; "Forskningsinfrastruktur"</span></span>
-<span><span class="co">#&gt; $ TypeOfAwardDescrEn                           &lt;chr&gt; "Research infrastructure"</span></span>
-<span><span class="co">#&gt; $ UpdatedDate                                  &lt;chr&gt; NA</span></span>
-<span><span class="co">#&gt; $ LoadedDate                                   &lt;chr&gt; "Sep  8 2023  5:12AM"</span></span>
-<span><span class="co">#&gt; $ InvolvedPeople                               &lt;chr&gt; "¤¤¤65340¤Hjalmar Brismar…</span></span>
-<span><span class="co">#&gt; $ Scbs                                         &lt;chr&gt; "¤¤¤ 1: Naturvetenskap, N…</span></span>
-<span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 4e+07</span></span></code></pre></div>
+<span><span class="co">#&gt; $ projectId                                    &lt;chr&gt; "2017-00629_VR"</span></span>
+<span><span class="co">#&gt; $ projectTitleSv                               &lt;chr&gt; "Alice &amp; Atlas - CERN"</span></span>
+<span><span class="co">#&gt; $ projectTitleEn                               &lt;chr&gt; "Alice &amp; Atlas"</span></span>
+<span><span class="co">#&gt; $ projectAbstractSv                            &lt;chr&gt; "Drift av ALICE- och ATLA…</span></span>
+<span><span class="co">#&gt; $ projectAbstractEn                            &lt;chr&gt; "The physics exploitation…</span></span>
+<span><span class="co">#&gt; $ projectStartDate                             &lt;dttm&gt; 2018-01-01</span></span>
+<span><span class="co">#&gt; $ projectEndDate                               &lt;dttm&gt; 2023-12-31</span></span>
+<span><span class="co">#&gt; $ coordinatingOrganisationId                   &lt;chr&gt; "202100-3054"</span></span>
+<span><span class="co">#&gt; $ coordinatingOrganisationNameSv               &lt;chr&gt; "KTH, Kungliga tekniska h…</span></span>
+<span><span class="co">#&gt; $ coordinatingOrganisationNameEn               &lt;chr&gt; "KTH, Royal Institute of …</span></span>
+<span><span class="co">#&gt; $ coordinatingOrganisationTypeOfOrganisationSv &lt;chr&gt; "Universitet"</span></span>
+<span><span class="co">#&gt; $ coordinatingOrganisationTypeOfOrganisationEn &lt;chr&gt; "University"</span></span>
+<span><span class="co">#&gt; $ fundingOrganisationId                        &lt;chr&gt; "202100-5208"</span></span>
+<span><span class="co">#&gt; $ fundingOrganisationNameSv                    &lt;chr&gt; "Vetenskapsrådet"</span></span>
+<span><span class="co">#&gt; $ fundingOrganisationNameEn                    &lt;chr&gt; "Swedish Research Council"</span></span>
+<span><span class="co">#&gt; $ fundingOrganisationTypeOfOrganisationSv      &lt;chr&gt; "Stat, regioner, kommuner…</span></span>
+<span><span class="co">#&gt; $ fundingOrganisationTypeOfOrganisationEn      &lt;chr&gt; "Governmental"</span></span>
+<span><span class="co">#&gt; $ fundingsSek                                  &lt;dbl&gt; 88043000</span></span>
+<span><span class="co">#&gt; $ fundingYear                                  &lt;dbl&gt; 2018</span></span>
+<span><span class="co">#&gt; $ fundingStartDate                             &lt;chr&gt; "2018"</span></span>
+<span><span class="co">#&gt; $ fundingEndDate                               &lt;chr&gt; "2023"</span></span>
+<span><span class="co">#&gt; $ typeOfAwardId                                &lt;dbl&gt; 5</span></span>
+<span><span class="co">#&gt; $ typeOfAwardDescrSv                           &lt;chr&gt; "Forskningsinfrastruktur"</span></span>
+<span><span class="co">#&gt; $ typeOfAwardDescrEn                           &lt;chr&gt; "Research infrastructure"</span></span>
+<span><span class="co">#&gt; $ updatedDate                                  &lt;chr&gt; "11/28/2023 08:41:07"</span></span>
+<span><span class="co">#&gt; $ loadedDate                                   &lt;chr&gt; "11/24/2023 05:12:51"</span></span>
+<span><span class="co">#&gt; $ involvedPeople                               &lt;chr&gt; "¤¤¤41589¤Jonas Strandbe…</span></span>
+<span><span class="co">#&gt; $ scbs                                         &lt;chr&gt; "¤¤¤ 1: Naturvetenskap, …</span></span>
+<span><span class="co">#&gt; $ total_funding                                &lt;dbl&gt; 88043000</span></span></code></pre></div>
 <p><strong>Goal</strong>: Given an organisation, get its id and then get information about three associated projects whose funding start date soon will be here:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -136,9 +136,8 @@
 <span><span class="co"># three upcoming projects</span></span>
 <span><span class="va">projects</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">kthp</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>fsd <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fsd</span> <span class="op">&gt;</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html" class="external-link">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">fsd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">fundingStartDate</span> <span class="op">&gt;</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html" class="external-link">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">fundingStartDate</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"projectAbstract"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">projectId</span>, </span>
@@ -154,13 +153,13 @@
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">projects</span><span class="op">)</span></span></code></pre></div>
 <table style="width:100%;" class="table">
 <colgroup>
-<col width="10%">
-<col width="41%">
-<col width="10%">
-<col width="8%">
-<col width="15%">
-<col width="7%">
-<col width="7%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">projectId</th>
@@ -173,31 +172,31 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">2022-06621_VR</td>
-<td align="left">Anthropocene History</td>
-<td align="left">2024-01-01</td>
-<td align="left">2028-12-31</td>
-<td align="left">Swedish Research Council</td>
-<td align="right">29654210</td>
-<td align="right">2024</td>
+<td align="left">2025-01169_RJ</td>
+<td align="left">Multi-Dimensional Resource Management for 6G IoT Networks with Generative Artificial Intelligence</td>
+<td align="left">2026-05-01 12:00:00</td>
+<td align="left">2027-08-31 12:00:00</td>
+<td align="left">Riksbankens Jubileumsfond</td>
+<td align="right">628832</td>
+<td align="right">2026</td>
 </tr>
 <tr class="even">
-<td align="left">2023-00543_Formas</td>
-<td align="left">Replacing carcinogen cobalt in hard metal products</td>
-<td align="left">2024-01-01</td>
-<td align="left">2026-12-31</td>
-<td align="left">Formas</td>
-<td align="right">2998915</td>
-<td align="right">2024</td>
+<td align="left">2025-01169_Vinnova</td>
+<td align="left">Multi-Dimensional Resource Management for 6G IoT Networks with Generative Artificial Intelligence</td>
+<td align="left">2026-05-01 12:00:00</td>
+<td align="left">2027-08-31 12:00:00</td>
+<td align="left">Vinnova</td>
+<td align="right">628832</td>
+<td align="right">2026</td>
 </tr>
 <tr class="odd">
-<td align="left">2023-00562_Formas</td>
-<td align="left">TACK-II: an AI Framework for Automated Tunnel Inspections and Assessment</td>
-<td align="left">2024-01-01</td>
-<td align="left">2027-12-31</td>
-<td align="left">Formas</td>
-<td align="right">4000000</td>
-<td align="right">2024</td>
+<td align="left">2025-01247_Vinnova</td>
+<td align="left">Generative AI as a resource for strategic integrative multi-level planning for an attractive and equitable public transport</td>
+<td align="left">2025-09-01 12:00:00</td>
+<td align="left">2027-08-31 12:00:00</td>
+<td align="left">Vinnova</td>
+<td align="right">2996000</td>
+<td align="right">2025</td>
 </tr>
 </tbody>
 </table>
@@ -230,19 +229,19 @@
 <span><span class="co">#&gt; fundingsSek                                  "25636000"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </span></span>
 <span><span class="co">#&gt; fundingYear                                  "2023"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </span></span>
 <span><span class="co">#&gt; fundingStartDate                             "2023-01-01"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
-<span><span class="co">#&gt; fundingEndDate                               "2026-12-31"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span><span class="co">#&gt; fundingEndDate                               "2026-01-01"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span></span>
 <span><span class="co">#&gt; typeOfAwardId                                "5"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </span></span>
 <span><span class="co">#&gt; typeOfAwardDescrSv                           "Forskningsinfrastruktur"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span></span>
 <span><span class="co">#&gt; typeOfAwardDescrEn                           "Research infrastructure"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span></span>
 <span><span class="co">#&gt; updatedDate                                  NA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </span></span>
-<span><span class="co">#&gt; loadedDate                                   "2023-09-08 05:12:00"</span></span>
+<span><span class="co">#&gt; loadedDate                                   "2023-09-08 05:12:58"</span></span>
 <span></span>
 <span><span class="co"># some people involved in this project</span></span>
 <span><span class="st">"2021-00157_VR"</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/swecris_project_people.html">swecris_project_people</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 7</span></span>
 <span><span class="co">#&gt;   project_id    personId fullName       orcId               roleEn roleSv gender</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;               &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 2021-00157_VR 52223    Peter Hedström 0000-0003-1102-4342 Princ… Proje… Male</span></span>
+<span><span class="co">#&gt; 1 2021-00157_VR 60600    Peter Hedström 0000-0003-1102-4342 Princ… Proje… Male</span></span>
 <span></span>
 <span><span class="co"># SCB classification codes for this project</span></span>
 <span><span class="st">"2021-00157_VR"</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/swecris_project_scbs.html">swecris_project_scbs</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -257,289 +256,63 @@
 <div class="section level2">
 <h2 id="swedish-danish-finnish-and-norwegian-lists">Swedish, Danish, Finnish and Norwegian lists<a class="anchor" aria-label="anchor" href="#swedish-danish-finnish-and-norwegian-lists"></a>
 </h2>
-<p><strong>Goal</strong>: Not part of the SweCRIS API, but mentioned on SweCRIS website. Get data for some Nordic “lists”.</p>
-<p>Swedish list (the first few records):</p>
+<p><strong>Goal</strong>: Not part of the SweCRIS API, but mentioned on SweCRIS website. Several of the Nordic “lists” are now deprecated but the Norwegian list is available for reference:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sl</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="reference/swecris_list_swedish.html">swecris_list_swedish</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 42816 Columns: 13</span></span>
-<span><span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; Delimiter: ";"</span></span>
-<span><span class="co">#&gt; chr  (2): ISSN, Titel</span></span>
-<span><span class="co">#&gt; dbl (11): 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
-<span></span>
-<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 3</span></span>
-<span><span class="co">#&gt; Columns: 13</span></span>
-<span><span class="co">#&gt; $ ISSN   &lt;chr&gt; "0001-0782", "0001-1452", "0001-1541"</span></span>
-<span><span class="co">#&gt; $ Titel  &lt;chr&gt; "Communications of the ACM", "AIAA Journal", "AIChE Journal"</span></span>
-<span><span class="co">#&gt; $ `2012` &lt;dbl&gt; NA, 1, NA</span></span>
-<span><span class="co">#&gt; $ `2013` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2014` &lt;dbl&gt; NA, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2015` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2016` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2017` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2018` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2019` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2020` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2021` &lt;dbl&gt; 1, 1, 1</span></span>
-<span><span class="co">#&gt; $ `2022` &lt;dbl&gt; 1, NA, 1</span></span>
-<span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">sl</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="10%">
-<col width="25%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">ISSN</th>
-<th align="left">Titel</th>
-<th align="right">2012</th>
-<th align="right">2013</th>
-<th align="right">2014</th>
-<th align="right">2015</th>
-<th align="right">2016</th>
-<th align="right">2017</th>
-<th align="right">2018</th>
-<th align="right">2019</th>
-<th align="right">2020</th>
-<th align="right">2021</th>
-<th align="right">2022</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">0001-0782</td>
-<td align="left">Communications of the ACM</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">0001-1452</td>
-<td align="left">AIAA Journal</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">0001-1541</td>
-<td align="left">AIChE Journal</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-</tbody>
-</table>
-<p>Some other Nordic list referenced at SweCRIS are also provided:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/swecris_list_finnish.html">swecris_list_finnish</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="va">swecris_list_norwegian</span></span>
+<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="va">swecris_list_norwegian</span></span>
 <span></span>
 <span><span class="va">glimpze</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu">glimpze</span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="3%">
-<col width="2%">
-<col width="14%">
-<col width="5%">
-<col width="4%">
-<col width="4%">
-<col width="2%">
-<col width="6%">
-<col width="2%">
-<col width="5%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">id_jufo</th>
-<th align="left">level</th>
-<th align="left">title</th>
-<th align="left">type</th>
-<th align="left">issn_isbn</th>
-<th align="left">issn</th>
-<th align="left">abbr</th>
-<th align="left">country</th>
-<th align="right">DOAJ</th>
-<th align="left">sherpa_romeo</th>
-<th align="left">active</th>
-<th align="right">level_2012</th>
-<th align="right">level_2013</th>
-<th align="right">level_2014</th>
-<th align="right">level_2015</th>
-<th align="right">level_2016</th>
-<th align="right">level_2017</th>
-<th align="right">level_2018</th>
-<th align="right">level_2019</th>
-<th align="right">level_2020</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">65510</td>
-<td align="left">1</td>
-<td align="left">PROCEEDINGS OF THE PMR CONFERENCE</td>
-<td align="left">Lehti/sarja</td>
-<td align="left">0272-8710</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">UNITED STATES</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">Inactive</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">89424</td>
-<td align="left">0</td>
-<td align="left">ANNALS OF DISASTER RISK SCIENCES</td>
-<td align="left">Lehti/sarja</td>
-<td align="left">2584-4873</td>
-<td align="left">2623-8934</td>
-<td align="left">NA</td>
-<td align="left">CROATIA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">Active</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">87002</td>
-<td align="left">1</td>
-<td align="left">ESTUDOS LINGUISTICOS</td>
-<td align="left">Lehti/sarja</td>
-<td align="left">1413-0939</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">BRAZIL</td>
-<td align="right">1</td>
-<td align="left">NA</td>
-<td align="left">Active</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">glimpze</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">glimpze</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <table style="width:100%;" class="table">
 <colgroup>
-<col width="1%">
 <col width="2%">
 <col width="2%">
-<col width="1%">
-<col width="1%">
-<col width="0%">
-<col width="3%">
-<col width="1%">
-<col width="3%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
 <col width="2%">
-<col width="11%">
 <col width="2%">
-<col width="1%">
 <col width="2%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="10%">
 <col width="2%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">journal_id</th>
@@ -551,6 +324,8 @@
 <th align="left">publishing_agreement</th>
 <th align="left">group_area</th>
 <th align="left">group_field</th>
+<th align="right">level_2026</th>
+<th align="right">level_2025</th>
 <th align="right">level_2024</th>
 <th align="right">level_2023</th>
 <th align="right">level_2022</th>
@@ -598,6 +373,8 @@
 <td align="left">NA</td>
 <td align="left">Humaniora</td>
 <td align="left">Medier og kommunikasjon</td>
+<td align="right">NA</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">1</td>
@@ -626,15 +403,63 @@
 <td align="left">Engelsk</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">2013</td>
+<td align="right">2011</td>
 <td align="right">NA</td>
-<td align="left"><a href="https://online.journalism.utexas.edu/ebook.php" class="external-link uri">https://online.journalism.utexas.edu/ebook.php</a></td>
-<td align="left">2023-08-15 13:31:38</td>
+<td align="left"><a href="https://isoj.org/research/" class="external-link uri">https://isoj.org/research/</a></td>
+<td align="left">2025-08-14 16:52:00</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
+<td align="right">496626</td>
+<td align="left">(Pensamiento), (palabra)… y obra</td>
+<td align="left">(Pensamiento), (palabra)… y obra</td>
+<td align="left">2011-804X</td>
+<td align="left">2462-8441</td>
+<td align="left">DOAJ</td>
+<td align="left">NA</td>
+<td align="left">Samfunnsvitenskap</td>
+<td align="left">Pedagogikk og utdanning</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Universidad Pedagógica Nacional</td>
+<td align="left">Colombia</td>
+<td align="left">Flerspråklig</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2008</td>
+<td align="right">NA</td>
+<td align="left"><a href="https://revistas.upn.edu.co/index.php/revistafba" class="external-link uri">https://revistas.upn.edu.co/index.php/revistafba</a></td>
+<td align="left">2025-04-23 12:42:15</td>
+<td align="left">journals</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
 <td align="right">469872</td>
 <td align="left">(Pré)publications</td>
 <td align="left">(Pré)publications</td>
@@ -645,6 +470,8 @@
 <td align="left">Humaniora</td>
 <td align="left">Historie og Idéhistorie</td>
 <td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
@@ -675,53 +502,7 @@
 <td align="right">2005</td>
 <td align="right">NA</td>
 <td align="left"><a href="https://cc.au.dk/forskning/tidsskrifter/prepublications/" class="external-link uri">https://cc.au.dk/forskning/tidsskrifter/prepublications/</a></td>
-<td align="left">2023-06-06 12:22:29</td>
-<td align="left">journals</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="right">485792</td>
-<td align="left">@nalyses</td>
-<td align="left">@nalyses</td>
-<td align="left">NA</td>
-<td align="left">1715-9261</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">Humaniora</td>
-<td align="left">Romansk</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">Université d’Ottawa. Département de français</td>
-<td align="left">Canada</td>
-<td align="left">Fransk</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">2006</td>
-<td align="right">NA</td>
-<td align="left"><a href="https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index" class="external-link uri">https://uottawa.scholarsportal.info/ojs/index.php/revue-analyses/index</a></td>
-<td align="left">2023-06-06 12:22:29</td>
+<td align="left">2025-04-23 12:42:15</td>
 <td align="left">journals</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -757,7 +538,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Markus Skyttner <br><small class="roles"> Maintainer, author </small>  </li>
+<li>Markus Skyttner <br><small class="roles"> Maintainer, author </small>   </li>
 </ul>
 </div>
 
@@ -778,7 +559,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

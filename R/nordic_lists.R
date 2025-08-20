@@ -104,8 +104,11 @@ ACTIVE,active
 #' @importFrom readr read_delim locale
 #' @export
 swecris_list_swedish <- function() {
-  "https://www.vr.se/download/18.32d3406a188bdc568be14ff2/1687784311607/svenska-listan-2023.csv" %>%
-    readr::read_delim(local = locale(encoding = "latin1"))
+
+  .Defunct(msg = "The Swedish List is no longer updated, see https://www.vr.se/aktuellt/nyheter/nyhetsarkiv/2025-03-13-svenska-listan-avvecklas.html")
+
+#  "https://www.vr.se/download/18.32d3406a188bdc568be14ff2/1687784311607/svenska-listan-2023.csv" %>%
+#    readr::read_delim(local = locale(encoding = "latin1"))
 
 #  "https://www.vr.se/download/18.6675b4ac1787151b2105c0/1618484217763/Svenska_listan_2021_godk%C3%A4nt.csv" %>%
 #    readr::read_delim(local = locale(encoding = "latin1"))

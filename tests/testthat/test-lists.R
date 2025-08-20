@@ -1,6 +1,11 @@
 test_that("Swedish list can be retrieved", {
-  sl <- swecris_list_swedish()
-  expect_true(nrow(sl) > 30000)
+
+  is_defunct <- tryCatch(
+    swecris_list_swedish(),
+    error = function(e) e$old == "swecris_list_swedish"
+  )
+
+  expect_true(is_defunct)  
 })
 
 test_that("Danish list function is defunct (no longer provided)", {

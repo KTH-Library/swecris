@@ -55,6 +55,8 @@
 #'   \item{publishing_agreement}{}
 #'   \item{group_area}{}
 #'   \item{group_field}{}
+#'   \item{level_2026}{}
+#'   \item{level_2025}{}
 #'   \item{level_2024}{}
 #'   \item{level_2023}{}
 #'   \item{level_2022}{}

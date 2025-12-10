@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2025-11-21T10:49Z
+last_built: 2025-12-10T11:51Z
 urls:
   reference: https://kth-library.github.io/swecris/reference
   article: https://kth-library.github.io/swecris/articles

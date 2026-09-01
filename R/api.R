@@ -40,8 +40,8 @@ swecris_get <- function(route, token = swecris_token()) {
   httr::content(res)
 }
 
-swecris_token <- function() #"RWNDZ3FDRVVSMmNUNlZkMkN3"
-  "u5pau934k45SJ8a497a6325j"
+swecris_token <- function() #"u5pau934k45SJ8a497a6325j"
+  "VRSwecrisAPI2026-1"
 
 #' Funders
 #'

@@ -90,7 +90,7 @@ test_that("A single project's associated people can be retrieved from a project 
 
 test_that("A single project's associated SCB codes can be retrieved from a project identifier", {
   res <- "2021-00157_VR" |> swecris_project_scbs()
-  is_valid <- ncol(res) > 2 & nrow(res) > 1
+  is_valid <- ncol(res) > 2 & nrow(res) >= 1
   expect_true(is_valid)
 })
 

@@ -16,6 +16,7 @@ You can install the development version of `swecris` from
 [GitHub](https://github.com/KTH-Library/swecris) with:
 
 ``` r
+
 library(devtools)
 install_github("swecris", dependencies = TRUE)
 ```
@@ -29,6 +30,7 @@ shows you how to get bundled data about projects at KTH Royal Institute
 of Technology:
 
 ``` r
+
 library(swecris)
 suppressPackageStartupMessages(library(dplyr))
 
@@ -90,6 +92,7 @@ here:
 
 ``` r
 
+
 orgid <- 
   swecris_organisations() |>
   filter(grepl("^KTH, ", organisationNameSv)) |>
@@ -118,11 +121,11 @@ projects <-
 knitr::kable(projects)
 ```
 
-| projectId          | projectTitleEn                                                                                                              | projectStartDate    | projectEndDate      | fundingOrganisationNameEn | fundingsSek | fundingYear |
-|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|:--------------------|:--------------------|:--------------------------|------------:|------------:|
-| 2025-01169_RJ      | Multi-Dimensional Resource Management for 6G IoT Networks with Generative Artificial Intelligence                           | 2026-05-01 12:00:00 | 2027-08-31 12:00:00 | Riksbankens Jubileumsfond |      628832 |        2026 |
-| 2025-01169_Vinnova | Multi-Dimensional Resource Management for 6G IoT Networks with Generative Artificial Intelligence                           | 2026-05-01 12:00:00 | 2027-08-31 12:00:00 | Vinnova                   |      628832 |        2026 |
-| 2025-01247_Vinnova | Generative AI as a resource for strategic integrative multi-level planning for an attractive and equitable public transport | 2025-09-01 12:00:00 | 2027-08-31 12:00:00 | Vinnova                   |     2996000 |        2025 |
+| projectId | projectTitleEn | projectStartDate | projectEndDate | fundingOrganisationNameEn | fundingsSek | fundingYear |
+|:---|:---|:---|:---|:---|---:|---:|
+| 2025-01169_RJ | Multi-Dimensional Resource Management for 6G IoT Networks with Generative Artificial Intelligence | 2026-05-01 12:00:00 | 2027-08-31 12:00:00 | Riksbankens Jubileumsfond | 628832 | 2026 |
+| 2025-01169_Vinnova | Multi-Dimensional Resource Management for 6G IoT Networks with Generative Artificial Intelligence | 2026-05-01 12:00:00 | 2027-08-31 12:00:00 | Vinnova | 628832 | 2026 |
+| 2025-01247_Vinnova | Generative AI as a resource for strategic integrative multi-level planning for an attractive and equitable public transport | 2025-09-01 12:00:00 | 2027-08-31 12:00:00 | Vinnova | 2996000 | 2025 |
 
 ### Project details
 
@@ -130,6 +133,7 @@ knitr::kable(projects)
 and associated people and SCB classification codes:
 
 ``` r
+
 
 # some details for a specific project
 "2021-00157_VR" |> swecris_project() |> select(-c("projectAbstractEn")) |> t()
@@ -184,6 +188,7 @@ Several of the Nordic “lists” are now deprecated but the Norwegian list
 is available for reference:
 
 ``` r
+
 n <- swecris_list_norwegian
 
 glimpze <- function(df) {
@@ -193,11 +198,11 @@ glimpze <- function(df) {
 glimpze(n)
 ```
 
-| journal_id | title                            | title_en                         | issn_print | issn_online | oa   | publishing_agreement | group_area        | group_field             | level_2026 | level_2025 | level_2024 | level_2023 | level_2022 | level_2021 | level_2020 | level_2019 | level_2018 | level_2017 | level_2016 | level_2015 | level_2014 | level_2013 | level_2012 | level_2011 | level_2010 | level_2009 | level_2008 | level_2007 | level_2006 | level_2005 | level_2004 | publisher_id | publisher_company | publisher                                                                      | publisher_country | language     | conference_report | series | established | discontinued | url                                                        | last_updated        | set      | isbn_prefix | country |
-|-----------:|:---------------------------------|:---------------------------------|:-----------|:------------|:-----|:---------------------|:------------------|:------------------------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-------------:|:------------------|:-------------------------------------------------------------------------------|:------------------|:-------------|------------------:|-------:|------------:|-------------:|:-----------------------------------------------------------|:--------------------|:---------|:------------|:--------|
-|     480486 | \# ISOJ Journal                  | \# ISOJ Journal                  | 2328-0700  | 2328-0662   | NA   | NA                   | Humaniora         | Medier og kommunikasjon |         NA |          0 |          0 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |           NA | NA                | University of Texas at Austin, UT College of Commu                             | USA               | Engelsk      |                 0 |      0 |        2011 |           NA | <https://isoj.org/research/>                               | 2025-08-14 16:52:00 | journals | NA          | NA      |
-|     496626 | (Pensamiento), (palabra)… y obra | (Pensamiento), (palabra)… y obra | 2011-804X  | 2462-8441   | DOAJ | NA                   | Samfunnsvitenskap | Pedagogikk og utdanning |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |         NA |           NA | NA                | Universidad Pedagógica Nacional                                                | Colombia          | Flerspråklig |                 0 |      0 |        2008 |           NA | <https://revistas.upn.edu.co/index.php/revistafba>         | 2025-04-23 12:42:15 | journals | NA          | NA      |
-|     469872 | (Pré)publications                | (Pré)publications                | NA         | 1604-5394   | NA   | NA                   | Humaniora         | Historie og Idéhistorie |         NA |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |          1 |         NA |         NA |           NA | NA                | Afdeling for Fransk Institut for Sprog Litteratur og Kultur Aarhus Universitet | Danmark           | Flerspråklig |                 0 |      0 |        2005 |           NA | <https://cc.au.dk/forskning/tidsskrifter/prepublications/> | 2025-04-23 12:42:15 | journals | NA          | NA      |
+| journal_id | title | title_en | issn_print | issn_online | oa | publishing_agreement | group_area | group_field | level_2026 | level_2025 | level_2024 | level_2023 | level_2022 | level_2021 | level_2020 | level_2019 | level_2018 | level_2017 | level_2016 | level_2015 | level_2014 | level_2013 | level_2012 | level_2011 | level_2010 | level_2009 | level_2008 | level_2007 | level_2006 | level_2005 | level_2004 | publisher_id | publisher_company | publisher | publisher_country | language | conference_report | series | established | discontinued | url | last_updated | set | isbn_prefix | country |
+|---:|:---|:---|:---|:---|:---|:---|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|:---|:---|:---|:---|---:|---:|---:|---:|:---|:---|:---|:---|:---|
+| 480486 | \# ISOJ Journal | \# ISOJ Journal | 2328-0700 | 2328-0662 | NA | NA | Humaniora | Medier og kommunikasjon | NA | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | University of Texas at Austin, UT College of Commu | USA | Engelsk | 0 | 0 | 2011 | NA | <https://isoj.org/research/> | 2025-08-14 16:52:00 | journals | NA | NA |
+| 496626 | (Pensamiento), (palabra)… y obra | (Pensamiento), (palabra)… y obra | 2011-804X | 2462-8441 | DOAJ | NA | Samfunnsvitenskap | Pedagogikk og utdanning | NA | 1 | 1 | 1 | 1 | 1 | 1 | 1 | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | NA | Universidad Pedagógica Nacional | Colombia | Flerspråklig | 0 | 0 | 2008 | NA | <https://revistas.upn.edu.co/index.php/revistafba> | 2025-04-23 12:42:15 | journals | NA | NA |
+| 469872 | (Pré)publications | (Pré)publications | NA | 1604-5394 | NA | NA | Humaniora | Historie og Idéhistorie | NA | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | NA | NA | NA | NA | Afdeling for Fransk Institut for Sprog Litteratur og Kultur Aarhus Universitet | Danmark | Flerspråklig | 0 | 0 | 2005 | NA | <https://cc.au.dk/forskning/tidsskrifter/prepublications/> | 2025-04-23 12:42:15 | journals | NA | NA |
 
 # Package index
 
